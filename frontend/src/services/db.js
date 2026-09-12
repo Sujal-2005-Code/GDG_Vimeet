@@ -5,7 +5,7 @@
 
 export const getApplications = async () => {
   try {
-    const response = await fetch('/api/applications');
+    const response = await fetch('https://gdg-vimeet.onrender.com/api/applications');
     if (!response.ok) {
       throw new Error('Failed to fetch applications');
     }
@@ -30,7 +30,7 @@ export const saveApplication = async (formData) => {
   };
 
   try {
-    const response = await fetch('/api/applications', {
+    const response = await fetch('https://gdg-vimeet.onrender.com/api/applications', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newSubmission),
@@ -50,7 +50,7 @@ export const saveApplication = async (formData) => {
 
 export const updateApplicationStatus = async (id, newStatus) => {
   try {
-    const response = await fetch(`/api/applications/${id}`, {
+    const response = await fetch(`https://gdg-vimeet.onrender.com/api/applications/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: newStatus }),
