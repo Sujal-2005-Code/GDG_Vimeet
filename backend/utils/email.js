@@ -21,13 +21,17 @@ async function sendEmailMessage(recipientEmail, subject, htmlContent) {
       return;
     }
 
-    // Create a transporter using Gmail
+    // Create a transporter using explicit Gmail SMTP settings to force IPv4
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
         user: user,
         pass: pass
-      }
+      },
+      // Force IPv4 socket connection (bypasses Render IPv6 block)
+      family: 4
     });
 
     const mailOptions = {
