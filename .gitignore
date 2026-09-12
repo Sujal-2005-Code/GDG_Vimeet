@@ -28,3 +28,6 @@ dist-ssr
 applications.xlsx
 database/applications.xlsx
 backend/data/
+
+.vercel
+.env*
