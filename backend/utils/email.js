@@ -4,6 +4,19 @@ const dns = require('dns');
 // Fix for Render ENETUNREACH IPv6 errors when connecting to Gmail
 dns.setDefaultResultOrder('ipv4first');
 
+// Helper to forcefully resolve Gmail's IPv4 address
+function getGmailIPv4() {
+  return new Promise((resolve) => {
+    dns.resolve4('smtp.gmail.com', (err, addresses) => {
+      if (err || !addresses || addresses.length === 0) {
+        resolve('smtp.gmail.com'); // Fallback
+      } else {
+        resolve(addresses[0]); // Return guaranteed IPv4 address
+      }
+    });
+  });
+}
+
 /**
  * Sends an email using Gmail SMTP.
  * 
@@ -21,17 +34,21 @@ async function sendEmailMessage(recipientEmail, subject, htmlContent) {
       return;
     }
 
-    // Create a transporter using explicit Gmail SMTP settings to force IPv4
+    const ipv4Host = await getGmailIPv4();
+
+    // Create a transporter using guaranteed IPv4 address
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
+      host: ipv4Host,
       port: 465,
       secure: true,
+      tls: {
+        // Required when using an IP address to verify the TLS certificate matches the domain
+        servername: 'smtp.gmail.com'
+      },
       auth: {
         user: user,
         pass: pass
-      },
-      // Force IPv4 socket connection (bypasses Render IPv6 block)
-      family: 4
+      }
     });
 
     const mailOptions = {
