@@ -1,4 +1,8 @@
 const nodemailer = require('nodemailer');
+const dns = require('dns');
+
+// Fix for Render ENETUNREACH IPv6 errors when connecting to Gmail
+dns.setDefaultResultOrder('ipv4first');
 
 /**
  * Sends an email using Gmail SMTP.
