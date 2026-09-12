@@ -2,7 +2,12 @@ const ExcelJS = require('exceljs');
 const path = require('path');
 const fs = require('fs');
 
-const EXCEL_FILE_PATH = path.join(__dirname, '..', '..', 'database', 'applications.xlsx');
+// Kept inside backend/ (not a sibling repo folder) so this works regardless
+// of whether the deploy target uploads the whole monorepo or just this
+// service's directory. This file is just a local backup mirror of MongoDB —
+// nothing serves or downloads it — so it doesn't need to live alongside the
+// rest of the repo, and it's fine if it doesn't persist across deploys.
+const EXCEL_FILE_PATH = path.join(__dirname, '..', 'data', 'applications.xlsx');
 
 /**
  * Syncs the given applications to an Excel file.
@@ -10,6 +15,7 @@ const EXCEL_FILE_PATH = path.join(__dirname, '..', '..', 'database', 'applicatio
  */
 async function syncToExcel(applications) {
   try {
+    fs.mkdirSync(path.dirname(EXCEL_FILE_PATH), { recursive: true });
     const workbook = new ExcelJS.Workbook();
     let worksheet = workbook.addWorksheet('Applications');
 

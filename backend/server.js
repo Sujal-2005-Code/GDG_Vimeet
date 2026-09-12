@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const Application = require('../database/models/Application');
+const Application = require('./models/Application');
 const { syncToExcel } = require('./utils/excel');
 const { sendWhatsAppMessage } = require('./utils/whatsapp');
 const { sendEmailMessage } = require('./utils/email');
