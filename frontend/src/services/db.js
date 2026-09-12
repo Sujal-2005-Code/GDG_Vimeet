@@ -3,12 +3,10 @@
  * Handles applicant persistence with Node.js + MongoDB backend
  */
 
-// Backend base URL is configurable via VITE_API_BASE_URL (set this in Vercel's
-// project env vars to your backend's deployed URL, e.g. Railway). The
-// fallback below is a placeholder from the previous Render deployment —
-// update it once the new backend URL is known, or just always set
-// VITE_API_BASE_URL in Vercel (which takes priority over this fallback).
-const API_BASE_URL = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet.onrender.com');
+// Backend base URL is configurable via VITE_API_BASE_URL (set in Vercel's
+// project env vars). Falls back to the current production Railway URL so
+// nothing breaks if it isn't set.
+const API_BASE_URL = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet-backend-production.up.railway.app');
 
 export const getApplications = async () => {
   try {

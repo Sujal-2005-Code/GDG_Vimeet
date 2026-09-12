@@ -34,10 +34,8 @@ export const site = {
     'https://docs.google.com/forms/d/e/1FAIpQLSd9hYJ48DFNnZtp-3kJKhGfYw-pR0M2-Nf47TYAGSJnH_7toA/viewform?embedded=true',
 
   // Recruitment application backend (see frontend/src/services/db.js) —
-  // configurable via VITE_API_BASE_URL in Vercel project env vars. Fallback
-  // is a placeholder from the previous Render deployment — update once the
-  // new backend URL (e.g. on Railway) is known.
-  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet.onrender.com',
+  // configurable via VITE_API_BASE_URL in Vercel project env vars.
+  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet-backend-production.up.railway.app',
 };
 
 export default site;
