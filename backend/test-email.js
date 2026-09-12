@@ -1,4 +1,4 @@
-require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
+require('dotenv').config();
 const { sendEmailMessage } = require('./utils/email');
 
 async function test() {
