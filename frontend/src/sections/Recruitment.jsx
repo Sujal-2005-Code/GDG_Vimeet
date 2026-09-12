@@ -4,69 +4,39 @@ import confetti from 'canvas-confetti';
 import NavBar from './NavBar';
 import Footer from '../components/Footer';
 import { saveApplication } from '../services/db';
+import { recruitmentTeams } from '../data/recruitment';
 
-const TEAMS = [
-  {
-    id: 'Content and Media Team',
-    name: 'Content & Media Team',
-    badge: 'Media & Reels',
-    color: 'from-pink-500/20 to-rose-500/20 border-pink-500/30',
-    icon: (
-      <svg className="w-6 h-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-      </svg>
-    ),
-    description: 'Create captivating reels, write social copies, photograph events, and lead community engagement.'
-  },
-  {
-    id: 'Event Management Team',
-    name: 'Event Management Team',
-    badge: 'Operations',
-    color: 'from-amber-500/20 to-yellow-500/20 border-amber-500/30',
-    icon: (
-      <svg className="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
-    description: 'Coordinate mega hackathons, tech talks, logistics, host speaker sessions, and manage crowds.'
-  },
-  {
-    id: 'PR Team',
-    name: 'PR (Public Relations) Team',
-    badge: 'Outreach & Sponsors',
-    color: 'from-emerald-500/20 to-teal-500/20 border-emerald-500/30',
-    icon: (
-      <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-      </svg>
-    ),
-    description: 'Drive college sponsorships, connect with campus clubs, manage external outreach, and media relations.'
-  },
-  {
-    id: 'Technical Team',
-    name: 'Technical Team',
-    badge: 'Code & Workshops',
-    color: 'from-blue-500/20 to-cyan-500/20 border-blue-500/30',
-    icon: (
-      <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-      </svg>
-    ),
-    description: 'Build web applications, conduct AI/ML & Cloud workshops, organize competitive hackathons and coding labs.'
-  },
-  {
-    id: 'Graphics Team',
-    name: 'Graphics Team',
-    badge: 'Design Task Req.',
-    color: 'from-purple-500/20 to-violet-500/20 border-purple-500/30',
-    icon: (
-      <svg className="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    ),
-    description: 'Design official GDG branding, social media posts, UI mockups, event banners, and stickers.'
-  }
-];
+const TEAM_ICONS = {
+  content: (
+    <svg className="w-6 h-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+    </svg>
+  ),
+  events: (
+    <svg className="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  ),
+  pr: (
+    <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+    </svg>
+  ),
+  technical: (
+    <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+    </svg>
+  ),
+  graphics: (
+    <svg className="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  ),
+};
+
+const TEAMS = recruitmentTeams.map((team) => ({ ...team, icon: TEAM_ICONS[team.iconKey] }));
+
+const GRAPHICS_TEAM_ID = 'Graphics & Design';
 
 const DEPARTMENTS = [
   'Computer Engineering',
@@ -147,7 +117,7 @@ const Recruitment = () => {
     }
 
     // Conditional check for Graphics team
-    if (formData.teams.includes('Graphics Team')) {
+    if (formData.teams.includes(GRAPHICS_TEAM_ID)) {
       if (!formData.graphicsDriveLink.trim()) {
         newErrors.graphicsDriveLink = 'Please provide your Google Drive link for the Ganesh Chaturthi poster.';
       } else if (!formData.graphicsDriveLink.includes('http')) {
@@ -221,7 +191,7 @@ const Recruitment = () => {
                 <Link to="/" className="hover:text-white transition">Home</Link>
               </li>
               <li className="opacity-60">/</li>
-              <li className="text-white font-medium">Recruitment 2025-26</li>
+              <li className="text-white font-medium">Recruitment 2026-27</li>
             </ol>
           </nav>
 
@@ -229,7 +199,7 @@ const Recruitment = () => {
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#00AEEF] mb-4">
               <span className="inline-block w-2 h-2 rounded-full bg-[#34A853] animate-pulse" />
-              Applications Open • ViMEET 2025-26
+              Applications Open • ViMEET 2026-27
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-round-bold font-extrabold tracking-tight bg-gradient-to-r from-[#0066B1] via-[#00AEEF] to-[#E60C2C] bg-clip-text text-transparent">
               Join GDG ViMEET
@@ -522,11 +492,11 @@ const Recruitment = () => {
               </div>
 
               {/* SECTION 3: Conditional Graphics Team Challenge */}
-              {formData.teams.includes('Graphics Team') && (
+              {formData.teams.includes(GRAPHICS_TEAM_ID) && (
                 <div className="mb-8 p-5 sm:p-6 rounded-2xl border-2 border-purple-500/40 bg-gradient-to-br from-purple-950/40 via-black/60 to-purple-900/20 backdrop-blur-md shadow-[0_0_30px_rgba(168,85,247,0.15)] animate-fade-in">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-2xl">🕉️</span>
-                    <h3 className="text-lg font-bold text-white">Graphics Team Recruitment Challenge</h3>
+                    <h3 className="text-lg font-bold text-white">Graphics & Design Team Recruitment Challenge</h3>
                     <span className="ml-auto text-xs px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
                       Mandatory Task
                     </span>
@@ -534,7 +504,7 @@ const Recruitment = () => {
 
                   <div className="space-y-3 text-xs sm:text-sm text-white/80 my-3">
                     <p>
-                      To shortlist designers for the Graphics Team, please design an original **Ganesh Chaturthi Poster**!
+                      To shortlist designers for the Graphics & Design Team, please design an original <strong>Ganesh Chaturthi Poster</strong>!
                     </p>
                     <div className="p-3.5 rounded-xl bg-black/50 border border-white/10 space-y-1.5 text-white/75">
                       <p className="font-semibold text-purple-300">📋 Submission Guidelines:</p>

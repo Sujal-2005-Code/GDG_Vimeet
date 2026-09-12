@@ -70,6 +70,28 @@ export const animateCards = async (selector, options = {}) => {
   })
 }
 
+export const animateCardsOut = async (selector, options = {}) => {
+  const targets = getTargets(selector)
+  const {
+    duration,
+    delay = 25,
+    ease = 'easeInCubic',
+    stagger: staggerDelay = delay,
+    ...animationOptions
+  } = options
+  const anime = await loadAnime()
+  const staggerValue = typeof anime?.stagger === 'function' ? anime.stagger(staggerDelay) : staggerDelay
+
+  return runAnimation(targets, {
+    opacity: [1, 0],
+    translateY: [0, -12],
+    duration: getDuration(duration, 200),
+    ease,
+    delay: staggerValue,
+    ...animationOptions,
+  })
+}
+
 export const animateCardHover = async element => runAnimation(getTargets(element), {
   scale: 1.02,
   translateY: -2,

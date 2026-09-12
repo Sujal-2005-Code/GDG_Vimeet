@@ -3,9 +3,14 @@
  * Handles applicant persistence with Node.js + MongoDB backend
  */
 
+// Backend base URL is configurable via VITE_API_BASE_URL (set this in Vercel's
+// project env vars to your Render backend URL). Falls back to the current
+// production Render URL so nothing breaks if it isn't set.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet.onrender.com';
+
 export const getApplications = async () => {
   try {
-    const response = await fetch('https://gdg-vimeet.onrender.com/api/applications');
+    const response = await fetch(`${API_BASE_URL}/api/applications`);
     if (!response.ok) {
       throw new Error('Failed to fetch applications');
     }
@@ -25,12 +30,12 @@ export const saveApplication = async (formData) => {
     mobile: formData.mobile.trim(),
     email: formData.email.trim(),
     teams: formData.teams || [],
-    graphicsDriveLink: formData.teams.includes('Graphics Team') ? (formData.graphicsDriveLink || '').trim() : '',
+    graphicsDriveLink: formData.teams.includes('Graphics & Design') ? (formData.graphicsDriveLink || '').trim() : '',
     motivation: (formData.motivation || '').trim(),
   };
 
   try {
-    const response = await fetch('https://gdg-vimeet.onrender.com/api/applications', {
+    const response = await fetch(`${API_BASE_URL}/api/applications`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newSubmission),
@@ -50,7 +55,7 @@ export const saveApplication = async (formData) => {
 
 export const updateApplicationStatus = async (id, newStatus) => {
   try {
-    const response = await fetch(`https://gdg-vimeet.onrender.com/api/applications/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/applications/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: newStatus }),

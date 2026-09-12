@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom'
 import NavBar from './NavBar'
 import Footer from '../components/Footer'
+import { guidance, previousTenureGroups } from '../data/team'
+import { recruitmentTeams } from '../data/recruitment'
 
 const SectionHeader = ({ title, subtitle }) => (
   <header className="pt-28 md:pt-32 pb-10 md:pb-14 text-center">
@@ -78,6 +81,14 @@ const Group = ({ heading, members }) => (
   </section>
 )
 
+const RecruitmentCard = ({ team }) => (
+  <div className={`rounded-xl border bg-gradient-to-br p-5 md:p-6 ${team.color}`}>
+    <h3 className="text-white text-lg font-semibold">{team.name}</h3>
+    <span className="inline-block text-[11px] text-white/60 font-medium mt-1">{team.badge}</span>
+    <p className="text-white/75 text-sm mt-3 leading-relaxed">{team.description}</p>
+  </div>
+)
+
 const Team = () => {
   return (
     <main>
@@ -94,128 +105,48 @@ const Team = () => {
           </nav>
         </div>
 
-        <SectionHeader title="Team" subtitle="Under the guidance of our mentors" />
-        <Group
-          heading="Under The Guidance Of"
-          members={[
-            { name: 'Dr. B. R. Patil', role: 'Principal of ViMEET' },
-            { name: 'Dr. Shankar S. Kadam', role: 'Vice-Principal of ViMEET' },
-            { name: 'Mrs. Charusheela Pandit', role: 'HOD, Computer Engineering' },
-            { name: 'Dr. Ankush Pawar', role: 'HOD, Cse(AIML) Engineering' },
-            { name: 'Dr. Jyoti Gangane', role: 'HOD, EXTC Engineering' },
-            { name: 'Mrs. Shivani Agrawal', role: 'HOD, First Year Engineering' },
-            { name: 'Dr. Bhaveshkumar Pasi', role: 'HOD, Mechanical Engineering' },
-            { name: 'Dr. Shilpa Pankaj Kewate', role: 'HOD, Civil Engineering' },
-            { name: 'Prof. Sharvari Hemchandra Sane', role: 'HOD, Electrical Engineering' },
-          ]}
-        />
+        <SectionHeader title="Team" subtitle="Meet the people building GDG ViMEET" />
 
+        {/* 2026-27 Recruitment */}
+        <section className="md:py-8 py-6">
+          <div className="md:max-w-6xl mx-auto md:px-8 px-5">
+            <div className="flex items-center justify-between gap-3 flex-wrap mb-6">
+              <h2 className="font-long uppercase md:text-4xl text-3xl bg-gradient-to-r from-google-blue via-google-green to-google-blue bg-clip-text text-transparent tracking-wide">
+                2026-27 Recruitment
+              </h2>
+              <Link
+                to="/join"
+                className="inline-flex items-center gap-2 rounded-full bg-white text-black font-bold px-5 py-2.5 hover:bg-white/90 transition text-sm shadow-lg"
+              >
+                Apply Now
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+            </div>
+            <div className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {recruitmentTeams.map((team) => (
+                <RecruitmentCard key={team.id} team={team} />
+              ))}
+            </div>
+          </div>
+        </section>
 
-        <Group
-          heading="CORE TEAM 2025-26"
-          members={[
-            { name: 'Pranav Salunkhe', role: 'Lead', socials: [
-              { label: 'Email', href: 'mailto:pranavchamps@gmail.com' },
-            ] },
-            { name: 'Harsh Dhanawade', role: 'Facilitator', socials: [
-              { label: 'Instagram', href: 'https://www.instagram.com/_harsh_dhanawade_?igsh=MW03bmZ6N2d4bXloNA==' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/harsh-dhanawade-2a3253272/' },
-              { label: 'GitHub', href: 'https://github.com/HarshMD' },
-            ] },
-          ]}
-        />
+        {/* Previous Tenure */}
+        <section className="pt-6 pb-2">
+          <div className="md:max-w-6xl mx-auto md:px-8 px-5">
+            <h2 className="font-long uppercase md:text-3xl text-2xl text-white/70 tracking-wide border-t border-white/10 pt-10">
+              Previous Tenure — 2025-26 Leadership &amp; Team
+            </h2>
+          </div>
+        </section>
 
-        <Group
-          heading="Web-Dev Team"
-          members={[
-            { name: 'Vikram Devadiga', role: 'Web-Dev Team Lead', socials: [
-              { label: 'Instagram', href: 'https://www.instagram.com/call_me_vicky.ig/' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vikramdevadiga' },
-              { label: 'GitHub', href: 'https://github.com/VikramDevadiga' },
-            ] },
-            { name: 'Vivek Suryawanshi', role: 'Web-Dev Team Co-Lead', socials: [
-              { label: 'Instagram', href: 'https://www.instagram.com/mr_vivek_1737?igsh=MThjNGpoNmNjMWhzYQ==' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vivek-suryawanshi-07719628a' },
-              { label: 'GitHub', href: 'https://github.com/viveksuryawanshi491' },
-            ] },
-            { name: 'Vansh Mhatre', role: 'Web-Dev Team Member' },
-            { name: 'Bhumika Mhaskar', role: 'Web-Dev Team Member', socials: [
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/bhumika-mhaskar-12306833b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
-              { label: 'GitHub', href: 'https://github.com/mhaskarbhumi03-sys' },
-            ] },
-          ]}
-        />
-         <Group
-          heading="Technical Team"
-          members={[
-            { name: 'Piyush Gupta', role: 'Technical Team Member' },
-            { name: 'Pankaj Chavan', role: 'Technical Team Member' },
-            { name: 'Riddhi Sawant', role: 'Technical Team Member', socials: [
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/riddhi-sawant-762835342?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
-              { label: 'GitHub', href: 'https://github.com/RiddhiSawant27' },
-            ] },
-            { name: 'Yug Shah', role: 'Technical Team Member', socials: [
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/yug-shah-308446326?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
-              { label: 'GitHub', href: 'https://github.com/figcooks' },
-            ] },
-          ]}
-        />
+        <Group heading="Under The Guidance Of" members={guidance} />
 
-        <Group
-          heading="Administrative Team"
-          members={[
-            { name: 'Omkar Patil', role: 'Administrative Team Member' },
-            { name: 'Omkar Misal', role: 'Administrative Team Member' },
-            { name: 'Vishakha Yelmar', role: 'Administrative Team Member', socials: [
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vishakha-yelmar-b19b09330?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
-            ] },
-            { name: 'Anushka Navale', role: 'Administrative Team Member', socials: [
-              { label: 'Instagram', href: 'https://www.instagram.com/anushkaa3103?igsh=dHF6b3llajF1c2N3' },
-            ] },
-            { name: 'Harshita Singh', role: 'Administrative Team Member' },
-          ]}
-        />
+        {previousTenureGroups.map((group) => (
+          <Group key={group.heading} heading={group.heading} members={group.members} />
+        ))}
 
-        <Group
-          heading="Graphics Team"
-          members={[
-            { name: 'Gauri Shinde', role: 'Graphics Team Member' },
-            { name: 'Janhavi Chavan', role: 'Graphics Team Member' },
-            { name: 'Jay Giri', role: 'Graphics Team Member' },
-            { name: 'Shreya Patil', role: 'Graphics Team Member', socials: [
-              { label: 'Instagram', href: 'https://www.instagram.com/_shreya_spams?igsh=Yzc3ejRiYWh2bXY4' },
-            ] },
-          ]}
-        />
-
-        <Group
-          heading="Content & Media Team"
-          members={[
-            { name: 'Rushikesh Malgan', role: 'Content & Media Team Member' },
-            { name: 'Dhanashree Mohitkar', role: 'Content & Media Team Co-Lead', socials: [
-              { label: 'Instagram', href: 'https://www.instagram.com/dhnshrimohitkar.__?igsh=MWFlcHdkZXdsZjhmOA==' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/dhanshree-mohitkar-92ba33289/' },
-              { label: 'GitHub', href: 'https://github.com/dhanshree2005' },
-            ] },
-            { name: 'Shweta Khariwale', role: 'Content & Media Team Member' },
-            { name: 'Khushi Dhammakar', role: 'Content & Media Team Member', socials: [
-              { label: 'Instagram', href: 'https://www.instagram.com/khushiiii_dd?igsh=OGg3ZHk2c2lrMGFq&utm_source=qr' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/khushi-dhammakar-b2639a32b' },
-            ] },
-            { name: 'Samruddhi Adbane', role: 'Content & Media Team Member', socials: [
-              { label: 'Instagram', href: 'https://www.instagram.com/samruddhiiii._.28?igsh=MTZ1azZncGY1Z2Rrag==' },
-            ] },
-          ]}
-        />
-
-        <Group
-          heading="Cloud Campaign Mentor"
-          members={[
-            { name: 'Nimish Patil', role: 'Cloud Campaign Mentor', socials: [
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nimishpatil3927/' },
-            ] },
-          ]}
-        />
         <Footer />
       </div>
     </main>
@@ -223,5 +154,3 @@ const Team = () => {
 }
 
 export default Team
-
-

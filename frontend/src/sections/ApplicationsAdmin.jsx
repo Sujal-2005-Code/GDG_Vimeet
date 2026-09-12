@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import Footer from '../components/Footer';
 import { getApplications, updateApplicationStatus, exportToCsv } from '../services/db';
+import { recruitmentTeams } from '../data/recruitment';
+
+const GRAPHICS_TEAM_ID = 'Graphics & Design';
+const TECHNICAL_TEAM_ID = 'Technical';
+const EVENT_MANAGEMENT_TEAM_ID = 'Event Management';
+const CONTENT_TEAM_ID = 'Content & Social Media';
 
 const ApplicationsAdmin = () => {
   const [applications, setApplications] = useState([]);
@@ -42,7 +48,7 @@ const ApplicationsAdmin = () => {
   });
 
   const graphicsAppsCount = applications.filter(
-    (app) => app.teams && app.teams.includes('Graphics Team')
+    (app) => app.teams && app.teams.includes(GRAPHICS_TEAM_ID)
   ).length;
 
   return (
@@ -73,7 +79,7 @@ const ApplicationsAdmin = () => {
                 🔒 Core Team Access
               </div>
               <h1 className="text-3xl sm:text-4xl font-round-bold font-bold text-white">
-                Recruitment Applications 2025-26
+                Recruitment Applications 2026-27
               </h1>
               <p className="text-sm text-white/70 mt-1">
                 Review candidate details, filter team choices, evaluate Ganesh Chaturthi poster links, and export to CSV.
@@ -106,13 +112,13 @@ const ApplicationsAdmin = () => {
             <div className="p-4 rounded-xl bg-white/[0.04] border border-blue-500/30">
               <p className="text-xs text-blue-300">Technical Team Applicants</p>
               <p className="text-2xl font-bold text-blue-400 mt-1">
-                {applications.filter((a) => a.teams?.includes('Technical Team')).length}
+                {applications.filter((a) => a.teams?.includes(TECHNICAL_TEAM_ID)).length}
               </p>
             </div>
             <div className="p-4 rounded-xl bg-white/[0.04] border border-amber-500/30">
               <p className="text-xs text-amber-300">Event & Media Applicants</p>
               <p className="text-2xl font-bold text-amber-400 mt-1">
-                {applications.filter((a) => a.teams?.includes('Event Management Team') || a.teams?.includes('Content and Media Team')).length}
+                {applications.filter((a) => a.teams?.includes(EVENT_MANAGEMENT_TEAM_ID) || a.teams?.includes(CONTENT_TEAM_ID)).length}
               </p>
             </div>
           </div>
@@ -138,7 +144,7 @@ const ApplicationsAdmin = () => {
             {/* Team Filter */}
             <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
               <span className="text-xs text-white/60 whitespace-nowrap">Team:</span>
-              {['All', 'Technical Team', 'Graphics Team', 'Event Management Team', 'PR Team', 'Content and Media Team'].map((team) => (
+              {['All', ...recruitmentTeams.map((t) => t.id)].map((team) => (
                 <button
                   key={team}
                   onClick={() => setSelectedTeam(team)}
@@ -148,7 +154,7 @@ const ApplicationsAdmin = () => {
                       : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10 hover:text-white'
                   }`}
                 >
-                  {team === 'All' ? 'All Teams' : team.replace(' Team', '')}
+                  {team === 'All' ? 'All Teams' : team}
                 </button>
               ))}
             </div>
@@ -194,7 +200,7 @@ const ApplicationsAdmin = () => {
           ) : (
             <div className="space-y-4">
               {filteredApps.map((app) => {
-                const isGraphics = app.teams?.includes('Graphics Team');
+                const isGraphics = app.teams?.includes(GRAPHICS_TEAM_ID);
                 return (
                   <div
                     key={app.id}
@@ -277,9 +283,9 @@ const ApplicationsAdmin = () => {
                             <span
                               key={t}
                               className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${
-                                t === 'Graphics Team'
+                                t === GRAPHICS_TEAM_ID
                                   ? 'bg-purple-950/40 text-purple-300 border-purple-500/40'
-                                  : t === 'Technical Team'
+                                  : t === TECHNICAL_TEAM_ID
                                   ? 'bg-blue-950/40 text-blue-300 border-blue-500/40'
                                   : 'bg-white/5 text-white/80 border-white/10'
                               }`}

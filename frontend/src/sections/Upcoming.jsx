@@ -2,6 +2,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import { Link } from 'react-router-dom'
+import { upcomingEvents } from '../data/events'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,14 +22,7 @@ const Upcoming = () => {
       .fromTo('.upcoming-cards > div', { y: 80, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.15, ease: 'power2.out' }, '-=0.2')
   })
 
-  const items = [
-    {
-      date: 'Soon revealed',
-      title: 'Propursuit Free Fire Showdown',
-      desc:
-        'Compete. Conquer. Rise to the top in Propursuit’s ultimate Free Fire tournament!',
-    },
-  ]
+  const items = upcomingEvents.map((e) => ({ date: e.when, title: e.title, desc: e.desc }))
 
   return (
     <section className="relative z-10 md:pt-40 pt-28 md:pb-16 pb-10 overflow-visible">
@@ -68,13 +62,13 @@ const Upcoming = () => {
             <div className="relative rounded-2xl border border-[#00AEEF]/40 bg-gradient-to-br from-[#0066B1]/20 via-[#00AEEF]/15 to-[#E60C2C]/15 hover:border-[#00AEEF] transition p-5 md:p-6 shadow-[0_10px_40px_rgba(0,174,239,0.15)] min-h-[180px] flex flex-col justify-between">
               <div>
                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-500/30">
-                  Hiring Now • ViMEET 2025-26
+                  Hiring Now • ViMEET 2026-27
                 </span>
                 <h3 className="text-white md:text-2xl text-xl font-bold mt-2 leading-snug">
                   GDG Core Member Recruitment
                 </h3>
                 <p className="text-white/80 md:mt-2 text-sm leading-relaxed">
-                  Join our Technical, Event Management, PR, Graphics, and Content & Media teams. Build projects, lead events, and grow!
+                  Join our Technical, Graphics & Design, Content & Social Media, PR & Outreach, and Event Management teams. Build projects, lead events, and grow!
                 </p>
               </div>
               <div className="mt-4">

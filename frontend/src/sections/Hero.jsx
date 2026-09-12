@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { Link } from "react-router-dom";
 
 import { useMaskSettings } from '../../constants';
 import ComingSoon from "./ComingSoon"
@@ -72,10 +73,20 @@ const Hero = () => {
           playsInline
           preload="auto"
         />
-        <img src="/images/hero-text.webp" alt="hero-logo" className="title-logo fade-out" />
-        <img  src="/images/watch-trailer.png" alt="trailer" className="trailer-logo fade-out" />
-        <div className="play-img fade-out">
-          <img src="/images/play.png" alt="play" className="w-7 ml-1" />
+        <div className="hero-headline fade-out">
+          <p className="hero-eyebrow">GDG ViMEET 2026-27</p>
+          <h1 className="hero-title">
+            Build. Create.
+            <br />
+            Connect. Go Beyond.
+          </h1>
+          <p className="hero-subtitle">
+            A community of developers, designers, creators, and innovators at ViMEET.
+          </p>
+          <div className="hero-ctas">
+            <a href="#about" className="btn-primary">Explore GDG</a>
+            <Link to="/join" className="btn-secondary">Join Us</Link>
+          </div>
         </div>
       </div>
 

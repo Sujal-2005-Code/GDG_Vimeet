@@ -9,6 +9,8 @@ import Hero from './sections/Hero';
 import Upcoming from './sections/Upcoming';
 import Social from './sections/Social';
 import Lucia from './sections/Lucia';
+import GoBeyondCode from './sections/GoBeyondCode';
+import JoinUs from './sections/JoinUs';
 import Final from './sections/Final';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -44,7 +46,10 @@ const App = () => {
         <div className="py-20"></div>
         <Lucia />
 
-        
+        <GoBeyondCode />
+
+        <JoinUs />
+
         <div className="py-16"></div>
         <Final />
         <Footer />

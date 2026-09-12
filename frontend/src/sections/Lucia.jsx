@@ -16,14 +16,14 @@ const Lucia = () => {
   });
 
   return (
-    <section className="lucia-life">
+    <section id="about" className="lucia-life scroll-mt-24">
       {/* Images Section - Responsive Layout */}
       <div className="flex flex-col gap-5 items-end img-box lg:w-1/2 w-full px-4 lg:px-10 mt-96 lg:mt-96 md:mt-48 mt-32">
         <div className="lucia-1 w-full lg:w-auto">
-          <img src="/images/lucia-1.webp" alt="GDG Vimeet Community" className="w-full h-auto object-cover" />
+          <img src="/images/lucia-1.webp" alt="GDG Vimeet Community" className="w-full h-auto object-cover" loading="lazy" />
         </div>
         <div className="lucia-3 w-full lg:w-auto">
-          <img src="/images/lucia-3.webp" alt="GDG Vimeet Activities" className="w-full h-auto object-cover" />
+          <img src="/images/lucia-3.webp" alt="GDG Vimeet Activities" className="w-full h-auto object-cover" loading="lazy" />
         </div>
       </div>
 
@@ -31,26 +31,27 @@ const Lucia = () => {
       <div className="lg:w-1/2 w-full lucia-life-content px-4 lg:px-0">
         {/* About GDG Vimeet Section */}
         <div className="max-w-xl lg:ps-32 ps-0 mb-8 lg:mb-12">
-          <h1 className="text-yellow font-long uppercase text-4xl md:text-6xl lg:text-8xl mb-6 md:mb-8 lg:mb-20 leading-tight">
-            About GDG ViMEET
+          <p className="text-white/70 md:text-base text-sm mb-2">About Us</p>
+          <h1 className="text-yellow font-long uppercase text-4xl md:text-6xl lg:text-7xl mb-6 md:mb-8 lg:mb-16 leading-tight">
+            More Than A Coding Community
           </h1>
           <p className="text-white text-base md:text-lg lg:text-2xl leading-relaxed md:pe-20 lg:pe-28">
-            GDG ViMEET is a student-led developer community that empowers members to learn, create, and innovate. Through workshops, hackathons, study jams, and speaker sessions, we foster a peer-driven environment that encourages skill-building, experimentation, and collaboration.
+            GDG ViMEET is a student-led developer community that empowers members to learn, create, and innovate. Through workshops, hackathons, study jams, and speaker sessions, we bring together technology, creativity, leadership, and collaboration in one place.
           </p>
         </div>
 
         {/* Middle Image */}
         <div className="lucia-2 mb-8 lg:mb-12 w-full">
-          <img src="/images/lucia-2.webp" alt="GDG Vimeet Team" className="w-full h-auto object-cover" />
+          <img src="/images/lucia-2.webp" alt="GDG Vimeet Team" className="w-full h-auto object-cover" loading="lazy" />
         </div>
 
         {/* What We Do Section */}
         <div className="max-w-xl lg:ps-32 ps-0 mb-8 lg:mb-12">
-          <h1 className="text-yellow font-long uppercase text-4xl md:text-6xl lg:text-8xl mb-6 md:mb-8 lg:mb-20 leading-tight">
+          <h1 className="text-yellow font-long uppercase text-4xl md:text-6xl lg:text-7xl mb-6 md:mb-8 lg:mb-16 leading-tight">
             What We Do
           </h1>
           <p className="text-white text-base md:text-lg lg:text-2xl leading-relaxed md:pe-20 lg:pe-28">
-            We bring technology to life with practical experiences in Web, Mobile, Cloud, and AI/ML. Our members participate in project-based workshops, team challenges, and mentorship programs that help them grow as developers and leaders.
+            We bring technology to life with practical experiences in Web, Mobile, Cloud, and AI/ML. Our members participate in project-based workshops, team challenges, innovation labs, and mentorship programs that help them grow as developers, designers, and leaders — building both skills and community along the way.
           </p>
         </div>
 
@@ -58,13 +59,13 @@ const Lucia = () => {
         <div className="max-w-xl lg:ps-32 ps-0">
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 backdrop-blur-md">
             <span className="text-xs uppercase tracking-wider font-semibold text-[#00AEEF] block mb-1">
-              Recruitment 2025-26
+              Recruitment 2026-27
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
               Ready to Join GDG ViMEET?
             </h2>
             <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-4">
-              We are actively hiring for <strong>Content & Media, Event Management, PR, Technical, and Graphics</strong> teams. Step up and make an impact!
+              We are actively hiring for <strong>Technical, Graphics &amp; Design, Content &amp; Social Media, PR &amp; Outreach, and Event Management</strong> teams. Step up and make an impact!
             </p>
             <a
               href="/join"

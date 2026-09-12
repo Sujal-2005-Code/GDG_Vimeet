@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -12,8 +12,24 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/gdg_vimeet';
 
+// CORS: restrict to the deployed Vercel frontend (+ local dev) when configured,
+// otherwise allow all origins so local/dev setups keep working out of the box.
+const allowedOrigins = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
 // Middleware
-app.use(cors());
+app.use(cors(
+  allowedOrigins.length
+    ? {
+        origin: (origin, callback) => {
+          if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+          callback(new Error('Not allowed by CORS'));
+        },
+      }
+    : undefined
+));
 app.use(express.json());
 
 // Connect to MongoDB
