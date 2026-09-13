@@ -13,11 +13,11 @@ export const navItems = [
 
 export const footerNavItems = [
   { label: 'Home', path: '/' },
-  { label: 'Events', path: '/events' },
+  { label: 'About', path: '/#about', hash: true },
   { label: 'Teams', path: '/team' },
+  { label: 'Events', path: '/events' },
   { label: 'Contact', path: '/contact' },
-  { label: 'Recruitment 2026-27', path: '/join', highlight: true },
-  { label: 'Core Admin', path: '/admin/applications', muted: true },
+  { label: 'Join Us', path: '/join' },
 ];
 
 export default navItems;

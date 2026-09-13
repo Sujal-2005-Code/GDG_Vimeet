@@ -1,19 +1,29 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const Application = require('./models/Application');
 const { syncToExcel } = require('./utils/excel');
 const { sendWhatsAppMessage } = require('./utils/whatsapp');
 const { sendEmailMessage } = require('./utils/email');
+const { requireAdmin } = require('./middleware/adminAuth');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/gdg_vimeet';
 
+// Behind Railway's reverse proxy so req.ip / secure cookies reflect the
+// real client instead of the proxy.
+app.set('trust proxy', 1);
+
 // CORS: restrict to the deployed Vercel frontend (+ local dev) when configured,
 // otherwise allow all origins so local/dev setups keep working out of the box.
+// Note: the admin login cookie is cross-site, so CORS_ORIGIN MUST be set to
+// the exact frontend origin(s) in production — credentialed requests are
+// rejected by browsers when the origin is left as a wildcard.
 const allowedOrigins = (process.env.CORS_ORIGIN || '')
   .split(',')
   .map((o) => o.trim())
@@ -27,10 +37,14 @@ app.use(cors(
           if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
           callback(new Error('Not allowed by CORS'));
         },
+        credentials: true,
       }
-    : undefined
+    // `origin: true` reflects the request's Origin header instead of `*`,
+    // which is required for credentialed (cookie-based) requests to work.
+    : { origin: true, credentials: true }
 ));
 app.use(express.json());
+app.use(cookieParser());
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI)
@@ -51,8 +65,10 @@ async function updateExcelSheet() {
 
 // Routes
 
-// GET all applications
-app.get('/api/applications', async (req, res) => {
+app.use('/api/admin', adminRoutes);
+
+// GET all applications — admin only
+app.get('/api/applications', requireAdmin, async (req, res) => {
   try {
     const applications = await Application.find().sort({ submittedAt: -1 });
     res.json(applications);
@@ -175,8 +191,8 @@ app.post('/api/applications', async (req, res) => {
   }
 });
 
-// PUT (update) application status
-app.put('/api/applications/:id', async (req, res) => {
+// PUT (update) application status — admin only
+app.put('/api/applications/:id', requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;

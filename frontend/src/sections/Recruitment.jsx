@@ -116,11 +116,9 @@ const Recruitment = () => {
       newErrors.teams = 'Please select at least one team you want to join.';
     }
 
-    // Conditional check for Graphics team
-    if (formData.teams.includes(GRAPHICS_TEAM_ID)) {
-      if (!formData.graphicsDriveLink.trim()) {
-        newErrors.graphicsDriveLink = 'Please provide your Google Drive link for the Ganesh Chaturthi poster.';
-      } else if (!formData.graphicsDriveLink.includes('http')) {
+    // Graphics team poster link is optional — only validate the URL format if one was entered.
+    if (formData.teams.includes(GRAPHICS_TEAM_ID) && formData.graphicsDriveLink.trim()) {
+      if (!formData.graphicsDriveLink.includes('http')) {
         newErrors.graphicsDriveLink = 'Please enter a valid URL (starting with https://).';
       }
     }
@@ -498,13 +496,13 @@ const Recruitment = () => {
                     <span className="text-2xl">🕉️</span>
                     <h3 className="text-lg font-bold text-white">Graphics & Design Team Recruitment Challenge</h3>
                     <span className="ml-auto text-xs px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                      Mandatory Task
+                      Optional — Bonus Points
                     </span>
                   </div>
 
                   <div className="space-y-3 text-xs sm:text-sm text-white/80 my-3">
                     <p>
-                      To shortlist designers for the Graphics & Design Team, please design an original <strong>Ganesh Chaturthi Poster</strong>!
+                      Want to stand out? Design an original <strong>Ganesh Chaturthi Poster</strong> and share it below — it's optional, but it helps us see your work.
                     </p>
                     <div className="p-3.5 rounded-xl bg-black/50 border border-white/10 space-y-1.5 text-white/75">
                       <p className="font-semibold text-purple-300">📋 Submission Guidelines:</p>
@@ -519,7 +517,8 @@ const Recruitment = () => {
 
                   <div>
                     <label className="block text-xs font-semibold text-white/90 mb-1.5">
-                      Google Drive Link for Ganesh Chaturthi Poster <span className="text-rose-400">*</span>
+                      Google Drive Link for Ganesh Chaturthi Poster{' '}
+                      <span className="text-white/40 font-normal">(optional)</span>
                     </label>
                     <div className="relative">
                       <div className="absolute left-3.5 top-3 text-white/50">

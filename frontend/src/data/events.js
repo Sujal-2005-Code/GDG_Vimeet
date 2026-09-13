@@ -17,7 +17,7 @@ export const upcomingEvents = [
 const galleryPaths = (slug, count) =>
   Array.from({ length: count }, (_, i) => `/events/${slug}/${i + 1}.webp`);
 
-export const pastEvents = [
+const rawPastEvents = [
   {
     title: 'Git & GitHub Workshop',
     date: 'Date TBD — 2025-26', // TODO: replace with the real date
@@ -43,6 +43,22 @@ export const pastEvents = [
     gallery: galleryPaths('jamming-session', 11),
   },
 ];
+
+// Resolves each event's full photo set once, at module load, so the array
+// reference stays stable across re-renders (the photo Stack depends on
+// that stability). Priority: gallery[] > images[] > cover/image single shot.
+const resolvePhotos = (event) => {
+  if (event.gallery?.length) return event.gallery;
+  if (event.images?.length) return event.images;
+  if (event.cover) return [event.cover];
+  if (event.image) return [event.image];
+  return [];
+};
+
+export const pastEvents = rawPastEvents.map((event) => ({
+  ...event,
+  photos: resolvePhotos(event),
+}));
 
 export const eventCategories = ['All', 'Workshops', 'Hackathons', 'Community'];
 

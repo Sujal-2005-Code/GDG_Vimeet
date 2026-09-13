@@ -76,9 +76,6 @@ main {
   main {
     @apply w-dvw overflow-x-hidden;
   }
-  nav {
-    @apply fixed top-0 left-0 w-full flex justify-between items-center md:px-16 px-5 md:pt-4 pt-3 md:pb-4 pb-3 z-[100];
-  }
   .gradient-title {
     @apply md:text-[8rem] text-[5rem] font-round-bold !font-extrabold  md:leading-[7rem] leading-[4.5rem] text-center bg-gradient-to-r from-[#0066B1] via-[#00AEEF] to-[#E60C2C] bg-clip-text text-transparent;
   }
@@ -88,88 +85,12 @@ main {
     .scale-out {
       @apply object-cover md:scale-125 h-full;
     }
-    .trailer-logo {
-      @apply absolute -bottom-5 w-48 left-1/2 -translate-x-1/2;
-    }
-  }
-  .first-vd-wrapper {
-    .first-vd {
-      @apply size-full object-cover md:[object-position:50%_center] [object-position:75%_center];
-    }
   }
   .entrance-message {
     @apply absolute inset-0 w-full h-dvh overflow-hidden z-20 opacity-100;
 
-    .entrance-logo {
-      @apply 2xl:w-72 3xl:w-80 md:w-60 w-48 absolute xs:top-[9.5rem] sm:top-[12.8rem] md:top-[8.5rem] 2xl:top-24 3xl:top-38 left-1/2 -translate-x-1/2;
-    }
-
     .text-wrapper {
       @apply mt-40 md:mt-60 2xl:mt-44 3xl:top-48;
-    }
-  }
-  .jason {}
-  .lucia {
-    @apply relative;
-  }
-  .lucia-life {
-    @apply relative z-10 py-20 md:py-40 mt-32 md:mt-60 flex lg:flex-row flex-col justify-between gap-8 lg:gap-5 w-full overflow-x-hidden px-4 lg:px-0;
-
-    h1 {
-      @apply text-yellow font-long uppercase text-4xl md:text-6xl lg:text-8xl mb-6 md:mb-8 lg:mb-20 leading-tight;
-    }
-    h2 {
-      @apply text-pink md:text-5xl text-3xl mb-7 md:pe-20 pe-10;
-    }
-    p {
-      @apply text-white text-base md:text-lg lg:text-2xl leading-relaxed;
-    }
-    p:last-of-type {
-      @apply md:hidden block xl:block;
-    }
-    .lucia-1 {
-      @apply bg-yellow lg:h-[70vh] w-full lg:w-auto -translate-x-2 lg:-translate-x-5;
-
-      img {
-        @apply w-full h-auto lg:size-full object-cover [object-position:85%_center] hover:scale-[0.98] transition duration-700 ease-in-out;
-      }
-    }
-    .lucia-2 {
-      @apply bg-yellow lg:h-[70vh] lg:w-[70%] w-full md:my-36 my-20 lg:-translate-x-5 translate-x-2;
-
-      img {
-        @apply w-full h-auto lg:size-full object-cover [object-position:50%_center] hover:scale-x-[0.98] hover:scale-y-[0.98] transition duration-700 ease-in-out;
-      }
-    }
-    .lucia-3 {
-      @apply bg-yellow lg:h-[90vh] w-full lg:w-auto -translate-x-2 lg:-translate-x-5;
-
-      img {
-        @apply w-full h-auto lg:size-full object-cover [object-position:62%_center] hover:scale-x-[0.98] hover:scale-y-[0.99] transition duration-700 ease-in-out;
-      }
-    }
-  }
-  .post-card {
-    @apply relative flex justify-center items-center pb-80 shadow-2xl;
-
-    .animated-gradient-bg {
-      @apply absolute w-full md:h-[200vh] h-[220vh] left-0 xl:-bottom-1/2 md:-bottom-5/6;
-    }
-
-    .post-card-wrapper {
-      @apply xl:mx-56 md:mx-12 mx-5 xl:h-[85vh] md:h-[40vh] h-[30vh] w-full flex justify-center items-center overflow-hidden relative;
-
-      video {
-        @apply w-full h-full 2xl:scale-x-105 object-cover;
-      }
-
-      img {
-        @apply absolute z-10 w-full h-full;
-      }
-
-      button {
-        @apply rounded-full bg-white absolute left-1/2 -translate-x-1/2 md:bottom-16 -bottom-28 md:w-fit w-2/3 px-5 md:px-7 py-4 text-lg;
-      }
     }
   }
   .final {
@@ -178,10 +99,6 @@ main {
     .final-content {
       @apply scale-110;
     }
-  }
-
-  .final-message {
-    @apply absolute w-full h-dvh overflow-hidden z-50 opacity-100;
   }
 }
 
@@ -212,18 +129,6 @@ main {
   -webkit-mask-repeat: no-repeat;
 }
 
-.animated-gradient-bg {
-  background: linear-gradient(135deg, #0066B1 0%, #00AEEF 50%, #E60C2C 100%);
-}
-
-.jason-content {
-  background: radial-gradient(ellipse, #111117 20%, transparent 70%);
-}
-
-.lucia-life-content {
-  background: radial-gradient(ellipse, #111117 20%, transparent 70%);
-}
-
 /* Global loader styles */
 .loader {
   display: flex;
@@ -250,19 +155,6 @@ main {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
   animation: text-draw 3.5s ease-in-out infinite alternate;
-}
-
-.bmw-ring {
-  margin-top: 40px;
-  width: 50px;
-  height: 50px;
-  border: 6px solid transparent;
-  border-top: 6px solid #0066B1;
-  border-right: 6px solid #E60C2C;
-  border-bottom: 6px solid #6E6E6E;
-  border-radius: 50%;
-  animation: spin .5s linear infinite;
-  box-shadow: 0 0 20px rgba(255,255,255,0.3);
 }
 
 @keyframes text-draw {
@@ -471,32 +363,6 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* GTA 6 inspired text effects */
-.gta-text {
-  position: relative;
-  overflow: hidden;
-}
-
-.gta-text::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
   }
 }
 

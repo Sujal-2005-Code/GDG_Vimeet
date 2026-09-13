@@ -78,11 +78,11 @@ const Social = () => {
           <span className="rounded-full bg-white/5 border border-white/10 px-3 py-1">Stories</span>
         </div>
 
-        {/* LinkedIn Profile Card - Same dimensions as Instagram card */}
+        {/* LinkedIn Profile Card */}
         <div className="mt-6 [perspective:1200px]">
           <div className="group relative rounded-2xl border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] overflow-hidden will-change-transform [transform-style:preserve-3d] transition duration-500 group-hover:rotate-x-2 group-hover:rotate-y-[-1.5deg]">
             <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition pointer-events-none" />
-            <div className="relative aspect-[4/3] md:aspect-[21/9] p-6 flex flex-col items-center justify-center text-center">
+            <div className="relative py-10 md:py-14 px-6 flex flex-col items-center justify-center text-center">
               {/* LinkedIn Profile Icon */}
               <div className="w-16 h-16 mb-4 rounded-full bg-[#0066B1] flex items-center justify-center">
                 <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">

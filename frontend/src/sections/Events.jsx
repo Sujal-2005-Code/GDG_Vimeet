@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import Footer from '../components/Footer';
 import EventGallery from '../components/EventGallery';
+import EventPhotoStack from '../components/EventPhotoStack';
 import { animateHeading, animateTextReveal, animateCards, animateCardsOut } from '../animations';
 import { upcomingEvents, pastEvents, eventCategories } from '../data/events';
 
@@ -85,41 +86,51 @@ const EmptyUpNext = () => (
   </div>
 );
 
-const PastEventCard = ({ item, onView }) => (
-  <div className="past-event-card group relative rounded-2xl border border-white/10 bg-white/[0.03] hover:border-white/25 transition-colors duration-300 overflow-hidden shadow-lg flex flex-col">
-    {item.cover && (
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <img
-          src={item.cover}
-          alt={item.title}
-          loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
-        <span className="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-white/90">
-          {item.category}
-        </span>
-        <span className="absolute bottom-3 left-3 text-[11px] text-white/80 font-mono">{item.date}</span>
-      </div>
-    )}
-    <div className="p-5 flex flex-col flex-1 justify-between">
-      <div>
-        <h3 className="text-lg font-bold text-white leading-snug">{item.title}</h3>
-        <p className="text-white/70 text-sm mt-2 leading-relaxed">{item.desc}</p>
-      </div>
-      {item.gallery?.length > 0 && (
-        <button
-          type="button"
-          onClick={() => onView(item)}
-          className="group/btn mt-4 inline-flex items-center gap-1.5 text-xs text-white/70 hover:text-white transition self-start"
-        >
-          <GalleryIcon />
-          View Photos ({item.gallery.length})
-          <ArrowIcon className="w-3 h-3 transition-transform duration-300 group-hover/btn:translate-x-1" />
-        </button>
-      )}
+const PastEventFeature = ({ item, index, onView }) => (
+  <article className="past-event-feature grid md:grid-cols-[auto_minmax(220px,320px)_1fr] items-center gap-6 md:gap-10 lg:gap-14 py-10 md:py-14 border-b border-white/10 last:border-b-0">
+    {/* Index number — desktop only; on mobile it badges the stack instead */}
+    <span
+      aria-hidden
+      className="hidden md:block text-6xl lg:text-7xl font-round-bold !font-extrabold text-white/10 leading-none select-none"
+    >
+      {String(index + 1).padStart(2, '0')}
+    </span>
+
+    {/* Photo stack — the hero visual */}
+    <div className="relative mx-auto md:mx-0 w-full max-w-[260px] sm:max-w-[300px] md:max-w-none aspect-square">
+      <span
+        aria-hidden
+        className="md:hidden absolute top-2 left-2 z-20 text-2xl font-round-bold !font-extrabold text-white/70 [text-shadow:0_1px_6px_rgba(0,0,0,0.8)] select-none"
+      >
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <EventPhotoStack images={item.photos} title={item.title} />
     </div>
-  </div>
+
+    {/* Event info */}
+    <div className="text-center md:text-left">
+      <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-white/15 bg-white/5 text-white/70">
+        {item.category}
+      </span>
+      <h3 className="text-white text-2xl md:text-3xl font-bold mt-4 leading-snug">{item.title}</h3>
+      <p className="text-white/70 text-sm md:text-base mt-3 leading-relaxed max-w-xl mx-auto md:mx-0">
+        {item.desc}
+      </p>
+      <div className="flex items-center justify-center md:justify-start flex-wrap gap-x-5 gap-y-2 mt-5">
+        {item.photos.length > 0 && (
+          <button
+            type="button"
+            onClick={() => onView(item)}
+            className="group/btn inline-flex items-center gap-1.5 text-xs text-white/80 hover:text-white transition"
+          >
+            <GalleryIcon />
+            View Photos ({item.photos.length})
+            <ArrowIcon className="w-3 h-3 transition-transform duration-300 group-hover/btn:translate-x-1" />
+          </button>
+        )}
+      </div>
+    </div>
+  </article>
 );
 
 const Events = () => {
@@ -153,7 +164,7 @@ const Events = () => {
       ([entry]) => {
         if (entry.isIntersecting && !hasRevealedPast.current) {
           hasRevealedPast.current = true;
-          animateCards('.past-event-card');
+          animateCards('.past-event-feature');
         }
       },
       { threshold: 0.15 }
@@ -169,7 +180,7 @@ const Events = () => {
       return;
     }
     if (!hasRevealedPast.current) return;
-    const id = requestAnimationFrame(() => animateCards('.past-event-card'));
+    const id = requestAnimationFrame(() => animateCards('.past-event-feature'));
     return () => cancelAnimationFrame(id);
   }, [displayedCategory]);
 
@@ -183,7 +194,7 @@ const Events = () => {
     if (cat === activeCategory) return;
     setActiveCategory(cat);
     if (!prefersReducedMotion() && hasRevealedPast.current) {
-      animateCardsOut('.past-event-card');
+      animateCardsOut('.past-event-feature');
       await new Promise((resolve) => setTimeout(resolve, 180));
     }
     setDisplayedCategory(cat);
@@ -297,15 +308,9 @@ const Events = () => {
             {filteredPast.length === 0 ? (
               <p className="text-center text-white/50 text-sm py-10">No sessions in this category yet.</p>
             ) : (
-              <div
-                className={`grid gap-5 sm:grid-cols-2 lg:grid-cols-3 ${
-                  filteredPast.length === 1 ? 'lg:grid-cols-1' : ''
-                }`}
-              >
-                {filteredPast.map((item) => (
-                  <div key={item.title} className={filteredPast.length === 1 ? 'md:max-w-md' : ''}>
-                    <PastEventCard item={item} onView={setGalleryEvent} />
-                  </div>
+              <div>
+                {filteredPast.map((item, index) => (
+                  <PastEventFeature key={item.title} item={item} index={index} onView={setGalleryEvent} />
                 ))}
               </div>
             )}
@@ -349,7 +354,7 @@ const Events = () => {
       {galleryEvent && (
         <EventGallery
           title={galleryEvent.title}
-          images={galleryEvent.gallery}
+          images={galleryEvent.photos}
           onClose={() => setGalleryEvent(null)}
         />
       )}

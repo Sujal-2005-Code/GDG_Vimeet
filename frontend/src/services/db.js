@@ -9,16 +9,17 @@
 const API_BASE_URL = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet-backend-production.up.railway.app');
 
 export const getApplications = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/applications`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch applications');
-    }
-    return await response.json();
-  } catch (err) {
-    console.error('Error fetching applications from backend:', err);
-    return [];
+  const response = await fetch(`${API_BASE_URL}/api/applications`, {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    const error = new Error('Failed to fetch applications');
+    error.status = response.status;
+    throw error;
   }
+
+  return await response.json();
 };
 
 export const saveApplication = async (formData) => {
@@ -54,22 +55,20 @@ export const saveApplication = async (formData) => {
 };
 
 export const updateApplicationStatus = async (id, newStatus) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/applications/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: newStatus }),
-    });
+  const response = await fetch(`${API_BASE_URL}/api/applications/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ status: newStatus }),
+  });
 
-    if (!response.ok) {
-      throw new Error('Failed to update application status');
-    }
-
-    return await response.json();
-  } catch (err) {
-    console.error('Failed to update application status:', err);
-    return [];
+  if (!response.ok) {
+    const error = new Error('Failed to update application status');
+    error.status = response.status;
+    throw error;
   }
+
+  return await response.json();
 };
 
 export const exportToCsv = (applications) => {

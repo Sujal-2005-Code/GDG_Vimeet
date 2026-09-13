@@ -1,11 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { createPortal } from "react-dom";
+import { NavLink } from "react-router-dom";
 import { navItems } from "../data/navigation";
 import {
   animateMobileMenuOpen,
   animateMobileMenuClose,
   animateStaggerMenuItems,
 } from "../animations";
+
+const CLOSE_ANIMATION_MS = 450;
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const pillClass = ({ isActive }) =>
   `group inline-flex items-center gap-1.5 md:gap-2 rounded-full px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-base transition ${
@@ -22,24 +30,12 @@ const ctaClass = ({ isActive }) =>
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const drawerRef = useRef(null);
-  const navigate = useNavigate();
-
-  const handleNavigate = (e, item) => {
-    if (!item.hash) return;
-    e.preventDefault();
-    setIsMenuOpen(false);
-    if (window.location.pathname !== "/") {
-      navigate("/");
-      window.setTimeout(() => {
-        document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-      }, 300);
-    } else {
-      document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const closeTimeoutRef = useRef(null);
+  const isClosingRef = useRef(false);
 
   useEffect(() => {
     if (isMenuOpen) {
+      isClosingRef.current = false;
       document.body.style.overflow = "hidden";
       animateMobileMenuOpen(drawerRef.current);
       animateStaggerMenuItems(".mobile-nav-item");
@@ -51,9 +47,24 @@ const NavBar = () => {
     };
   }, [isMenuOpen]);
 
+  // Clear any pending close timer if the component unmounts mid-close.
+  useEffect(() => () => window.clearTimeout(closeTimeoutRef.current), []);
+
   const closeMenu = () => {
+    if (isClosingRef.current) return;
+    isClosingRef.current = true;
+
+    if (prefersReducedMotion()) {
+      setIsMenuOpen(false);
+      isClosingRef.current = false;
+      return;
+    }
+
     animateMobileMenuClose(drawerRef.current);
-    window.setTimeout(() => setIsMenuOpen(false), 200);
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setIsMenuOpen(false);
+      isClosingRef.current = false;
+    }, CLOSE_ANIMATION_MS);
   };
 
   return (
@@ -68,12 +79,7 @@ const NavBar = () => {
                 <span>{item.label}</span>
               </NavLink>
             ) : (
-              <NavLink
-                key={item.label}
-                to={item.path}
-                className={pillClass}
-                onClick={(e) => handleNavigate(e, item)}
-              >
+              <NavLink key={item.label} to={item.path} className={pillClass}>
                 <span>{item.label}</span>
               </NavLink>
             )
@@ -99,59 +105,61 @@ const NavBar = () => {
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 z-[1100] md:hidden">
-          <button
-            type="button"
-            aria-label="Close menu"
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            onClick={closeMenu}
-          />
-          <div
-            ref={drawerRef}
-            className="absolute top-0 right-0 h-full w-[78%] max-w-xs bg-neutral-950 border-l border-white/10 shadow-2xl p-6 flex flex-col"
-          >
-            <div className="flex items-center justify-between mb-8">
-              <span className="text-white font-semibold">Menu</span>
-              <button
-                type="button"
-                aria-label="Close menu"
-                onClick={closeMenu}
-                className="inline-flex items-center justify-center size-8 rounded-full text-white hover:bg-white/10 transition"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <nav className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.label}
-                  to={item.path}
-                  onClick={(e) => {
-                    handleNavigate(e, item);
-                    closeMenu();
-                  }}
-                  className={({ isActive }) =>
-                    `mobile-nav-item rounded-xl px-4 py-3 text-base font-medium transition ${
-                      item.cta
-                        ? "bg-gradient-to-r from-google-blue via-google-green to-google-blue text-white text-center"
-                        : isActive
-                        ? "bg-white text-black"
-                        : "text-white/90 hover:bg-white/10"
-                    }`
-                  }
+      {/* Mobile drawer — portaled to <body> so it mounts/unmounts in its own
+          DOM subtree, isolated from GSAP ScrollTrigger's pinning (Hero uses
+          pin: true, which inserts wrapper nodes directly into the DOM and
+          desyncs React's view of its siblings if a drawer is toggled in the
+          same parent — causes an "insertBefore" reconciliation crash). */}
+      {isMenuOpen &&
+        createPortal(
+          <div className="fixed inset-0 z-[1100] md:hidden">
+            <button
+              type="button"
+              aria-label="Close menu"
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              onClick={closeMenu}
+            />
+            <div
+              ref={drawerRef}
+              className="absolute top-0 right-0 h-full w-[78%] max-w-xs bg-neutral-950 border-l border-white/10 shadow-2xl p-6 flex flex-col"
+            >
+              <div className="flex items-center justify-end mb-8">
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={closeMenu}
+                  className="inline-flex items-center justify-center size-8 rounded-full text-white hover:bg-white/10 transition"
                 >
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
-          </div>
-        </div>
-      )}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.label}
+                    to={item.path}
+                    onClick={closeMenu}
+                    className={({ isActive }) =>
+                      `mobile-nav-item rounded-xl px-4 py-3 text-base font-medium transition ${
+                        item.cta
+                          ? "bg-gradient-to-r from-google-blue via-google-green to-google-blue text-white text-center"
+                          : isActive
+                          ? "bg-white text-black"
+                          : "text-white/90 hover:bg-white/10"
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </nav>
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   );
 };
