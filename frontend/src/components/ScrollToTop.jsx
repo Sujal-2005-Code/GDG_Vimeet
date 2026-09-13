@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const prefersReducedMotion = () =>
@@ -14,15 +14,26 @@ const prefersReducedMotion = () =>
  * behavior here so every route benefits from it.
  */
 const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
+  // `key` changes on every navigation, so clicking a link to the location
+  // you're already on (e.g. "Explore GDG" twice) still re-runs the scroll.
+  const { pathname, hash, key } = useLocation();
+  const previousPathname = useRef(pathname);
 
   useEffect(() => {
-    const behavior = prefersReducedMotion() ? 'auto' : 'smooth';
+    const isNewPage = previousPathname.current !== pathname;
+    previousPathname.current = pathname;
 
     if (!hash) {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       return;
     }
+
+    // Arriving from another page, the destination's GSAP ScrollTriggers are
+    // still being created and refreshed; each refresh restores the scroll
+    // position it recorded, which cancels an in-progress smooth scroll. An
+    // instant jump can't be interrupted that way, so only same-page hash
+    // navigation animates.
+    const behavior = isNewPage || prefersReducedMotion() ? 'auto' : 'smooth';
 
     // Give the destination route a moment to mount before measuring/scrolling.
     // A second, later pass corrects for layout that settles after the first
@@ -44,7 +55,7 @@ const ScrollToTop = () => {
       window.clearTimeout(firstPass);
       window.clearTimeout(secondPass);
     };
-  }, [pathname, hash]);
+  }, [pathname, hash, key]);
 
   return null;
 };

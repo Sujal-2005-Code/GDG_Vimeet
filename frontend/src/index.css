@@ -86,8 +86,10 @@ main {
       @apply object-cover md:scale-125 h-full;
     }
   }
+  /* Sits above the hero headline but is purely decorative — it must not
+     swallow clicks meant for the hero CTAs underneath it. */
   .entrance-message {
-    @apply absolute inset-0 w-full h-dvh overflow-hidden z-20 opacity-100;
+    @apply absolute inset-0 w-full h-dvh overflow-hidden z-20 opacity-100 pointer-events-none;
 
     .text-wrapper {
       @apply mt-40 md:mt-60 2xl:mt-44 3xl:top-48;
@@ -276,7 +278,9 @@ main {
   font-family: var(--font-display);
   font-weight: 600;
   background: transparent;
-  color: inherit;
+  /* Every secondary button sits on a dark surface; `inherit` picked up the
+     page's default black text and made the label unreadable. */
+  color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: background 0.2s ease, border-color 0.2s ease;
 }
