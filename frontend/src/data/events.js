@@ -34,7 +34,7 @@ const rawPastEvents = [
     credits: 'Guided by Faculty Coordinator Prof. Charusheela Pandit and led by GDG Lead Pranav Salunkhe, with Cloud Campaign Mentor Nimish Patil and GDG Facilitator Harsh Dhanawade.',
     link: { label: 'View on LinkedIn', href: site.social.linkedin },
     cover: `/events/cloud-campaign/1.webp`,
-    gallery: galleryPaths('cloud-campaign', 11),
+    gallery: galleryPaths('cloud-campaign', 12),
   },
   {
     title: 'Git & GitHub Workshop',
