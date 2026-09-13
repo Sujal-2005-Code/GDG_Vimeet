@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const Application = require('./models/Application');
-const { syncToExcel } = require('./utils/excel');
+const { syncToExcel, buildWorkbook } = require('./utils/excel');
 const { sendWhatsAppMessage } = require('./utils/whatsapp');
 const { sendEmailMessage } = require('./utils/email');
 const { requireAdmin } = require('./middleware/adminAuth');
@@ -66,6 +66,26 @@ async function updateExcelSheet() {
 // Routes
 
 app.use('/api/admin', adminRoutes);
+
+// POST (not GET) so a filtered export can send any number of application IDs.
+app.post('/api/applications/export', requireAdmin, async (req, res) => {
+  try {
+    const ids = Array.isArray(req.body?.ids) ? req.body.ids.map(String) : null;
+    const applications = await Application.find(ids ? { id: { $in: ids } } : {})
+      .sort({ submittedAt: -1 })
+      .lean();
+
+    const buffer = await buildWorkbook(applications).xlsx.writeBuffer();
+    const filename = `GDG_ViMEET_Recruitment_${new Date().toISOString().slice(0, 10)}.xlsx`;
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.send(Buffer.from(buffer));
+  } catch (error) {
+    console.error('Error exporting applications:', error);
+    res.status(500).json({ error: 'Failed to export applications' });
+  }
+});
 
 // GET all applications — admin only
 app.get('/api/applications', requireAdmin, async (req, res) => {
@@ -215,6 +235,45 @@ app.put('/api/applications/:id', requireAdmin, async (req, res) => {
     res.json(allApps);
   } catch (error) {
     res.status(400).json({ error: 'Failed to update status' });
+  }
+});
+
+// DELETE all applications — admin only. Requires an explicit confirmation
+// phrase in the body so a stray/scripted call can't wipe every record.
+app.delete('/api/applications', requireAdmin, async (req, res) => {
+  try {
+    if (req.body?.confirm !== 'DELETE ALL') {
+      return res.status(400).json({ error: 'Missing confirmation' });
+    }
+
+    const result = await Application.deleteMany({});
+
+    // Sync to excel in the background (now empty)
+    updateExcelSheet();
+
+    res.json({ success: true, deletedCount: result.deletedCount });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete applications' });
+  }
+});
+
+// DELETE a single application — admin only
+app.delete('/api/applications/:id', requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await Application.findOneAndDelete({ id });
+
+    if (!deleted) {
+      return res.status(404).json({ error: 'Application not found' });
+    }
+
+    // Sync to excel in the background
+    updateExcelSheet();
+
+    const allApps = await Application.find().sort({ submittedAt: -1 });
+    res.json(allApps);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete application' });
   }
 });
 

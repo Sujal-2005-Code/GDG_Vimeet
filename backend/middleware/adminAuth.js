@@ -43,6 +43,11 @@ function clearAdminCookie(res) {
 // than trusting anything the client sends (no header/localStorage/body
 // flags are ever treated as proof of admin identity).
 function requireAdmin(req, res, next) {
+  // Admin data must never be cached by an intermediary (browser, Vercel's
+  // /api rewrite proxy, etc.) — a stale cached list would look exactly like
+  // "missing" applications to whoever's viewing it.
+  res.set('Cache-Control', 'no-store');
+
   const token = req.cookies?.[COOKIE_NAME];
   if (!token) {
     return res.status(401).json({ error: 'Not authenticated' });

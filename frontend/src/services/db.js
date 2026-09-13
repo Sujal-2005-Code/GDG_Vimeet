@@ -77,46 +77,61 @@ export const updateApplicationStatus = async (id, newStatus) => {
   return await response.json();
 };
 
-export const exportToCsv = (applications) => {
-  if (!applications || !applications.length) return;
+export const deleteApplication = async (id) => {
+  const response = await fetch(`${API_BASE_URL}/api/applications/${id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
 
-  const headers = [
-    'Application ID',
-    'Full Name',
-    'Roll No',
-    'Department',
-    'Year',
-    'Mobile',
-    'Email',
-    'Selected Teams',
-    'Graphics Poster Drive Link',
-    'Motivation / Pitch',
-    'Submission Date',
-    'Status'
-  ];
+  if (!response.ok) {
+    const error = new Error('Failed to delete application');
+    error.status = response.status;
+    throw error;
+  }
 
-  const rows = applications.map(app => [
-    `"${app.id}"`,
-    `"${app.fullName.replace(/"/g, '""')}"`,
-    `"${app.rollNo}"`,
-    `"${app.department}"`,
-    `"${app.year}"`,
-    `"${app.mobile}"`,
-    `"${app.email}"`,
-    `"${(app.teams || []).join(', ')}"`,
-    `"${(app.graphicsDriveLink || '').replace(/"/g, '""')}"`,
-    `"${(app.motivation || '').replace(/"/g, '""').replace(/\n/g, ' ')}"`,
-    `"${new Date(app.submittedAt).toLocaleString()}"`,
-    `"${app.status}"`
-  ]);
+  return await response.json();
+};
 
-  const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+export const deleteAllApplications = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/applications`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ confirm: 'DELETE ALL' }),
+  });
+
+  if (!response.ok) {
+    const error = new Error('Failed to delete all applications');
+    error.status = response.status;
+    throw error;
+  }
+
+  return await response.json();
+};
+
+// Pass `ids` to export only those applications; omit it to export everything.
+export const exportApplicationsToExcel = async (ids) => {
+  const response = await fetch(`${API_BASE_URL}/api/applications/export`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(ids ? { ids } : {}),
+  });
+
+  if (!response.ok) {
+    const error = new Error('Failed to export applications');
+    error.status = response.status;
+    throw error;
+  }
+
+  const blob = await response.blob();
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
-  link.setAttribute('href', url);
-  link.setAttribute('download', `GDG_ViMEET_Recruitment_${new Date().toISOString().slice(0, 10)}.csv`);
+  link.href = url;
+  link.download = `GDG_ViMEET_Recruitment_${new Date().toISOString().slice(0, 10)}.xlsx`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+  // Revoking synchronously can cancel the download in some browsers.
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 };
