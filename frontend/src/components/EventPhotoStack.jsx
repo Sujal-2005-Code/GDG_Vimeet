@@ -2,13 +2,11 @@ import { useMemo } from 'react';
 import Stack from './Stack';
 import GlareHover from './GlareHover';
 
-// Stack mounts one <img> per card up front (only the top one is visible),
-// so we cap how many of an event's photos go into the live stack to keep
-// page weight sane — "View Photos" still opens the full gallery.
-const MAX_STACK_PHOTOS = 8;
+// How long each photo stays on top before the stack advances, for every event.
+const PHOTO_INTERVAL_MS = 1800;
 
 const EventPhotoStack = ({ images, title }) => {
-  const photos = images?.length ? images.slice(0, MAX_STACK_PHOTOS) : [];
+  const photos = images?.length ? images : [];
 
   // `cards` must stay referentially stable across re-renders (Stack resets
   // its internal order whenever this array identity changes), so this is
@@ -55,7 +53,7 @@ const EventPhotoStack = ({ images, title }) => {
         sensitivity={200}
         sendToBackOnClick={true}
         autoplay={true}
-        autoplayDelay={1200}
+        autoplayDelay={PHOTO_INTERVAL_MS}
         pauseOnHover={true}
         mobileClickOnly={true}
       />

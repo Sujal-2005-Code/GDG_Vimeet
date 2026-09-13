@@ -1,3 +1,5 @@
+import { site } from './site';
+
 /**
  * Events data. Keep placeholders clearly labeled ("Announcing Soon" / TBD)
  * rather than inventing dates, attendance figures, or titles.
@@ -18,6 +20,22 @@ const galleryPaths = (slug, count) =>
   Array.from({ length: count }, (_, i) => `/events/${slug}/${i + 1}.webp`);
 
 const rawPastEvents = [
+  {
+    title: 'Google Cloud Study Jams Campaign',
+    date: 'Date TBD — 2025-26', // TODO: replace with the real date
+    category: 'Study Jams',
+    highlight: true,
+    desc: 'A full learning cycle, executed start to finish. Participants completed 20+ Google Cloud courses along with an Arcade Game to earn official goodies — with the GDG ViMEET core team guiding students throughout, helping with labs and courses, and resolving doubts to keep everyone on track.',
+    stats: [
+      { value: '245+', label: 'Participants' },
+      { value: '107', label: 'Completed & earned goodies' },
+      { value: '20+', label: 'Cloud courses each' },
+    ],
+    credits: 'Guided by Faculty Coordinator Prof. Charusheela Pandit and led by GDG Lead Pranav Salunkhe, with Cloud Campaign Mentor Nimish Patil and GDG Facilitator Harsh Dhanawade.',
+    link: { label: 'View on LinkedIn', href: site.social.linkedin },
+    cover: `/events/cloud-campaign/1.webp`,
+    gallery: galleryPaths('cloud-campaign', 11),
+  },
   {
     title: 'Git & GitHub Workshop',
     date: 'Date TBD — 2025-26', // TODO: replace with the real date
@@ -60,6 +78,6 @@ export const pastEvents = rawPastEvents.map((event) => ({
   photos: resolvePhotos(event),
 }));
 
-export const eventCategories = ['All', 'Workshops', 'Hackathons', 'Community'];
+export const eventCategories = ['All', 'Study Jams', 'Workshops', 'Hackathons', 'Community'];
 
 export default { upcomingEvents, pastEvents, eventCategories };
