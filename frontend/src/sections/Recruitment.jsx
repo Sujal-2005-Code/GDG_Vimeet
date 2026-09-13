@@ -40,16 +40,14 @@ const GRAPHICS_TEAM_ID = 'Graphics & Design';
 
 const DEPARTMENTS = [
   'Computer Engineering',
-  'CSE (AI & ML)',
-  'Information Technology',
-  'Electronics & Telecommunication (EXTC)',
-  'Mechanical Engineering',
-  'Civil Engineering',
-  'Electrical Engineering',
-  'First Year (All Branches)'
+  'CSE (AIML)',
+  'Mechanical',
+  'EXTC',
+  'Civil',
+  'Electrical'
 ];
 
-const YEARS = ['FE', 'SE', 'TE', 'BE'];
+const YEARS = ['SE', 'TE', 'BE'];
 
 const Recruitment = () => {
   const [formData, setFormData] = useState({
