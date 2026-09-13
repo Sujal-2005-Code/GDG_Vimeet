@@ -3,10 +3,16 @@
  * Handles applicant persistence with Node.js + MongoDB backend
  */
 
-// Backend base URL is configurable via VITE_API_BASE_URL (set in Vercel's
-// project env vars). Falls back to the current production Railway URL so
-// nothing breaks if it isn't set.
-const API_BASE_URL = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet-backend-production.up.railway.app');
+// Always a relative path: in dev, Vite's proxy (vite.config.js) forwards
+// /api to the local backend; in production, vercel.json rewrites /api to
+// the Railway backend. This keeps every request same-origin from the
+// browser's point of view, which matters because the admin session is a
+// cookie — a cross-site cookie between two unrelated domains (Vercel and
+// Railway) gets silently dropped by modern browsers' third-party cookie
+// blocking (Chrome, Safari ITP) even with SameSite=None; Secure set
+// correctly server-side. VITE_API_BASE_URL remains as an explicit escape
+// hatch for pointing straight at a backend, bypassing the proxy.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 export const getApplications = async () => {
   const response = await fetch(`${API_BASE_URL}/api/applications`, {

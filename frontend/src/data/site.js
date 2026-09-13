@@ -34,8 +34,9 @@ export const site = {
     'https://docs.google.com/forms/d/e/1FAIpQLSd9hYJ48DFNnZtp-3kJKhGfYw-pR0M2-Nf47TYAGSJnH_7toA/viewform?embedded=true',
 
   // Recruitment application backend (see frontend/src/services/db.js) —
-  // configurable via VITE_API_BASE_URL in Vercel project env vars.
-  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet-backend-production.up.railway.app',
+  // relative by default so API calls stay same-origin through Vercel's
+  // /api rewrite proxy; VITE_API_BASE_URL overrides this if ever needed.
+  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || '',
 };
 
 export default site;

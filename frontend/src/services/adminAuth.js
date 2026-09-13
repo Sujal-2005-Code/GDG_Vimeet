@@ -5,7 +5,9 @@
  * network call the backend verifies; nothing is inferred from localStorage
  * or a hardcoded value.
  */
-const API_BASE_URL = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_BASE_URL || 'https://gdg-vimeet-backend-production.up.railway.app');
+// See frontend/src/services/db.js for why this is always a relative path —
+// the admin session cookie must be same-origin or browsers silently drop it.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 export const adminLogin = async (username, password) => {
   try {
