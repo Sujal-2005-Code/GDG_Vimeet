@@ -9,7 +9,8 @@
   "scripts": {
     "dev:frontend": "cd frontend && npm run dev",
     "start:backend": "cd backend && npm start",
-    "install:all": "cd frontend && npm install && cd ../backend && npm install"
+    "install:all": "cd frontend && npm install && cd ../backend && npm install",
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "dotenv": "^17.4.2",

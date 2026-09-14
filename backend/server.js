@@ -65,6 +65,25 @@ async function updateExcelSheet() {
 
 // Routes
 
+// Public health check — tells you at a glance which build is running, so a
+// stale deploy is obvious without digging through dashboards.
+const STARTED_AT = new Date().toISOString();
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    startedAt: STARTED_AT,
+    routes: [
+      'POST /api/applications',
+      'GET /api/applications',
+      'PUT /api/applications/:id',
+      'DELETE /api/applications/:id',
+      'DELETE /api/applications',
+      'POST /api/applications/export',
+      'POST /api/admin/login',
+    ],
+  });
+});
+
 app.use('/api/admin', adminRoutes);
 
 // POST (not GET) so a filtered export can send any number of application IDs.
