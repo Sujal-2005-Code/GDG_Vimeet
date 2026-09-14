@@ -93,7 +93,9 @@ export const deleteApplication = async (id) => {
 };
 
 export const deleteAllApplications = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/applications`, {
+  // The confirmation goes in the query string (and the body) because some
+  // proxies drop the body of a DELETE request.
+  const response = await fetch(`${API_BASE_URL}/api/applications?confirm=${encodeURIComponent('DELETE ALL')}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

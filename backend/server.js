@@ -242,7 +242,10 @@ app.put('/api/applications/:id', requireAdmin, async (req, res) => {
 // phrase in the body so a stray/scripted call can't wipe every record.
 app.delete('/api/applications', requireAdmin, async (req, res) => {
   try {
-    if (req.body?.confirm !== 'DELETE ALL') {
+    // Accept the confirmation from the query string as well as the body —
+    // some proxies drop the body of a DELETE request.
+    const confirm = req.query?.confirm ?? req.body?.confirm;
+    if (confirm !== 'DELETE ALL') {
       return res.status(400).json({ error: 'Missing confirmation' });
     }
 

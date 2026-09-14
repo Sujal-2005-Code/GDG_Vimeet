@@ -210,6 +210,29 @@ const ApplicationsAdmin = () => {
         </div>
       </div>
 
+      {/* Action errors (export/delete/status) — shown as a banner so the
+          applications below stay on screen. */}
+      {error && applications.length > 0 && (
+        <div className="mb-6 flex items-start justify-between gap-4 p-4 rounded-xl border border-rose-500/30 bg-rose-500/[0.08]">
+          <div>
+            <p className="text-rose-200 text-sm">{error}</p>
+            {error.includes('sign in') && (
+              <a href="/admin" className="text-sm text-google-blue hover:underline">Go to sign in</a>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={() => setError(null)}
+            aria-label="Dismiss error"
+            className="shrink-0 inline-flex items-center justify-center size-7 rounded-lg text-white/50 hover:text-white hover:bg-white/10 transition"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* Quick Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
             <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10">
@@ -294,7 +317,7 @@ const ApplicationsAdmin = () => {
             <div className="text-center py-16 rounded-2xl border border-white/10 bg-white/[0.02]">
               <p className="text-white/60 text-base">Loading applications from server...</p>
             </div>
-          ) : error ? (
+          ) : error && applications.length === 0 ? (
             <div className="text-center py-16 rounded-2xl border border-rose-500/20 bg-rose-500/[0.04]">
               <p className="text-rose-300 text-sm mb-2">{error}</p>
               <a href="/admin" className="text-sm text-google-blue hover:underline">
