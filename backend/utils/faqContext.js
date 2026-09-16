@@ -22,9 +22,14 @@ HOW TO ANSWER
 KNOWLEDGE BASE`;
 
 function renderEntry(entry) {
+  // `variations` stays in content/faq.json (check-faq.js, docs, and a future
+  // retrieval step still use it) but is deliberately left out of the live
+  // prompt: with the whole dataset already in context, the model reads every
+  // answer directly, so paraphrase hints mainly help a retrieval matcher —
+  // which this architecture doesn't have — while still costing ~25% of the
+  // rendered FAQ's token count on every single request.
   const lines = [`[${entry.id}] (${entry.category}${entry.status === 'placeholder' ? ', NOT CONFIRMED' : ''})`];
   lines.push(`Q: ${entry.question}`);
-  if (entry.variations?.length) lines.push(`Also asked: ${entry.variations.join(' | ')}`);
   lines.push(`A: ${entry.answer}`);
   if (entry.links?.length) {
     lines.push(`Links: ${entry.links.map((l) => `${l.label} -> ${l.href}`).join(', ')}`);

@@ -33,8 +33,10 @@ async function generateReply({ system, messages, maxTokens }) {
     try {
       const result = await provider.generate({ system, messages, maxTokens });
       // One line per answered request — this is the spend and latency record.
+      // Never includes message text: only token counts, timing, and cache state.
+      const cacheStatus = result.cacheStatus ? ` cacheStatus=${result.cacheStatus}` : '';
       console.log(
-        `[chat] provider=${provider.name} model=${result.model} in=${result.usage.inputTokens} out=${result.usage.outputTokens} cacheRead=${result.usage.cacheRead} ms=${Date.now() - startedAt}${index > 0 ? ' (failover)' : ''}`
+        `[chat] provider=${provider.name} model=${result.model} in=${result.usage.inputTokens} out=${result.usage.outputTokens} cacheRead=${result.usage.cacheRead}${cacheStatus} ms=${Date.now() - startedAt}${index > 0 ? ' (failover)' : ''}`
       );
       return { ...result, provider: provider.name };
     } catch (error) {
