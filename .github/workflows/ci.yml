@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# This is an npm workspaces monorepo (root package.json lists
+# frontend/ and backend/ as workspaces) — there is exactly one lockfile,
+# at the repo root. `npm ci` runs once there; individual scripts then run
+# with --workspace so each package's own script executes.
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Backend – check FAQ dataset
+        run: npm run check:faq --workspace=backend
+      - name: Backend – tests
+        run: npm test --workspace=backend
+
+      - name: Frontend – lint
+        run: npm run lint --workspace=frontend
+      - name: Frontend – build
+        run: npm run build --workspace=frontend

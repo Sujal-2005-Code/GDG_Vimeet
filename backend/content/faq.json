@@ -1,0 +1,3120 @@
+[
+  {
+    "id": "about-gdg-01",
+    "category": "about-gdg",
+    "question": "What is GDG ViMEET?",
+    "variations": [
+      "Tell me about GDG ViMEET",
+      "What does this club do?",
+      "Who are you?",
+      "What is this website about?"
+    ],
+    "answer": "GDG ViMEET is the Google Developer Groups on Campus chapter at Vishwaniketan's Institute of Management, Entrepreneurship and Engineering Technology (ViMEET). It is a student-led developer community where members learn, build and collaborate through workshops, hackathons, study jams and speaker sessions.",
+    "tags": ["about", "intro"],
+    "links": [{ "label": "Home", "href": "/" }],
+    "sources": ["frontend/src/data/site.js#site", "frontend/src/sections/Lucia.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "about-gdg-02",
+    "category": "about-gdg",
+    "question": "What does GDG stand for?",
+    "variations": ["What is the full form of GDG?", "GDG meaning"],
+    "answer": "GDG stands for Google Developer Groups. The full name of this chapter is Google Developer Groups on Campus — ViMEET.",
+    "tags": ["about", "name"],
+    "links": [],
+    "sources": ["frontend/src/data/site.js#fullName"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-03",
+    "category": "about-gdg",
+    "question": "What is the GDG ViMEET tagline?",
+    "variations": ["What is your motto?", "What is the slogan?"],
+    "answer": "The tagline is \"Build. Create. Connect. Go Beyond.\"",
+    "tags": ["about", "tagline"],
+    "links": [],
+    "sources": ["frontend/src/data/site.js#tagline"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-04",
+    "category": "about-gdg",
+    "question": "Which college is GDG ViMEET part of?",
+    "variations": [
+      "Which institute runs this chapter?",
+      "What college is this?",
+      "Where is GDG ViMEET based?"
+    ],
+    "answer": "GDG ViMEET is based at Vishwaniketan's Institute of Management, Entrepreneurship and Engineering Technology (ViMEET) in Khalapur, Navi Mumbai, Maharashtra - 410210.",
+    "tags": ["about", "college", "location"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/data/site.js#institute"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-05",
+    "category": "about-gdg",
+    "question": "Do I need to be a programmer to join GDG ViMEET?",
+    "variations": [
+      "Can non-coders join?",
+      "I don't know how to code, can I still be part of GDG?",
+      "Is this only for computer science students?"
+    ],
+    "answer": "No. GDG ViMEET is not only for programmers — the community covers design, content and social media, PR and outreach, event management, entrepreneurship and community building alongside technology. There are teams for each of those.",
+    "tags": ["about", "eligibility", "non-technical"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/GoBeyondCode.jsx", "frontend/src/data/recruitment.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "about-gdg-06",
+    "category": "about-gdg",
+    "question": "What kind of activities does GDG ViMEET run?",
+    "variations": [
+      "What events do you organise?",
+      "What happens at GDG ViMEET?",
+      "What do members actually do?"
+    ],
+    "answer": "The chapter runs workshops, hackathons, study jams and speaker sessions, with hands-on experience in Web, Mobile, Cloud and AI/ML. Members take part in project-based workshops, team challenges, innovation labs and mentorship programs.",
+    "tags": ["about", "activities", "events"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/sections/Lucia.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-07",
+    "category": "about-gdg",
+    "question": "What areas does the community cover beyond coding?",
+    "variations": [
+      "What is Go Beyond Code?",
+      "What domains do you work in?",
+      "What skills can I explore here?"
+    ],
+    "answer": "The \"Go Beyond Code\" areas are Technology, AI, Web & App Development, Cloud, Design, Graphics, Content & Social, PR & Outreach, Events, Entrepreneurship, Community and Innovation.",
+    "tags": ["about", "domains"],
+    "links": [{ "label": "Home", "href": "/" }],
+    "sources": ["frontend/src/sections/GoBeyondCode.jsx#CATEGORIES"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-08",
+    "category": "about-gdg",
+    "question": "Which academic year is this chapter running for?",
+    "variations": ["What tenure is this?", "Is this the 2026-27 team?"],
+    "answer": "The current chapter year is 2026-27. The site also lists the previous tenure, 2025-26, on the Team page.",
+    "tags": ["about", "year"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/site.js#chapterYear", "frontend/src/sections/Team.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-09",
+    "category": "about-gdg",
+    "question": "Is GDG ViMEET officially connected to Google?",
+    "variations": [
+      "Is this an official Google club?",
+      "Does Google run this?",
+      "Are you affiliated with Google?"
+    ],
+    "answer": "GDG ViMEET is a Google Developer Groups on Campus chapter, which is a student community program. The site does not describe any other form of affiliation, so for anything official please email gdgvimeet@gmail.com.",
+    "tags": ["about", "affiliation"],
+    "links": [],
+    "sources": ["frontend/src/data/site.js#fullName"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-10",
+    "category": "about-gdg",
+    "question": "Is there a membership fee to join GDG ViMEET?",
+    "variations": [
+      "Do I have to pay to join?",
+      "What is the registration fee?",
+      "Is it free to apply?"
+    ],
+    "answer": "The website does not mention any fee for applying or joining, and the application form does not ask for a payment. If you have been asked to pay something, please confirm with the team at gdgvimeet@gmail.com before paying.",
+    "tags": ["about", "fees", "recruitment"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-11",
+    "category": "about-gdg",
+    "question": "What does GDG ViMEET offer its members?",
+    "variations": [
+      "What are the benefits of joining?",
+      "What do I get out of being a member?",
+      "Why should I join GDG?"
+    ],
+    "answer": "The recruitment page highlights hands-on project labs, Google mentorship, hackathons and tech talks, and a certificate with GDG swag. Members also get to help organise events rather than only attend them.",
+    "tags": ["about", "benefits"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx", "frontend/src/sections/JoinUs.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "about-gdg-12",
+    "category": "about-gdg",
+    "question": "Who can be part of the GDG ViMEET community?",
+    "variations": ["Who is this community for?", "Is it open to all branches?"],
+    "answer": "It is a student-led community at ViMEET, open to students across branches — the application form lists Computer Engineering, CSE (AIML), Mechanical, EXTC, Civil and Electrical.",
+    "tags": ["about", "eligibility"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#DEPARTMENTS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-13",
+    "category": "about-gdg",
+    "question": "What is the difference between attending events and joining the core team?",
+    "variations": [
+      "Do I need to join the team to attend events?",
+      "Can I come to events without applying?"
+    ],
+    "answer": "Events are community activities, while the core team is the group that plans and runs them. As the site puts it: \"Don't just attend events. Be part of the team that creates them.\" Applying through the Join Us page is how you become part of the team.",
+    "tags": ["about", "recruitment", "events"],
+    "links": [
+      { "label": "Events", "href": "/events" },
+      { "label": "Join Us", "href": "/join" }
+    ],
+    "sources": ["frontend/src/sections/JoinUs.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-14",
+    "category": "about-gdg",
+    "question": "How big is GDG ViMEET?",
+    "variations": [
+      "How many members do you have?",
+      "How many students are involved?"
+    ],
+    "answer": "The site does not publish a total membership count. For scale, the Google Cloud Study Jams campaign had 245+ participants, of whom 107 completed it.",
+    "tags": ["about", "size", "stats"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#stats"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "about-gdg-15",
+    "category": "about-gdg",
+    "question": "What technologies does the community focus on?",
+    "variations": [
+      "What tech stack do you work with?",
+      "Do you cover AI and cloud?",
+      "What will I learn here?"
+    ],
+    "answer": "The focus areas are Web, Mobile, Cloud and AI/ML, delivered through project-based workshops, team challenges, innovation labs and mentorship. Recent activity includes a Google Cloud Study Jams campaign and a Git & GitHub workshop.",
+    "tags": ["about", "tech", "learning"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/sections/Lucia.jsx", "frontend/src/data/events.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "contact-and-social-01",
+    "category": "contact-and-social",
+    "question": "How do I contact GDG ViMEET?",
+    "variations": [
+      "What is your email address?",
+      "How can I reach the team?",
+      "Who do I talk to?"
+    ],
+    "answer": "Email gdgvimeet@gmail.com. You can also reach the chapter on Instagram (@gdgvimeet) or LinkedIn, and the Contact page has a map and contact form.",
+    "tags": ["contact", "email"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/data/site.js#email", "frontend/src/sections/Contact.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "contact-and-social-02",
+    "category": "contact-and-social",
+    "question": "What is the GDG ViMEET Instagram?",
+    "variations": ["Are you on Instagram?", "What's your IG handle?"],
+    "answer": "The Instagram handle is @gdgvimeet — https://www.instagram.com/gdgvimeet/. Announcements and event highlights are posted there.",
+    "tags": ["contact", "instagram", "social"],
+    "links": [{ "label": "Instagram", "href": "https://www.instagram.com/gdgvimeet/" }],
+    "sources": ["frontend/src/data/site.js#social.instagram"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-03",
+    "category": "contact-and-social",
+    "question": "Is GDG ViMEET on LinkedIn?",
+    "variations": ["What's your LinkedIn page?", "Where can I follow you professionally?"],
+    "answer": "Yes — https://www.linkedin.com/company/gdgvimeet/. Campaign recaps, such as the Google Cloud Study Jams write-up, are posted there.",
+    "tags": ["contact", "linkedin", "social"],
+    "links": [{ "label": "LinkedIn", "href": "https://www.linkedin.com/company/gdgvimeet/" }],
+    "sources": ["frontend/src/data/site.js#social.linkedin"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-04",
+    "category": "contact-and-social",
+    "question": "Does GDG ViMEET have a GitHub?",
+    "variations": ["Where is your code?", "What's your GitHub organisation?"],
+    "answer": "Yes — https://github.com/gdgvimeet, linked from the site footer and Contact page.",
+    "tags": ["contact", "github", "social"],
+    "links": [{ "label": "GitHub", "href": "https://github.com/gdgvimeet" }],
+    "sources": ["frontend/src/data/site.js#social.github"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-05",
+    "category": "contact-and-social",
+    "question": "What is the phone number for GDG ViMEET?",
+    "variations": [
+      "Can I call someone?",
+      "Is there a contact number?",
+      "What's your WhatsApp number?"
+    ],
+    "answer": "No phone number is published on the website. Email gdgvimeet@gmail.com or message the chapter on Instagram instead.",
+    "tags": ["contact", "phone"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Contact.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-06",
+    "category": "contact-and-social",
+    "question": "Where is ViMEET located?",
+    "variations": [
+      "What is the campus address?",
+      "How do I get to the college?",
+      "Where do events take place?"
+    ],
+    "answer": "Vishwaniketan Institute of Management, Entrepreneurship and Engineering Technology, Khalapur, Navi Mumbai, Maharashtra - 410210. The Contact page embeds a Google Map of the campus.",
+    "tags": ["contact", "location", "address"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/data/site.js#institute.addressLines"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-07",
+    "category": "contact-and-social",
+    "question": "What kinds of things can I contact GDG ViMEET about?",
+    "variations": ["What do you handle on the contact page?", "Can I reach out about a collaboration?"],
+    "answer": "The Contact page lists general questions, collaborations, workshops and talks, community, partnerships and recruitment.",
+    "tags": ["contact", "topics"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Contact.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-08",
+    "category": "contact-and-social",
+    "question": "How can my company sponsor or partner with GDG ViMEET?",
+    "variations": [
+      "I want to sponsor an event",
+      "How do partnerships work?",
+      "Can we collaborate with your club?"
+    ],
+    "answer": "Partnerships and collaborations are listed as reasons to get in touch — email gdgvimeet@gmail.com. Sponsorship and outreach are handled by the PR & Outreach team.",
+    "tags": ["contact", "sponsorship", "partnership"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Contact.jsx", "frontend/src/data/recruitment.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-09",
+    "category": "contact-and-social",
+    "question": "Can I invite GDG ViMEET to speak or run a workshop?",
+    "variations": [
+      "How do I propose a talk?",
+      "Can you run a session at my college?",
+      "I want to suggest a workshop"
+    ],
+    "answer": "Yes — \"Workshops & Talks\" is one of the listed reasons to reach out, and the Events page has a \"Propose a Workshop / Talk\" link that emails gdgvimeet@gmail.com.",
+    "tags": ["contact", "workshops", "speaking"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/sections/Events.jsx", "frontend/src/sections/Contact.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-10",
+    "category": "contact-and-social",
+    "question": "How long does GDG ViMEET take to reply?",
+    "variations": ["When will I get a response?", "How fast do you answer emails?"],
+    "answer": "The site does not state a response time. For anything urgent, Instagram direct messages are usually the fastest way to get attention alongside email.",
+    "tags": ["contact", "response-time"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Contact.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-11",
+    "category": "contact-and-social",
+    "question": "Is there a contact form on the website?",
+    "variations": ["Can I message you from the site?", "Is there a Google Form to contact you?"],
+    "answer": "The Contact page embeds a Google Form for general enquiries. That form link is still being finalised on the site, so if it does not load, email gdgvimeet@gmail.com instead.",
+    "tags": ["contact", "form"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/data/site.js#contactFormUrl"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-12",
+    "category": "contact-and-social",
+    "question": "Is there a WhatsApp group for GDG ViMEET?",
+    "variations": ["How do I join the WhatsApp community?", "Where do announcements go?"],
+    "answer": "Yes — after you submit a recruitment application, the confirmation email includes a \"Join WhatsApp Group\" button for chapter announcements. The group link is sent by email rather than published on the site.",
+    "tags": ["contact", "whatsapp", "after-applying"],
+    "links": [],
+    "sources": ["backend/server.js#confirmation-email"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-13",
+    "category": "contact-and-social",
+    "question": "How do I stay updated on upcoming events?",
+    "variations": [
+      "Where are events announced?",
+      "How will I know about the next event?",
+      "How do I get notified?"
+    ],
+    "answer": "Follow @gdgvimeet on Instagram and the chapter's LinkedIn page — that is where announcements go. The Events page also lists what is coming up next.",
+    "tags": ["contact", "updates", "events"],
+    "links": [
+      { "label": "Events", "href": "/events" },
+      { "label": "Instagram", "href": "https://www.instagram.com/gdgvimeet/" }
+    ],
+    "sources": ["frontend/src/sections/Events.jsx", "frontend/src/data/site.js#social"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "contact-and-social-14",
+    "category": "contact-and-social",
+    "question": "Can students from other colleges join or attend?",
+    "variations": [
+      "I'm not a ViMEET student, can I join?",
+      "Is this open to outsiders?",
+      "Can I attend if I study elsewhere?"
+    ],
+    "answer": "The recruitment form is built for ViMEET students — it asks for a ViMEET roll number and lists ViMEET departments. The site does not say whether outside students can attend events, so please ask at gdgvimeet@gmail.com.",
+    "tags": ["contact", "eligibility", "external"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "contact-and-social-15",
+    "category": "contact-and-social",
+    "question": "Who built the GDG ViMEET website?",
+    "variations": ["Who made this site?", "Who maintains this website?"],
+    "answer": "The site is built and maintained by the GDG ViMEET Web-Dev team. For anything about the website itself, email gdgvimeet@gmail.com.",
+    "tags": ["contact", "website", "team"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "website-navigation-01",
+    "category": "website-navigation",
+    "question": "What pages does this website have?",
+    "variations": ["How do I navigate the site?", "What can I find here?"],
+    "answer": "There are five public pages: Home, Team, Events, Contact and Join Us (the recruitment form). The navigation bar at the top links to all of them.",
+    "tags": ["navigation"],
+    "links": [
+      { "label": "Home", "href": "/" },
+      { "label": "Team", "href": "/team" },
+      { "label": "Events", "href": "/events" }
+    ],
+    "sources": ["frontend/src/main.jsx", "frontend/src/data/navigation.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "website-navigation-02",
+    "category": "website-navigation",
+    "question": "Where is the application form?",
+    "variations": [
+      "Where do I apply?",
+      "Take me to the form",
+      "What's the link to join?"
+    ],
+    "answer": "The form is on the Join Us page at /join (also reachable at /recruitment). Every \"Apply\" button on the site leads there.",
+    "tags": ["navigation", "recruitment"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/main.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "website-navigation-03",
+    "category": "website-navigation",
+    "question": "Where can I see past event photos?",
+    "variations": ["Is there a gallery?", "Can I see pictures from your events?"],
+    "answer": "Yes — on the Events page, each past event has a photo stack and a \"View Photos\" button that opens the full gallery.",
+    "tags": ["navigation", "events", "photos"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/sections/Events.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "website-navigation-04",
+    "category": "website-navigation",
+    "question": "Where can I read about the club on the site?",
+    "variations": ["Is there an About page?", "Where is the About section?"],
+    "answer": "There is no separate About page — the About section is part of the Home page. The \"About\" link in the navigation scrolls you to it.",
+    "tags": ["navigation", "about"],
+    "links": [{ "label": "About", "href": "/#about" }],
+    "sources": ["frontend/src/data/navigation.js", "frontend/src/sections/Lucia.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "website-navigation-05",
+    "category": "website-navigation",
+    "question": "What is on the Team page?",
+    "variations": ["Where can I see the team members?", "Who is listed on the team page?"],
+    "answer": "The Team page shows the 2026-27 recruitment teams with an Apply Now button, followed by the previous tenure (2025-26) leadership and team members, and the faculty who guide the chapter.",
+    "tags": ["navigation", "team"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/sections/Team.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "website-navigation-06",
+    "category": "website-navigation",
+    "question": "Is there an admin login on this website?",
+    "variations": ["What is the admin panel?", "Can I log in?"],
+    "answer": "There is an admin area at /admin, but it is only for GDG ViMEET core team members who review applications. Applicants do not need an account — you simply submit the form.",
+    "tags": ["navigation", "admin"],
+    "links": [],
+    "sources": ["frontend/src/main.jsx", "frontend/src/sections/admin/AdminLogin.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "website-navigation-07",
+    "category": "website-navigation",
+    "question": "Do I need to create an account to apply?",
+    "variations": [
+      "Is there a signup?",
+      "Do I need a login to submit the form?",
+      "Where do I register?"
+    ],
+    "answer": "No account is needed. The recruitment form on /join is open — just fill it in and submit.",
+    "tags": ["navigation", "recruitment", "account"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "website-navigation-08",
+    "category": "website-navigation",
+    "question": "Does the website work on mobile?",
+    "variations": ["Is the site mobile friendly?", "Can I apply from my phone?"],
+    "answer": "Yes. The site is responsive and the recruitment form works on a phone — use the menu button in the top-right to open navigation on mobile.",
+    "tags": ["navigation", "mobile"],
+    "links": [],
+    "sources": ["frontend/src/sections/NavBar.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "website-navigation-09",
+    "category": "website-navigation",
+    "question": "Where do I find the recruitment teams and what they do?",
+    "variations": ["Where are the team descriptions?", "How do I learn about each team?"],
+    "answer": "Both the Team page and the Join Us form list all five teams with a short description of what each one does.",
+    "tags": ["navigation", "teams"],
+    "links": [
+      { "label": "Team", "href": "/team" },
+      { "label": "Join Us", "href": "/join" }
+    ],
+    "sources": ["frontend/src/data/recruitment.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "website-navigation-10",
+    "category": "website-navigation",
+    "question": "Can I filter events by type?",
+    "variations": ["How do I find only workshops?", "Is there a way to sort events?"],
+    "answer": "Yes — the Events page has category filters: All, Study Jams, Workshops, Hackathons and Community.",
+    "tags": ["navigation", "events", "filter"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#eventCategories"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "recruitment-teams-01",
+    "category": "recruitment-teams",
+    "question": "Which teams can I apply to at GDG ViMEET?",
+    "variations": [
+      "What teams are open?",
+      "List the GDG teams",
+      "What roles are available?",
+      "Which departments can I join?"
+    ],
+    "answer": "There are five teams: Technical, Graphics & Design, Content & Social Media, PR & Outreach, and Event Management. You can apply to more than one.",
+    "tags": ["teams", "recruitment"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#recruitmentTeams"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "recruitment-teams-02",
+    "category": "recruitment-teams",
+    "question": "What does the Technical team do?",
+    "variations": [
+      "Tell me about the Technical team",
+      "What work does the tech team handle?",
+      "What happens in the coding team?"
+    ],
+    "answer": "The Technical team builds web applications, runs AI/ML and Cloud workshops, and organises competitive hackathons and coding labs. Its badge on the site is \"Code & Workshops\".",
+    "tags": ["teams", "technical"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Technical"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "recruitment-teams-03",
+    "category": "recruitment-teams",
+    "question": "What does the Graphics & Design team do?",
+    "variations": [
+      "Tell me about the design team",
+      "What does the graphics team work on?",
+      "Is there a design role?"
+    ],
+    "answer": "The Graphics & Design team designs official GDG branding, social media posts, UI mockups, event banners and stickers. Its badge is \"Design Task Req.\" because there is an optional poster task with the application.",
+    "tags": ["teams", "graphics", "design"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Graphics & Design"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "recruitment-teams-04",
+    "category": "recruitment-teams",
+    "question": "What does the Content & Social Media team do?",
+    "variations": [
+      "Tell me about the content team",
+      "Who handles Instagram?",
+      "Is there a social media role?"
+    ],
+    "answer": "The Content & Social Media team creates reels, writes social copy, photographs events and leads community engagement. Its badge is \"Media & Reels\".",
+    "tags": ["teams", "content", "social-media"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Content & Social Media"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-05",
+    "category": "recruitment-teams",
+    "question": "What does the PR & Outreach team do?",
+    "variations": [
+      "Tell me about the PR team",
+      "Who handles sponsorships?",
+      "What is outreach work?"
+    ],
+    "answer": "The PR & Outreach team drives college sponsorships, connects with campus clubs, manages external outreach and handles media relations. Its badge is \"Outreach & Sponsors\".",
+    "tags": ["teams", "pr", "outreach"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#PR & Outreach"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-06",
+    "category": "recruitment-teams",
+    "question": "What does the Event Management team do?",
+    "variations": [
+      "Tell me about the events team",
+      "Who organises the hackathons?",
+      "What does operations involve?"
+    ],
+    "answer": "The Event Management team coordinates hackathons and tech talks, handles logistics, hosts speaker sessions and manages crowds. Its badge is \"Operations\".",
+    "tags": ["teams", "events", "operations"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Event Management"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-07",
+    "category": "recruitment-teams",
+    "question": "Can I apply to more than one team?",
+    "variations": [
+      "Can I select multiple teams?",
+      "Do I have to pick just one team?",
+      "Is multi-select allowed?",
+      "How many teams can I choose?"
+    ],
+    "answer": "Yes. The form allows multiple selections and says so explicitly: \"You can select more than one team if you are interested in multiple domains!\" You must select at least one.",
+    "tags": ["teams", "application", "multi-select"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#toggleTeam"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "recruitment-teams-08",
+    "category": "recruitment-teams",
+    "question": "Which team should I choose?",
+    "variations": [
+      "Which team is right for me?",
+      "Help me pick a team",
+      "I don't know which team to apply for"
+    ],
+    "answer": "Pick by what you want to spend time on: Technical for building and workshops, Graphics & Design for visual design, Content & Social Media for reels and writing, PR & Outreach for sponsorships and partnerships, Event Management for running events. You can select several if you are torn.",
+    "tags": ["teams", "guidance"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#recruitmentTeams"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "recruitment-teams-09",
+    "category": "recruitment-teams",
+    "question": "Does applying to multiple teams improve my chances?",
+    "variations": [
+      "Is it better to select all teams?",
+      "Should I tick every team?"
+    ],
+    "answer": "The site does not say that selecting more teams helps. Choose the teams you genuinely want to work in — your motivation answer matters more than the number of boxes ticked.",
+    "tags": ["teams", "strategy"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-10",
+    "category": "recruitment-teams",
+    "question": "Do I need coding skills for the Technical team?",
+    "variations": [
+      "What skills do I need for the tech team?",
+      "Do I need to know programming to join Technical?",
+      "What should I know before applying to Technical?"
+    ],
+    "answer": "The Technical team works on web applications, AI/ML and Cloud workshops, hackathons and coding labs, so programming interest is expected. The form does not list a required skill level — mention your experience and any projects in the motivation field.",
+    "tags": ["teams", "technical", "skills"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Technical", "frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-11",
+    "category": "recruitment-teams",
+    "question": "What design tools should I know for the Graphics team?",
+    "variations": [
+      "Which software do designers use here?",
+      "Do I need Photoshop for the design team?",
+      "Is Canva acceptable?"
+    ],
+    "answer": "For the optional poster task the form accepts work made in Photoshop, Illustrator, Figma or Canva — so Canva is fine. Day-to-day work covers branding, social posts, UI mockups, banners and stickers.",
+    "tags": ["teams", "graphics", "tools"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#graphics-task"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-12",
+    "category": "recruitment-teams",
+    "question": "Do I need video editing skills for the Content team?",
+    "variations": [
+      "What skills does the content team need?",
+      "Do I need to make reels?",
+      "Is photography part of the content team?"
+    ],
+    "answer": "The Content & Social Media team creates reels, writes social copy, photographs events and drives community engagement, so editing, writing or photography skills all fit. Describe what you are strongest at in the motivation field.",
+    "tags": ["teams", "content", "skills"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Content & Social Media"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-13",
+    "category": "recruitment-teams",
+    "question": "What skills help for the PR & Outreach team?",
+    "variations": ["Do I need to be good at talking to people for PR?", "What does PR require?"],
+    "answer": "PR & Outreach is about sponsorships, connecting with campus clubs, external outreach and media relations, so communication and persistence matter more than technical skills.",
+    "tags": ["teams", "pr", "skills"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#PR & Outreach"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-14",
+    "category": "recruitment-teams",
+    "question": "What skills help for the Event Management team?",
+    "variations": ["What does the events team look for?", "Is event management hard work?"],
+    "answer": "Event Management covers coordinating hackathons and tech talks, logistics, hosting speaker sessions and crowd management — so organisation, coordination and comfort with people on the day are what count.",
+    "tags": ["teams", "events", "skills"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Event Management"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-15",
+    "category": "recruitment-teams",
+    "question": "Is there a web development team?",
+    "variations": [
+      "Who builds the website?",
+      "Can I work on the website?",
+      "Is web dev separate from Technical?"
+    ],
+    "answer": "For 2026-27 recruitment, web development sits under the Technical team, which handles building web applications. The previous 2025-26 tenure listed a separate Web-Dev team on the Team page.",
+    "tags": ["teams", "web-dev", "technical"],
+    "links": [
+      { "label": "Team", "href": "/team" },
+      { "label": "Join Us", "href": "/join" }
+    ],
+    "sources": ["frontend/src/data/recruitment.js#Technical", "frontend/src/data/team.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-16",
+    "category": "recruitment-teams",
+    "question": "How many people are selected per team?",
+    "variations": [
+      "How many seats are there?",
+      "How many members will you take?",
+      "Is there a limit on selections?"
+    ],
+    "answer": "The number of seats per team has not been published. Applications are reviewed and shortlisted candidates are invited to an interview round.",
+    "tags": ["teams", "selection"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-17",
+    "category": "recruitment-teams",
+    "question": "Can I switch teams after joining?",
+    "variations": [
+      "Is it possible to change my team later?",
+      "What if I picked the wrong team?"
+    ],
+    "answer": "The website does not describe a process for switching teams after selection. Ask the core team at gdgvimeet@gmail.com — in practice this is usually handled case by case.",
+    "tags": ["teams", "switching"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-18",
+    "category": "recruitment-teams",
+    "question": "Which team is best for a first-time applicant with no experience?",
+    "variations": [
+      "I'm a beginner, which team should I join?",
+      "Which team is easiest to start with?",
+      "I have no experience, can I still apply?"
+    ],
+    "answer": "Any of them — the form does not require prior experience, and the motivation field exists so you can explain your interest. Event Management and Content & Social Media are common starting points, but pick what you actually want to learn.",
+    "tags": ["teams", "beginners"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "recruitment-teams-19",
+    "category": "recruitment-teams",
+    "question": "Is the Technical team only about web development?",
+    "variations": ["Does Technical cover AI?", "Can I do cloud work in the Technical team?"],
+    "answer": "No — alongside web applications, the Technical team runs AI/ML and Cloud workshops and organises hackathons and coding labs.",
+    "tags": ["teams", "technical", "scope"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Technical"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-20",
+    "category": "recruitment-teams",
+    "question": "Do all teams require a task or assignment?",
+    "variations": [
+      "Is there a task for every team?",
+      "Do I have to submit work with my application?"
+    ],
+    "answer": "No. Only the Graphics & Design team has a task, the Ganesh Chaturthi poster, and even that one is optional and marked as a bonus. Every other team just needs the form.",
+    "tags": ["teams", "tasks", "application"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#graphics-task"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "recruitment-teams-21",
+    "category": "recruitment-teams",
+    "question": "Can I join the Technical team if I only know the basics?",
+    "variations": [
+      "I know a little Python, is that enough?",
+      "How good do I need to be at coding?"
+    ],
+    "answer": "The site sets no minimum skill bar. The Technical team runs workshops and labs, which means learning is part of the work — explain your current level honestly in the motivation field.",
+    "tags": ["teams", "technical", "beginners"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Technical"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-22",
+    "category": "recruitment-teams",
+    "question": "What is the time commitment for a team member?",
+    "variations": [
+      "How many hours per week does this take?",
+      "Will this affect my studies?",
+      "Is it a big time commitment?"
+    ],
+    "answer": "The website does not state a weekly time commitment. Workload varies around events and campaigns — ask during the interview round or email gdgvimeet@gmail.com.",
+    "tags": ["teams", "commitment"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-23",
+    "category": "recruitment-teams",
+    "question": "Are team positions paid?",
+    "variations": [
+      "Is this a paid role?",
+      "Do core team members get a stipend?",
+      "Will I be paid?"
+    ],
+    "answer": "These are student community roles; the site lists benefits like hands-on project labs, mentorship, hackathons and a certificate with GDG swag, not payment.",
+    "tags": ["teams", "compensation"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#benefits"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-24",
+    "category": "recruitment-teams",
+    "question": "Do I get a certificate for being on a team?",
+    "variations": ["Is there a certificate?", "Will I get proof of my role?"],
+    "answer": "Yes — \"Certificate & GDG Swag\" is listed among the benefits on the recruitment page.",
+    "tags": ["teams", "certificate", "benefits"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#benefits"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-25",
+    "category": "recruitment-teams",
+    "question": "Is there a leadership position I can apply for?",
+    "variations": [
+      "Can I apply to be a lead?",
+      "How do I become GDG Lead?",
+      "Are there team lead roles?"
+    ],
+    "answer": "The application form is for the five teams and does not include a lead role. The Team page shows that the previous tenure had a GDG Lead and team leads, but the site does not describe how those are appointed — ask at gdgvimeet@gmail.com.",
+    "tags": ["teams", "leadership"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js", "frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-26",
+    "category": "recruitment-teams",
+    "question": "What is the difference between the Content team and the Graphics team?",
+    "variations": [
+      "Content vs graphics, which is which?",
+      "Do both teams make posts?"
+    ],
+    "answer": "Graphics & Design makes the visual assets — branding, posters, banners, UI mockups and stickers. Content & Social Media handles reels, written copy, event photography and audience engagement. They work closely but the first is design, the second is media and words.",
+    "tags": ["teams", "comparison"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-27",
+    "category": "recruitment-teams",
+    "question": "What is the difference between PR & Outreach and Event Management?",
+    "variations": ["PR vs events team?", "Who talks to sponsors and who runs the event?"],
+    "answer": "PR & Outreach works outward — sponsorships, other clubs, media relations. Event Management works on delivery — logistics, hosting, speakers and crowd handling on the day.",
+    "tags": ["teams", "comparison"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-28",
+    "category": "recruitment-teams",
+    "question": "Can first-year students apply to any team?",
+    "variations": ["Is any team closed to juniors?", "Are there year restrictions per team?"],
+    "answer": "No team is restricted by year on the site, but the form's year options are SE, TE and BE — first-year (FE) is not currently selectable. Email gdgvimeet@gmail.com if you are in first year and want to take part.",
+    "tags": ["teams", "eligibility", "year"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#YEARS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-29",
+    "category": "recruitment-teams",
+    "question": "Will I get to work on real projects?",
+    "variations": [
+      "Is this hands-on?",
+      "Do members build actual things?",
+      "Will I have something to show for it?"
+    ],
+    "answer": "Yes — the recruitment page lists hands-on project labs, and teams ship real work: the Technical team builds applications and runs workshops, Graphics produces the chapter's branding, and Events runs hackathons and tech talks.",
+    "tags": ["teams", "projects"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#benefits", "frontend/src/data/recruitment.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "recruitment-teams-30",
+    "category": "recruitment-teams",
+    "question": "Can I contribute without formally joining a team?",
+    "variations": [
+      "Can I volunteer for one event?",
+      "Is there a way to help occasionally?"
+    ],
+    "answer": "The site only describes the formal application route for joining a team. If you want to help with a single event, email gdgvimeet@gmail.com and ask — that is not covered on the website.",
+    "tags": ["teams", "volunteering"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "application-process-01",
+    "category": "application-process",
+    "question": "How do I apply to GDG ViMEET?",
+    "variations": [
+      "How can I join?",
+      "What is the application process?",
+      "How do I become a member?",
+      "Where do I sign up?"
+    ],
+    "answer": "Go to the Join Us page at /join, fill in your student details, pick at least one team, and submit. You will see an Application ID on screen and get a confirmation email.",
+    "tags": ["application", "how-to"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-02",
+    "category": "application-process",
+    "question": "Are applications open right now?",
+    "variations": [
+      "Is recruitment open?",
+      "Can I still apply?",
+      "Has the recruitment closed?",
+      "Is it too late to apply?"
+    ],
+    "answer": "The recruitment page shows \"Applications Open • ViMEET 2026-27\" and the form accepts submissions. No closing date is published, so apply as soon as you can and watch @gdgvimeet on Instagram for announcements.",
+    "tags": ["application", "status", "deadline"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-03",
+    "category": "application-process",
+    "question": "What is the deadline to apply?",
+    "variations": [
+      "When do applications close?",
+      "What is the last date?",
+      "How long do I have to apply?"
+    ],
+    "answer": "No deadline has been announced on the website. Applications are currently open — check @gdgvimeet on Instagram for a closing date announcement.",
+    "tags": ["application", "deadline"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-04",
+    "category": "application-process",
+    "question": "What information do I need to fill in the form?",
+    "variations": [
+      "What fields are in the application?",
+      "What details do you ask for?",
+      "What should I keep ready before applying?"
+    ],
+    "answer": "Full name, roll number, department, year of study, a 10-digit WhatsApp/mobile number, your email, and at least one team. Optionally you can add a short motivation note, and Graphics applicants may add a poster Drive link.",
+    "tags": ["application", "fields"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-05",
+    "category": "application-process",
+    "question": "Which fields are compulsory?",
+    "variations": [
+      "What is required in the form?",
+      "Which fields can I leave blank?",
+      "Are all fields mandatory?"
+    ],
+    "answer": "Required: full name, roll number, department, year, mobile number, email, and at least one team. Optional: the motivation note and, for Graphics & Design, the poster Drive link.",
+    "tags": ["application", "fields", "required"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#validate"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-06",
+    "category": "application-process",
+    "question": "Which departments can I select?",
+    "variations": [
+      "What branches are listed?",
+      "Is my department in the dropdown?",
+      "What are the department options?"
+    ],
+    "answer": "Computer Engineering, CSE (AIML), Mechanical, EXTC, Civil and Electrical.",
+    "tags": ["application", "department"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#DEPARTMENTS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-07",
+    "category": "application-process",
+    "question": "My department is not in the list — what do I do?",
+    "variations": [
+      "My branch isn't listed",
+      "What if my course is missing from the dropdown?"
+    ],
+    "answer": "The form only offers Computer Engineering, CSE (AIML), Mechanical, EXTC, Civil and Electrical. If none fits, email gdgvimeet@gmail.com so the team can guide you rather than submitting a wrong branch.",
+    "tags": ["application", "department", "edge-case"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#DEPARTMENTS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-08",
+    "category": "application-process",
+    "question": "Which years of study can apply?",
+    "variations": [
+      "What year options are there?",
+      "Can SE students apply?",
+      "Is BE allowed to apply?"
+    ],
+    "answer": "The form offers SE, TE and BE, with SE selected by default.",
+    "tags": ["application", "year", "eligibility"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#YEARS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-09",
+    "category": "application-process",
+    "question": "Can first-year (FE) students apply?",
+    "variations": [
+      "I am in first year, can I join?",
+      "Is FE allowed?",
+      "Why can't I select first year?"
+    ],
+    "answer": "The form's year options are only SE, TE and BE, so first year is not currently selectable. If you are in FE and want to take part, email gdgvimeet@gmail.com.",
+    "tags": ["application", "year", "eligibility", "first-year"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#YEARS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-10",
+    "category": "application-process",
+    "question": "What format should my mobile number be in?",
+    "variations": [
+      "Why is my phone number rejected?",
+      "Do I add +91?",
+      "What number format does the form accept?"
+    ],
+    "answer": "Enter a 10-digit Indian mobile number starting with 6, 7, 8 or 9 — the +91 prefix is already shown, so do not type it. Anything else shows \"Please enter a valid 10-digit Indian mobile number.\"",
+    "tags": ["application", "mobile", "validation"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#validate"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-11",
+    "category": "application-process",
+    "question": "Should I use my college email or personal email?",
+    "variations": [
+      "Which email should I enter?",
+      "Do I need a vimeet.ac.in email?",
+      "Can I use Gmail?"
+    ],
+    "answer": "Any valid email works — the field's example shows a college address, but it is not enforced. Use one you actually check, because your confirmation and interview updates go there.",
+    "tags": ["application", "email"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#validate"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-12",
+    "category": "application-process",
+    "question": "What roll number should I enter?",
+    "variations": [
+      "What is the roll number format?",
+      "Which roll number do you want?",
+      "Does case matter for roll number?"
+    ],
+    "answer": "Your college roll number — the form shows \"e.g. 23CE045\" as the example. It is saved in uppercase automatically, so case does not matter.",
+    "tags": ["application", "roll-number"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/services/db.js#saveApplication"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-13",
+    "category": "application-process",
+    "question": "Is the motivation section compulsory?",
+    "variations": [
+      "Do I have to write why I want to join?",
+      "Can I skip the 'Why GDG ViMEET' box?",
+      "What should I write in motivation?"
+    ],
+    "answer": "It is optional. If you do write something, mention past experience, projects, or why you want to join — you can include GitHub, LinkedIn or portfolio links there.",
+    "tags": ["application", "motivation"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#motivation"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-14",
+    "category": "application-process",
+    "question": "Do I need a Google Drive link to apply for the Graphics team?",
+    "variations": [
+      "Is the poster task compulsory for Graphics & Design?",
+      "Can I apply for graphics without submitting a design?",
+      "What is the Ganesh Chaturthi poster task?",
+      "Do I have to do the design task?"
+    ],
+    "answer": "No — the Ganesh Chaturthi poster is an optional bonus task for the Graphics & Design team. You can submit without it, but a Drive link set to \"Anyone with the link can view\" strengthens your application.",
+    "tags": ["application", "graphics", "poster", "optional"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#graphicsDriveLink"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-15",
+    "category": "application-process",
+    "question": "How do I submit the poster for the Graphics team?",
+    "variations": [
+      "How do I share my design?",
+      "What are the poster submission rules?",
+      "How should I upload my artwork?"
+    ],
+    "answer": "Design an original Ganesh Chaturthi poster in Photoshop, Illustrator, Figma or Canva, export it as JPG, PNG or PDF, upload it to Google Drive, set sharing to \"Anyone with the link can view\", then paste that link in the form.",
+    "tags": ["application", "graphics", "poster"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#graphics-task"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-16",
+    "category": "application-process",
+    "question": "Why is my poster link being rejected?",
+    "variations": [
+      "The Drive link shows an error",
+      "My design link won't submit",
+      "Invalid URL on the poster field"
+    ],
+    "answer": "The link must be a full URL starting with http or https. Paste the complete Google Drive address rather than a shortened or partial one.",
+    "tags": ["application", "graphics", "validation"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#validate"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-17",
+    "category": "application-process",
+    "question": "Can I submit the poster later, after applying?",
+    "variations": [
+      "I forgot to add my design link",
+      "Can I send my poster after submitting the form?"
+    ],
+    "answer": "The form has no way to add it later. Submit the form anyway and email your Drive link to gdgvimeet@gmail.com with your Application ID.",
+    "tags": ["application", "graphics", "edit"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-18",
+    "category": "application-process",
+    "question": "How long does the application take to fill?",
+    "variations": ["Is the form long?", "How many questions are there?"],
+    "answer": "It is short — one screen with student details, team selection and an optional motivation box. A few minutes at most, longer only if you are preparing the optional Graphics poster.",
+    "tags": ["application", "effort"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-19",
+    "category": "application-process",
+    "question": "Can I edit my application after submitting?",
+    "variations": [
+      "I made a mistake in my form",
+      "How do I change my details?",
+      "Can I update my application?"
+    ],
+    "answer": "There is no edit option once submitted. Email gdgvimeet@gmail.com with your Application ID and the correction, or submit again and mention which entry is the correct one.",
+    "tags": ["application", "edit", "mistake"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-20",
+    "category": "application-process",
+    "question": "Can I apply twice?",
+    "variations": [
+      "Can I submit more than one application?",
+      "What if I apply again?",
+      "Is duplicate applying allowed?"
+    ],
+    "answer": "The form does allow another submission — the success screen even has a \"Submit Another Response\" button. If you are correcting an earlier entry, mention that in the motivation field or email gdgvimeet@gmail.com so the team knows which to keep.",
+    "tags": ["application", "duplicate"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#resetForm"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-21",
+    "category": "application-process",
+    "question": "What happens right after I submit?",
+    "variations": [
+      "What do I see after applying?",
+      "Is there a confirmation screen?",
+      "How do I know my form went through?"
+    ],
+    "answer": "You get a success screen with your Application ID, department and year, and selected teams, plus a confirmation email. If you see that ID, your application was saved.",
+    "tags": ["application", "confirmation"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#submittedData"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-22",
+    "category": "application-process",
+    "question": "What is an Application ID and why do I need it?",
+    "variations": [
+      "What is the ID shown after applying?",
+      "Should I save my application ID?",
+      "What does gdg- mean in my ID?"
+    ],
+    "answer": "It is your unique reference, in the form gdg-xxxxxxxx-xxxx. Save it — quoting it in any email about your application makes it much faster for the team to find you.",
+    "tags": ["application", "id"],
+    "links": [],
+    "sources": ["backend/server.js#application-id"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-23",
+    "category": "application-process",
+    "question": "The form won't submit — what should I check?",
+    "variations": [
+      "My application is not going through",
+      "Submit button not working",
+      "I get an error when applying"
+    ],
+    "answer": "Check the fields marked in red: a 10-digit mobile starting 6-9, a valid email, name and roll number filled in, and at least one team selected. If everything looks right and it still fails, try again shortly or email gdgvimeet@gmail.com.",
+    "tags": ["application", "troubleshooting"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#validate"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-24",
+    "category": "application-process",
+    "question": "Do I need to agree to anything when applying?",
+    "variations": [
+      "What am I consenting to?",
+      "Will you contact me on WhatsApp?"
+    ],
+    "answer": "Yes — the form notes that by submitting you agree to receive interview updates on WhatsApp and email.",
+    "tags": ["application", "consent", "privacy"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-25",
+    "category": "application-process",
+    "question": "Who can see the details I submit?",
+    "variations": [
+      "Is my data private?",
+      "Who reads my application?",
+      "What do you do with my information?"
+    ],
+    "answer": "Applications are reviewed by the GDG ViMEET core team through a password-protected admin dashboard. The site does not publish applicant details anywhere public.",
+    "tags": ["application", "privacy"],
+    "links": [],
+    "sources": ["frontend/src/sections/admin/AdminGate.jsx", "backend/middleware/adminAuth.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-26",
+    "category": "application-process",
+    "question": "Is there an interview?",
+    "variations": [
+      "Will I be interviewed?",
+      "What are the selection rounds?",
+      "Is there a test after applying?"
+    ],
+    "answer": "Yes — shortlisted students are contacted by email or WhatsApp for an interview round. No written test is mentioned.",
+    "tags": ["application", "interview", "selection"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "application-process-27",
+    "category": "application-process",
+    "question": "What should I prepare for the interview?",
+    "variations": [
+      "How do I prepare for the GDG interview?",
+      "What will you ask me?"
+    ],
+    "answer": "The site does not publish interview details. Being able to talk about why you chose your team and anything you have built or organised before is a sensible starting point.",
+    "tags": ["application", "interview", "preparation"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-28",
+    "category": "application-process",
+    "question": "Do I need a portfolio or GitHub to apply?",
+    "variations": [
+      "Should I attach my resume?",
+      "Do you want to see my past work?",
+      "Can I add my LinkedIn?"
+    ],
+    "answer": "Nothing is required. The optional motivation field is where you can include GitHub, LinkedIn or portfolio links if you have them.",
+    "tags": ["application", "portfolio"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#motivation"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-29",
+    "category": "application-process",
+    "question": "Can I apply from my phone?",
+    "variations": ["Does the form work on mobile?", "Is the application mobile friendly?"],
+    "answer": "Yes, the form is responsive and works on a phone.",
+    "tags": ["application", "mobile"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-30",
+    "category": "application-process",
+    "question": "Is there an application fee?",
+    "variations": ["Do I pay to apply?", "Is the form free?"],
+    "answer": "The form never asks for payment. If anyone asks you to pay to apply, verify with gdgvimeet@gmail.com first.",
+    "tags": ["application", "fees"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-31",
+    "category": "application-process",
+    "question": "What is the difference between /join and /recruitment?",
+    "variations": ["Are there two application pages?", "Which link should I use to apply?"],
+    "answer": "They are the same page — both addresses open the recruitment form. Use either.",
+    "tags": ["application", "navigation"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/main.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-32",
+    "category": "application-process",
+    "question": "Can I choose a team but change my mind before submitting?",
+    "variations": ["Can I deselect a team?", "How do I unselect a team?"],
+    "answer": "Yes — team selection toggles, so click a selected team again to remove it. The counter shows how many you have chosen.",
+    "tags": ["application", "teams", "form"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#toggleTeam"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-33",
+    "category": "application-process",
+    "question": "What if I don't select any team?",
+    "variations": ["Can I apply without choosing a team?", "Is team selection mandatory?"],
+    "answer": "You cannot submit without one. The form shows \"Please select at least one team you want to join.\"",
+    "tags": ["application", "teams", "validation"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#validate"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-34",
+    "category": "application-process",
+    "question": "Do I need to be present on campus to join?",
+    "variations": ["Can I contribute remotely?", "Is attendance required?"],
+    "answer": "The site does not state an attendance policy. Since events run on campus at ViMEET, expect some in-person involvement — ask during the interview round.",
+    "tags": ["application", "attendance"],
+    "links": [],
+    "sources": ["frontend/src/data/site.js#institute"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "application-process-35",
+    "category": "application-process",
+    "question": "I applied last year — do I need to apply again?",
+    "variations": [
+      "Do previous members reapply?",
+      "I was in the 2025-26 team, what now?"
+    ],
+    "answer": "This recruitment is for the 2026-27 chapter and the site lists 2025-26 as the previous tenure, so submit a fresh application. If you were on the previous team, say so in the motivation field.",
+    "tags": ["application", "returning-members"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Team.jsx", "frontend/src/data/site.js#chapterYear"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "after-applying-01",
+    "category": "after-applying",
+    "question": "Will I get a confirmation email after applying?",
+    "variations": [
+      "Do you send an email after I apply?",
+      "Is there any acknowledgement?",
+      "How do I know you received my form?"
+    ],
+    "answer": "Yes. You get an email titled \"Application Received - GDG Vimeet\" listing your Application ID, name, roll number, department, year, mobile and selected teams, plus a button to join the WhatsApp group.",
+    "tags": ["after-applying", "email", "confirmation"],
+    "links": [],
+    "sources": ["backend/server.js#confirmation-email"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "after-applying-02",
+    "category": "after-applying",
+    "question": "I didn't get the confirmation email — what should I do?",
+    "variations": [
+      "No email arrived after applying",
+      "Confirmation email missing",
+      "Check if my application went through"
+    ],
+    "answer": "Check your spam and promotions folders first. If you saw an Application ID on screen after submitting, your application was saved even if the email did not arrive — email gdgvimeet@gmail.com with that ID to confirm.",
+    "tags": ["after-applying", "email", "troubleshooting"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/utils/email.js", "frontend/src/sections/Recruitment.jsx#submittedData"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "after-applying-03",
+    "category": "after-applying",
+    "question": "What are the next steps after I apply?",
+    "variations": [
+      "What happens after submitting?",
+      "What is the process after applying?",
+      "When will I hear back?"
+    ],
+    "answer": "The team reviews your application and any portfolio or poster you submitted. Shortlisted students get an email or WhatsApp update inviting them to the interview round. Announcements are posted on @gdgvimeet on Instagram.",
+    "tags": ["after-applying", "process"],
+    "links": [{ "label": "Instagram", "href": "https://www.instagram.com/gdgvimeet/" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "after-applying-04",
+    "category": "after-applying",
+    "question": "How long does it take to hear back?",
+    "variations": [
+      "When will results be announced?",
+      "How many days for a response?",
+      "What is the timeline for selection?"
+    ],
+    "answer": "No timeline has been published. Watch your email and @gdgvimeet on Instagram for updates.",
+    "tags": ["after-applying", "timeline"],
+    "links": [{ "label": "Instagram", "href": "https://www.instagram.com/gdgvimeet/" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "after-applying-05",
+    "category": "after-applying",
+    "question": "Can I check my application status online?",
+    "variations": [
+      "Is there a status page?",
+      "How do I track my application?",
+      "Where can I see if I was selected?"
+    ],
+    "answer": "There is no self-service status page — the dashboard that holds statuses is for core team members only. Email gdgvimeet@gmail.com with your Application ID if you need an update.",
+    "tags": ["after-applying", "status"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/admin/AdminGate.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "after-applying-06",
+    "category": "after-applying",
+    "question": "What does my application status mean?",
+    "variations": [
+      "What are the application statuses?",
+      "What does Pending Review mean?",
+      "What does Shortlisted mean?"
+    ],
+    "answer": "Internally an application moves through Pending Review (the default when submitted), Reviewed, Shortlisted or Rejected. Shortlisted means you are being invited to the interview round.",
+    "tags": ["after-applying", "status"],
+    "links": [],
+    "sources": ["backend/models/Application.js", "frontend/src/sections/ApplicationsAdmin.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-07",
+    "category": "after-applying",
+    "question": "Can you tell me if I have been selected?",
+    "variations": [
+      "Did I get in?",
+      "Check my application for me",
+      "What is the status of my form?",
+      "Am I shortlisted?"
+    ],
+    "answer": "I cannot look up individual applications — I have no access to applicant records. The team contacts shortlisted students by email or WhatsApp; for a direct update, email gdgvimeet@gmail.com with your Application ID.",
+    "tags": ["after-applying", "status", "bot-limits"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "after-applying-08",
+    "category": "after-applying",
+    "question": "How will you contact me?",
+    "variations": [
+      "Will you call or email me?",
+      "Where will I get updates?",
+      "Do you message on WhatsApp?"
+    ],
+    "answer": "By email and WhatsApp — the form notes that submitting means you agree to receive interview updates on both. Make sure the number and email you entered are correct.",
+    "tags": ["after-applying", "contact"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-09",
+    "category": "after-applying",
+    "question": "How do I join the WhatsApp group?",
+    "variations": [
+      "Where is the WhatsApp link?",
+      "I lost the group link",
+      "How do I get chapter announcements?"
+    ],
+    "answer": "The \"Join WhatsApp Group\" button is in your confirmation email. If you cannot find that email, check spam, then email gdgvimeet@gmail.com with your Application ID.",
+    "tags": ["after-applying", "whatsapp"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/server.js#confirmation-email"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "after-applying-10",
+    "category": "after-applying",
+    "question": "Is joining the WhatsApp group compulsory?",
+    "variations": ["Do I have to join the group?", "What is the WhatsApp group for?"],
+    "answer": "The email describes it as the place for important announcements and next steps, so it is strongly encouraged. The site does not say it is mandatory.",
+    "tags": ["after-applying", "whatsapp"],
+    "links": [],
+    "sources": ["backend/server.js#confirmation-email"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-11",
+    "category": "after-applying",
+    "question": "What if I am not selected?",
+    "variations": [
+      "What happens if I get rejected?",
+      "Can I reapply if rejected?",
+      "Is there another chance?"
+    ],
+    "answer": "The site does not describe a process for unsuccessful applicants or a re-application window. You can still attend community events, and asking the team at gdgvimeet@gmail.com about future openings is reasonable.",
+    "tags": ["after-applying", "rejection"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-12",
+    "category": "after-applying",
+    "question": "Will I get feedback on my application?",
+    "variations": ["Do you tell me why I wasn't selected?", "Is there feedback after the interview?"],
+    "answer": "The website does not mention giving feedback on applications. You can ask the team directly at gdgvimeet@gmail.com.",
+    "tags": ["after-applying", "feedback"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-13",
+    "category": "after-applying",
+    "question": "I entered the wrong email or phone number — what now?",
+    "variations": [
+      "My contact details are wrong in the application",
+      "I made a typo in my number",
+      "How do I correct my email?"
+    ],
+    "answer": "Email gdgvimeet@gmail.com with your Application ID and the correct details. There is no way to edit a submitted application yourself.",
+    "tags": ["after-applying", "correction"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-14",
+    "category": "after-applying",
+    "question": "Can I add another team to my application after submitting?",
+    "variations": [
+      "I want to change my team choice",
+      "Can I apply to a second team later?"
+    ],
+    "answer": "Not through the form. Email gdgvimeet@gmail.com with your Application ID and the team you want to add, or submit a new application noting the change in the motivation field.",
+    "tags": ["after-applying", "teams", "correction"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-15",
+    "category": "after-applying",
+    "question": "Do you keep my data after recruitment ends?",
+    "variations": [
+      "Will my details be deleted?",
+      "How long do you store applications?",
+      "Can I ask you to remove my data?"
+    ],
+    "answer": "The site does not publish a data retention policy. Applications are stored in the chapter's private database and reviewed by the core team — email gdgvimeet@gmail.com if you want your data removed.",
+    "tags": ["after-applying", "privacy", "data"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/models/Application.js"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-16",
+    "category": "after-applying",
+    "question": "Is the interview online or in person?",
+    "variations": ["Where will the interview happen?", "Is the interview on campus?"],
+    "answer": "The format is not stated on the site. The invitation you receive by email or WhatsApp will say.",
+    "tags": ["after-applying", "interview"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-17",
+    "category": "after-applying",
+    "question": "What happens in the interview round?",
+    "variations": ["What is the interview like?", "Is it technical?"],
+    "answer": "The site confirms there is an interview round for shortlisted students but does not describe its format or content.",
+    "tags": ["after-applying", "interview"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-18",
+    "category": "after-applying",
+    "question": "Can I withdraw my application?",
+    "variations": ["I want to cancel my application", "How do I take my name out?"],
+    "answer": "Email gdgvimeet@gmail.com with your Application ID and ask to withdraw. There is no self-service option.",
+    "tags": ["after-applying", "withdraw"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-19",
+    "category": "after-applying",
+    "question": "When does the new team start working?",
+    "variations": ["When do selected members begin?", "When does the tenure start?"],
+    "answer": "No start date is published. The chapter year is 2026-27, and selected members are onboarded after the interview round.",
+    "tags": ["after-applying", "onboarding"],
+    "links": [],
+    "sources": ["frontend/src/data/site.js#chapterYear"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-20",
+    "category": "after-applying",
+    "question": "Will my application be reviewed if I applied to several teams?",
+    "variations": [
+      "Do all teams see my application?",
+      "Is a multi-team application reviewed separately?"
+    ],
+    "answer": "Your application records every team you selected, and the review dashboard lets the core team filter by team, so each selected team can see it.",
+    "tags": ["after-applying", "teams", "review"],
+    "links": [],
+    "sources": ["frontend/src/sections/ApplicationsAdmin.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-21",
+    "category": "after-applying",
+    "question": "Does submitting the poster guarantee selection for Graphics?",
+    "variations": [
+      "Will my design get me in?",
+      "Is the poster task scored?"
+    ],
+    "answer": "No. The poster is an optional bonus that strengthens a Graphics & Design application; the site does not describe it as a guarantee or publish how it is scored.",
+    "tags": ["after-applying", "graphics", "selection"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx#graphics-task"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-22",
+    "category": "after-applying",
+    "question": "Will results be posted publicly?",
+    "variations": [
+      "Do you announce selected names?",
+      "Will there be a list of selected students?"
+    ],
+    "answer": "The site does not say results are published publicly; shortlisted students are contacted individually by email or WhatsApp. General announcements appear on Instagram.",
+    "tags": ["after-applying", "results"],
+    "links": [{ "label": "Instagram", "href": "https://www.instagram.com/gdgvimeet/" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#next-steps"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-23",
+    "category": "after-applying",
+    "question": "I submitted twice by mistake — is that a problem?",
+    "variations": [
+      "I have duplicate applications",
+      "I applied twice accidentally"
+    ],
+    "answer": "It is not a problem, but email gdgvimeet@gmail.com with both Application IDs and say which one to keep, so the team reviews the right entry.",
+    "tags": ["after-applying", "duplicate"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#resetForm"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-24",
+    "category": "after-applying",
+    "question": "Can I attend events while my application is pending?",
+    "variations": [
+      "Do I have to wait for selection to join events?",
+      "Can I come to a workshop before results?"
+    ],
+    "answer": "Community events are open to students generally — you do not need to be selected to take part. Watch Instagram and the Events page for what is coming up.",
+    "tags": ["after-applying", "events"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/sections/Events.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "after-applying-25",
+    "category": "after-applying",
+    "question": "Who reviews the applications?",
+    "variations": ["Who decides who gets in?", "Who sees my form?"],
+    "answer": "The GDG ViMEET core team reviews applications through a private, password-protected dashboard.",
+    "tags": ["after-applying", "review", "privacy"],
+    "links": [],
+    "sources": ["frontend/src/sections/ApplicationsAdmin.jsx", "backend/middleware/adminAuth.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "eligibility-01",
+    "category": "eligibility",
+    "question": "Who is eligible to apply to GDG ViMEET?",
+    "variations": [
+      "What are the eligibility criteria?",
+      "Am I allowed to apply?",
+      "Who can join the team?"
+    ],
+    "answer": "ViMEET students in SE, TE or BE, from Computer Engineering, CSE (AIML), Mechanical, EXTC, Civil or Electrical. No minimum marks or prior experience are required.",
+    "tags": ["eligibility"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#DEPARTMENTS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "eligibility-02",
+    "category": "eligibility",
+    "question": "Is there a minimum CGPA or marks requirement?",
+    "variations": [
+      "Do you check academic performance?",
+      "Do my grades matter?",
+      "Is there a percentage cutoff?"
+    ],
+    "answer": "No academic cutoff is mentioned anywhere on the site, and the form does not ask for marks or CGPA.",
+    "tags": ["eligibility", "academics"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "eligibility-03",
+    "category": "eligibility",
+    "question": "Do I need previous experience to join?",
+    "variations": [
+      "Can beginners apply?",
+      "Is experience required?",
+      "I have never done this before, can I apply?"
+    ],
+    "answer": "No prior experience is required. The only experience-related field is the optional motivation box, where you can mention anything you have done.",
+    "tags": ["eligibility", "experience", "beginners"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#motivation"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "eligibility-04",
+    "category": "eligibility",
+    "question": "Can final year (BE) students apply?",
+    "variations": ["Is BE eligible?", "Am I too senior to join?"],
+    "answer": "Yes — BE is one of the three year options on the form, alongside SE and TE.",
+    "tags": ["eligibility", "year"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#YEARS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-05",
+    "category": "eligibility",
+    "question": "Can students from non-computer branches apply?",
+    "variations": [
+      "Can mechanical students join?",
+      "I'm from Civil, is that OK?",
+      "Is this only for CS students?"
+    ],
+    "answer": "Yes. Mechanical, EXTC, Civil and Electrical are all listed in the form alongside Computer Engineering and CSE (AIML), and several teams are non-technical.",
+    "tags": ["eligibility", "department"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#DEPARTMENTS"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "eligibility-06",
+    "category": "eligibility",
+    "question": "Can I be in another club and still join GDG ViMEET?",
+    "variations": [
+      "Can I be part of two committees?",
+      "Does GDG allow other club memberships?"
+    ],
+    "answer": "The site does not state any restriction on being in other clubs. If you are worried about clashing commitments, raise it during the interview round.",
+    "tags": ["eligibility", "commitments"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-07",
+    "category": "eligibility",
+    "question": "Are diploma or lateral entry students eligible?",
+    "variations": ["I joined through diploma, can I apply?", "Is lateral entry allowed?"],
+    "answer": "The form goes by year (SE, TE, BE) and department rather than entry route, so pick your current year. If you are unsure, email gdgvimeet@gmail.com.",
+    "tags": ["eligibility", "diploma"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#YEARS"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-08",
+    "category": "eligibility",
+    "question": "Can postgraduate or MBA students apply?",
+    "variations": ["Is this only for undergraduates?", "Can MTech students join?"],
+    "answer": "The form's year options are SE, TE and BE, which are undergraduate years, so postgraduate options are not offered. Email gdgvimeet@gmail.com if you are a postgraduate student and want to be involved.",
+    "tags": ["eligibility", "postgraduate"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx#YEARS"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-09",
+    "category": "eligibility",
+    "question": "Is there any gender or category restriction?",
+    "variations": ["Is it open to everyone?", "Any restrictions on who can apply?"],
+    "answer": "No. The application asks only for your name, roll number, department, year, contact details and team preferences.",
+    "tags": ["eligibility", "inclusion"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-10",
+    "category": "eligibility",
+    "question": "Do I need a laptop to be on a team?",
+    "variations": ["Is a laptop required?", "What equipment do I need?"],
+    "answer": "The site does not list any equipment requirement. Technical and design work would realistically need a computer, but nothing is stated as mandatory.",
+    "tags": ["eligibility", "equipment"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-11",
+    "category": "eligibility",
+    "question": "Can I apply if I am on an internship or placement?",
+    "variations": ["I have an internship, can I still join?", "What if I am busy with placements?"],
+    "answer": "Nothing on the site prevents it. Since workload varies around events, mention your availability during the interview round.",
+    "tags": ["eligibility", "availability"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-12",
+    "category": "eligibility",
+    "question": "Do I need a Google account to participate?",
+    "variations": ["Is a Gmail required?", "Do I need a Google Developer account?"],
+    "answer": "Not to apply. A Google account is useful in practice — the Graphics poster task uses Google Drive, and Google Cloud Study Jams run on Google platforms.",
+    "tags": ["eligibility", "google-account"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx#graphics-task", "frontend/src/data/events.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-13",
+    "category": "eligibility",
+    "question": "Is there an age limit?",
+    "variations": ["Any age restriction?", "Do you have an age criteria?"],
+    "answer": "No age criteria are mentioned. It is a student community at ViMEET, so eligibility follows from being a current student.",
+    "tags": ["eligibility", "age"],
+    "links": [],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-14",
+    "category": "eligibility",
+    "question": "Can faculty or staff join a team?",
+    "variations": ["Is this only for students?", "Can teachers be part of GDG?"],
+    "answer": "The teams are student roles. Faculty are involved as guides — the Team page lists a faculty coordinator and heads of department under \"Under The Guidance Of\".",
+    "tags": ["eligibility", "faculty"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js#guidance"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "eligibility-15",
+    "category": "eligibility",
+    "question": "I am from another college — can I apply to a GDG ViMEET team?",
+    "variations": [
+      "Can outsiders join the core team?",
+      "Non-ViMEET student applying"
+    ],
+    "answer": "The form is built for ViMEET students: it asks for a ViMEET roll number and lists ViMEET departments. If you are from another college, look for the GDG chapter at your own institute, or email gdgvimeet@gmail.com about attending events.",
+    "tags": ["eligibility", "external"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/sections/Recruitment.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "events-01",
+    "category": "events",
+    "question": "What events has GDG ViMEET run?",
+    "variations": [
+      "What have you organised before?",
+      "List your past events",
+      "What kind of events do you do?"
+    ],
+    "answer": "Four are listed on the site: the Google Cloud Study Jams Campaign, the Git & GitHub Workshop, Nirmaan — an 8 Hour Webathon, and a Jamming Session. Each has a photo gallery on the Events page.",
+    "tags": ["events", "past"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#pastEvents"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "events-02",
+    "category": "events",
+    "question": "What is the next event?",
+    "variations": [
+      "What's coming up?",
+      "Is there an upcoming event?",
+      "What event is next?",
+      "When is your next event?"
+    ],
+    "answer": "The Google Cloud & AI Study Jam is listed as coming this semester — hands-on Google Cloud Skills Boost labs, generative AI quests, badges and official Google swag, in the computer labs and online. An exact date has not been announced.",
+    "tags": ["events", "upcoming"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#upcomingEvents"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "events-03",
+    "category": "events",
+    "question": "When is the next Study Jam happening?",
+    "variations": [
+      "What date is the Cloud Study Jam?",
+      "Do you have a date for the AI Study Jam?",
+      "When does the study jam start?"
+    ],
+    "answer": "No date has been announced — the site says \"Coming This Semester\". Follow @gdgvimeet on Instagram for the announcement.",
+    "tags": ["events", "upcoming", "date"],
+    "links": [{ "label": "Instagram", "href": "https://www.instagram.com/gdgvimeet/" }],
+    "sources": ["frontend/src/data/events.js#upcomingEvents"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "events-04",
+    "category": "events",
+    "question": "What was the Google Cloud Study Jams Campaign?",
+    "variations": [
+      "Tell me about the cloud campaign",
+      "What is the Study Jams campaign?",
+      "What was your biggest event?"
+    ],
+    "answer": "It was the chapter's highlighted campaign: participants completed 20+ Google Cloud courses plus an Arcade Game to earn official goodies. Of 245+ participants, 107 completed it, with the core team guiding students through labs and doubts throughout.",
+    "tags": ["events", "study-jams", "cloud"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#Google Cloud Study Jams Campaign"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "events-05",
+    "category": "events",
+    "question": "How many students completed the Google Cloud Study Jams?",
+    "variations": [
+      "How many people finished the cloud campaign?",
+      "What were the study jam numbers?",
+      "How many participants were there?"
+    ],
+    "answer": "245+ students took part and 107 completed the campaign and became eligible for goodies, each finishing 20+ Google Cloud courses along with an Arcade Game.",
+    "tags": ["events", "study-jams", "stats"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#stats"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-06",
+    "category": "events",
+    "question": "Who led the Google Cloud Study Jams campaign?",
+    "variations": [
+      "Who ran the cloud campaign?",
+      "Who was the cloud mentor?",
+      "Who guided the study jams?"
+    ],
+    "answer": "It was carried out under Faculty Coordinator Prof. Charusheela Pandit and led by GDG Lead Pranav Salunkhe, with Cloud Campaign Mentor Nimish Patil and GDG Facilitator Harsh Dhanawade.",
+    "tags": ["events", "study-jams", "credits"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#credits"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-07",
+    "category": "events",
+    "question": "What was covered in the Git & GitHub Workshop?",
+    "variations": [
+      "Tell me about the Git workshop",
+      "What did the GitHub session teach?",
+      "Was there a version control workshop?"
+    ],
+    "answer": "A hands-on session on Git fundamentals and collaborative workflows on GitHub — branching, commits, pull requests and resolving merge conflicts.",
+    "tags": ["events", "workshops", "git"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#Git & GitHub Workshop"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-08",
+    "category": "events",
+    "question": "What is Nirmaan?",
+    "variations": [
+      "Tell me about the webathon",
+      "What was the 8 hour hackathon?",
+      "Have you run a hackathon?"
+    ],
+    "answer": "Nirmaan was an 8-hour webathon — a build sprint where teams designed and shipped a working web project from scratch in a single day.",
+    "tags": ["events", "hackathons", "nirmaan"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#Nirmaan"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "events-09",
+    "category": "events",
+    "question": "What was the Jamming Session?",
+    "variations": [
+      "Tell me about the jamming session",
+      "Do you do non-technical events?",
+      "Was there a music event?"
+    ],
+    "answer": "An informal community hangout where members unwind, play music together and connect outside of workshops and hackathons.",
+    "tags": ["events", "community"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#Jamming Session"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-10",
+    "category": "events",
+    "question": "When did your past events take place?",
+    "variations": [
+      "What dates were the past events?",
+      "When was the Git workshop held?",
+      "When did Nirmaan happen?"
+    ],
+    "answer": "Exact dates are not published yet — the site marks them as to be confirmed for 2025-26. The Events page galleries show what each one looked like.",
+    "tags": ["events", "dates"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#date"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "events-11",
+    "category": "events",
+    "question": "Who can attend GDG ViMEET events?",
+    "variations": [
+      "Are events open to all students?",
+      "Do I need to be a member to attend?",
+      "Can anyone come?"
+    ],
+    "answer": "Events are community activities for students — you do not need to be on the core team to attend. Details for each event are announced on Instagram.",
+    "tags": ["events", "attendance"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/sections/Events.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "events-12",
+    "category": "events",
+    "question": "How do I register for an event?",
+    "variations": [
+      "Where do I sign up for an event?",
+      "Is there event registration?",
+      "How do I book a place?"
+    ],
+    "answer": "There is no general event registration form on the site. Registration details are shared per event on @gdgvimeet on Instagram — the current upcoming event just says \"Stay Tuned\".",
+    "tags": ["events", "registration"],
+    "links": [{ "label": "Instagram", "href": "https://www.instagram.com/gdgvimeet/" }],
+    "sources": ["frontend/src/data/events.js#upcomingEvents"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "events-13",
+    "category": "events",
+    "question": "Are events free to attend?",
+    "variations": ["Do I have to pay for events?", "Is there an entry fee?"],
+    "answer": "No fee is mentioned for any event on the site. Check the specific announcement for each event, and verify with gdgvimeet@gmail.com if anyone asks you to pay.",
+    "tags": ["events", "fees"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/data/events.js"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-14",
+    "category": "events",
+    "question": "Where are events held?",
+    "variations": ["What is the venue?", "Are events online or offline?"],
+    "answer": "The upcoming Google Cloud & AI Study Jam lists its venue as \"Computer Labs & Virtual\", so both on campus and online. Past events were held at ViMEET, Khalapur.",
+    "tags": ["events", "venue"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#venue"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-15",
+    "category": "events",
+    "question": "Do I get a certificate for attending events?",
+    "variations": [
+      "Are event certificates given?",
+      "Will I get proof of participation?"
+    ],
+    "answer": "Certificates are listed as a benefit of being on a team. For individual events, the Google Cloud Study Jams campaign awarded goodies to those who completed it; certificates per event are not described on the site.",
+    "tags": ["events", "certificates"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#stats", "frontend/src/sections/Recruitment.jsx#benefits"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-16",
+    "category": "events",
+    "question": "What are Google Cloud Study Jams?",
+    "variations": [
+      "What is a study jam?",
+      "What happens in Cloud Study Jams?",
+      "What is Cloud Skills Boost?"
+    ],
+    "answer": "Study Jams are guided campaigns where students work through Google Cloud Skills Boost labs and courses. At ViMEET, participants completed 20+ courses plus an Arcade Game, with the core team helping them through the labs.",
+    "tags": ["events", "study-jams", "cloud"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-17",
+    "category": "events",
+    "question": "What is the Arcade Game in the Cloud campaign?",
+    "variations": ["What is the Google Cloud Arcade?", "Was a game part of the study jams?"],
+    "answer": "Completing the campaign required 20+ Google Cloud courses along with an Arcade Game. The site does not describe the game itself beyond that requirement.",
+    "tags": ["events", "study-jams", "arcade"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#Google Cloud Study Jams Campaign"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-18",
+    "category": "events",
+    "question": "What goodies did Study Jams participants get?",
+    "variations": ["What were the rewards?", "What prizes did completers receive?"],
+    "answer": "Students who completed the campaign became eligible for official goodies, distributed at a goodies distribution event. The specific items are not listed on the site.",
+    "tags": ["events", "study-jams", "rewards"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#Google Cloud Study Jams Campaign"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-19",
+    "category": "events",
+    "question": "Can I see photos from the events?",
+    "variations": [
+      "Is there a photo gallery?",
+      "Where are the event pictures?",
+      "How many photos are there?"
+    ],
+    "answer": "Yes — each past event on the Events page has a rotating photo stack and a \"View Photos\" button. The Cloud Study Jams campaign has 12 photos, the Git & GitHub Workshop and Nirmaan have 15 each, and the Jamming Session has 11.",
+    "tags": ["events", "photos"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#gallery"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-20",
+    "category": "events",
+    "question": "What types of events does GDG ViMEET categorise?",
+    "variations": ["What are the event categories?", "How are events grouped?"],
+    "answer": "Study Jams, Workshops, Hackathons and Community — and the Events page lets you filter by each.",
+    "tags": ["events", "categories"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#eventCategories"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-21",
+    "category": "events",
+    "question": "Do you run hackathons?",
+    "variations": ["Is there a hackathon coming?", "Do you host coding competitions?"],
+    "answer": "Yes — Nirmaan was an 8-hour webathon, and the Technical and Event Management teams organise hackathons. No new hackathon date is currently announced.",
+    "tags": ["events", "hackathons"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js", "frontend/src/data/recruitment.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-22",
+    "category": "events",
+    "question": "Can I suggest or propose an event?",
+    "variations": [
+      "I have an event idea",
+      "Can I pitch a workshop?",
+      "How do I propose a session?"
+    ],
+    "answer": "Yes — the Events page has a \"Propose a Workshop / Talk\" button that emails gdgvimeet@gmail.com.",
+    "tags": ["events", "proposals"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/sections/Events.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-23",
+    "category": "events",
+    "question": "Are events technical only?",
+    "variations": ["Do you have non-technical events?", "Is everything about coding?"],
+    "answer": "No. Alongside workshops and hackathons there are community events such as the Jamming Session, an informal hangout with music.",
+    "tags": ["events", "community"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#Jamming Session"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-24",
+    "category": "events",
+    "question": "How often do events happen?",
+    "variations": ["How frequently do you run events?", "Is there something every month?"],
+    "answer": "The site does not state a schedule. Four past events are listed for 2025-26 and one is upcoming this semester.",
+    "tags": ["events", "frequency"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-25",
+    "category": "events",
+    "question": "Do I need prior knowledge to attend a workshop?",
+    "variations": [
+      "Are workshops beginner friendly?",
+      "Can I attend if I'm new to this?"
+    ],
+    "answer": "The workshops are described as hands-on sessions — the Git & GitHub one covered fundamentals. No prerequisites are listed on the site.",
+    "tags": ["events", "workshops", "beginners"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#Git & GitHub Workshop"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-26",
+    "category": "events",
+    "question": "Where can I read more about the Cloud Study Jams campaign?",
+    "variations": ["Is there a LinkedIn post about the campaign?", "Where is the campaign write-up?"],
+    "answer": "The Events page links the campaign to GDG ViMEET's LinkedIn, where the recap was posted.",
+    "tags": ["events", "study-jams", "linkedin"],
+    "links": [{ "label": "LinkedIn", "href": "https://www.linkedin.com/company/gdgvimeet/" }],
+    "sources": ["frontend/src/data/events.js#link"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-27",
+    "category": "events",
+    "question": "Will there be another Cloud Study Jams campaign?",
+    "variations": ["Is the cloud campaign running again?", "Can I still join the study jams?"],
+    "answer": "A Google Cloud & AI Study Jam is listed as coming this semester, though no date is set. The earlier campaign has finished.",
+    "tags": ["events", "study-jams", "upcoming"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#upcomingEvents"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-28",
+    "category": "events",
+    "question": "Do events count towards my academic record?",
+    "variations": ["Do I get credits for attending?", "Is participation counted by the college?"],
+    "answer": "The site says nothing about academic credit. Ask your department or email gdgvimeet@gmail.com.",
+    "tags": ["events", "academics"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/data/events.js"],
+    "status": "placeholder",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-29",
+    "category": "events",
+    "question": "Can I volunteer at an event?",
+    "variations": ["How do I help run an event?", "Can I be a volunteer?"],
+    "answer": "Running events is the core team's work, particularly the Event Management team, so applying at /join is the route in. For one-off help, email gdgvimeet@gmail.com.",
+    "tags": ["events", "volunteering"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["frontend/src/data/recruitment.js#Event Management"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "events-30",
+    "category": "events",
+    "question": "What will the upcoming Study Jam cover?",
+    "variations": [
+      "What is in the Cloud & AI Study Jam?",
+      "What will I learn at the next event?"
+    ],
+    "answer": "Hands-on Google Cloud Skills Boost labs, generative AI quests, badges and official Google swag, running in the computer labs and virtually.",
+    "tags": ["events", "upcoming", "cloud", "ai"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["frontend/src/data/events.js#upcomingEvents"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "team-and-mentors-01",
+    "category": "team-and-mentors",
+    "question": "Who leads GDG ViMEET?",
+    "variations": [
+      "Who is the GDG Lead?",
+      "Who is in charge?",
+      "Who runs the chapter?"
+    ],
+    "answer": "For the 2025-26 tenure listed on the site, Pranav Salunkhe was the GDG Lead and Harsh Dhanawade the GDG Facilitator. The Team page shows the full previous tenure while the 2026-27 team is being recruited.",
+    "tags": ["team", "leadership"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "team-and-mentors-02",
+    "category": "team-and-mentors",
+    "question": "Who is the faculty coordinator?",
+    "variations": [
+      "Which teacher guides GDG?",
+      "Who is the staff in charge?",
+      "Is there a faculty mentor?"
+    ],
+    "answer": "Prof. Charusheela Pandit, HOD of Computer Engineering, is the Faculty Coordinator credited with guiding the chapter's Cloud campaign.",
+    "tags": ["team", "faculty"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/events.js#credits", "frontend/src/data/team.js#guidance"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-03",
+    "category": "team-and-mentors",
+    "question": "Which faculty guide the chapter?",
+    "variations": [
+      "Who is under 'Under The Guidance Of'?",
+      "Which HODs support GDG?",
+      "Who is the principal?"
+    ],
+    "answer": "The Team page lists Dr. B. R. Patil (Principal), Dr. Shankar S. Kadam (Vice-Principal) and the heads of department: Mrs. Charusheela Pandit (Computer), Dr. Ankush Pawar (CSE-AIML), Dr. Jyoti Gangane (EXTC), Mrs. Shivani Agrawal (First Year), Dr. Bhaveshkumar Pasi (Mechanical), Dr. Shilpa Pankaj Kewate (Civil) and Prof. Sharvari Hemchandra Sane (Electrical).",
+    "tags": ["team", "faculty"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js#guidance"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-04",
+    "category": "team-and-mentors",
+    "question": "Who was on the Web-Dev team?",
+    "variations": ["Who built the website?", "Who is in the web development team?"],
+    "answer": "In 2025-26: Vikram Devadiga (Lead), Vivek Suryawanshi (Co-Lead), Vansh Mhatre and Bhumika Mhaskar.",
+    "tags": ["team", "web-dev"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-05",
+    "category": "team-and-mentors",
+    "question": "Who was on the Technical team?",
+    "variations": ["List the technical team members", "Who handled tech in 2025-26?"],
+    "answer": "In 2025-26: Piyush Gupta, Pankaj Chavan, Riddhi Sawant and Yug Shah.",
+    "tags": ["team", "technical"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-06",
+    "category": "team-and-mentors",
+    "question": "Who was on the Graphics team?",
+    "variations": ["List the graphics team", "Who did the designs?"],
+    "answer": "In 2025-26: Gauri Shinde, Janhavi Chavan, Jay Giri and Shreya Patil.",
+    "tags": ["team", "graphics"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-07",
+    "category": "team-and-mentors",
+    "question": "Who was on the Content & Media team?",
+    "variations": ["List the content team", "Who handled social media?"],
+    "answer": "In 2025-26: Rushikesh Malgan, Dhanashree Mohitkar (Co-Lead), Shweta Khariwale, Khushi Dhammakar and Samruddhi Adbane.",
+    "tags": ["team", "content"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-08",
+    "category": "team-and-mentors",
+    "question": "Who was on the Administrative team?",
+    "variations": ["List the admin team", "Who handled operations?"],
+    "answer": "In 2025-26: Omkar Patil, Omkar Misal, Vishakha Yelmar, Anushka Navale and Harshita Singh.",
+    "tags": ["team", "admin"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-09",
+    "category": "team-and-mentors",
+    "question": "Who is the Cloud Campaign Mentor?",
+    "variations": ["Who mentored the cloud campaign?", "Who is Nimish Patil?"],
+    "answer": "Nimish Patil is listed as the Cloud Campaign Mentor, supporting the Google Cloud Study Jams campaign.",
+    "tags": ["team", "mentor", "cloud"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js", "frontend/src/data/events.js#credits"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-10",
+    "category": "team-and-mentors",
+    "question": "Who is on the 2026-27 team?",
+    "variations": [
+      "Who are the current members?",
+      "Has the new team been announced?",
+      "Who is in the team this year?"
+    ],
+    "answer": "The 2026-27 team is still being recruited, so it is not listed yet. The Team page currently shows the 2026-27 recruitment teams you can apply to, plus the previous 2025-26 tenure.",
+    "tags": ["team", "current"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/sections/Team.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "team-and-mentors-11",
+    "category": "team-and-mentors",
+    "question": "How do I contact a specific team member?",
+    "variations": [
+      "Can I message someone on the team?",
+      "How do I reach the GDG Lead?"
+    ],
+    "answer": "Use gdgvimeet@gmail.com and say who you are trying to reach. Some members have social links on the Team page, but the chapter email is the reliable route.",
+    "tags": ["team", "contact"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/sections/Team.jsx", "frontend/src/data/site.js#email"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-12",
+    "category": "team-and-mentors",
+    "question": "What is a GDG Facilitator?",
+    "variations": ["What does the facilitator do?", "Facilitator vs Lead?"],
+    "answer": "The site lists Harsh Dhanawade as GDG Facilitator alongside the GDG Lead for 2025-26, and credits him with supporting the Cloud campaign. It does not define the role in detail.",
+    "tags": ["team", "roles"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js", "frontend/src/data/events.js#credits"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-13",
+    "category": "team-and-mentors",
+    "question": "How many teams were there in the previous tenure?",
+    "variations": ["What was the 2025-26 structure?", "How was the old team organised?"],
+    "answer": "The 2025-26 tenure had Web-Dev, Technical, Administrative, Graphics and Content & Media teams, plus the Lead, Facilitator and Cloud Campaign Mentor. The 2026-27 recruitment uses five teams: Technical, Graphics & Design, Content & Social Media, PR & Outreach and Event Management.",
+    "tags": ["team", "structure"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/data/team.js", "frontend/src/data/recruitment.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-14",
+    "category": "team-and-mentors",
+    "question": "Can I see the team members' social profiles?",
+    "variations": ["Are there LinkedIn links for members?", "Can I follow team members?"],
+    "answer": "Some members have social icons next to their names on the Team page — Instagram, LinkedIn, GitHub or email, depending on what they shared.",
+    "tags": ["team", "social"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/sections/Team.jsx"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "team-and-mentors-15",
+    "category": "team-and-mentors",
+    "question": "Does the team change every year?",
+    "variations": ["Is there a new team each year?", "How long is a tenure?"],
+    "answer": "Yes — the site is organised by chapter year, currently 2026-27, with 2025-26 shown as the previous tenure. Recruitment runs for the new tenure.",
+    "tags": ["team", "tenure"],
+    "links": [{ "label": "Team", "href": "/team" }],
+    "sources": ["frontend/src/sections/Team.jsx", "frontend/src/data/site.js#chapterYear"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+
+  {
+    "id": "bot-limits-01",
+    "category": "bot-limits",
+    "question": "What can you help me with?",
+    "variations": [
+      "What do you know?",
+      "How can you help?",
+      "What questions can I ask you?"
+    ],
+    "answer": "I answer questions about GDG ViMEET — recruitment and the five teams, how to apply and what happens afterwards, events, the team and faculty, and how to contact the chapter. Anything I do not have, I will point you to gdgvimeet@gmail.com.",
+    "tags": ["bot", "capabilities"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/content/faq.json"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "bot-limits-02",
+    "category": "bot-limits",
+    "question": "Are you a real person?",
+    "variations": ["Am I talking to a human?", "Is this a bot?", "Who am I chatting with?"],
+    "answer": "I am an automated assistant for the GDG ViMEET website, not a member of the team. For anything that needs a person, email gdgvimeet@gmail.com.",
+    "tags": ["bot", "identity"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/routes/chat.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "bot-limits-03",
+    "category": "bot-limits",
+    "question": "Can you look up my application?",
+    "variations": [
+      "Check my form status",
+      "Find my application by my name",
+      "Do you have my details?"
+    ],
+    "answer": "No. I have no access to applications or any applicant data — I only read this website's public information. Email gdgvimeet@gmail.com with your Application ID for an update.",
+    "tags": ["bot", "limits", "privacy"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/routes/chat.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": true
+  },
+  {
+    "id": "bot-limits-04",
+    "category": "bot-limits",
+    "question": "Can you tell me someone's phone number or email?",
+    "variations": [
+      "Give me a member's contact details",
+      "What is the lead's phone number?",
+      "Share a student's email"
+    ],
+    "answer": "No. I do not hold personal contact details for students or members. The chapter's public address is gdgvimeet@gmail.com.",
+    "tags": ["bot", "limits", "privacy"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["frontend/src/data/site.js#email"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "bot-limits-05",
+    "category": "bot-limits",
+    "question": "Why don't you know the event date?",
+    "variations": [
+      "Why can't you tell me when it is?",
+      "You keep saying not announced"
+    ],
+    "answer": "Because it genuinely has not been published on the site. I would rather say so than invent a date. Announcements go out on @gdgvimeet on Instagram.",
+    "tags": ["bot", "limits", "dates"],
+    "links": [{ "label": "Instagram", "href": "https://www.instagram.com/gdgvimeet/" }],
+    "sources": ["frontend/src/data/events.js#date"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "bot-limits-06",
+    "category": "bot-limits",
+    "question": "Can you help me with my homework or coding problem?",
+    "variations": [
+      "Write code for me",
+      "Solve this assignment",
+      "Can you help with my project?"
+    ],
+    "answer": "I only cover GDG ViMEET questions. For technical learning, come to the workshops and study jams — that is exactly what they are for.",
+    "tags": ["bot", "limits", "scope"],
+    "links": [{ "label": "Events", "href": "/events" }],
+    "sources": ["backend/routes/chat.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "bot-limits-07",
+    "category": "bot-limits",
+    "question": "Can you submit the application form for me?",
+    "variations": [
+      "Apply on my behalf",
+      "Fill the form for me",
+      "Register me for an event"
+    ],
+    "answer": "No — I cannot submit forms or register anyone. You need to fill in the form yourself at /join.",
+    "tags": ["bot", "limits", "actions"],
+    "links": [{ "label": "Join Us", "href": "/join" }],
+    "sources": ["backend/routes/chat.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "bot-limits-08",
+    "category": "bot-limits",
+    "question": "Is this chat private?",
+    "variations": [
+      "Do you store my messages?",
+      "Is our conversation saved?",
+      "Who can read what I type here?"
+    ],
+    "answer": "Do not share personal or sensitive information here. Messages are sent to an AI service to generate a reply. For anything private, email gdgvimeet@gmail.com instead.",
+    "tags": ["bot", "privacy"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/routes/chat.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "bot-limits-09",
+    "category": "bot-limits",
+    "question": "Why did you say you don't know?",
+    "variations": [
+      "Why can't you answer that?",
+      "You didn't answer my question"
+    ],
+    "answer": "I only answer from what is published on this website. If something is not on the site, I say so rather than guess — email gdgvimeet@gmail.com and the team can answer directly.",
+    "tags": ["bot", "limits"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/routes/chat.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  },
+  {
+    "id": "bot-limits-10",
+    "category": "bot-limits",
+    "question": "I got a message saying too many requests",
+    "variations": [
+      "Why am I rate limited?",
+      "The chat stopped responding",
+      "It says wait and try again"
+    ],
+    "answer": "There is a limit on how many messages one visitor can send in a short period, to keep the assistant available and affordable. Wait for the time shown and try again, or email gdgvimeet@gmail.com.",
+    "tags": ["bot", "rate-limit"],
+    "links": [{ "label": "Contact", "href": "/contact" }],
+    "sources": ["backend/middleware/chatRateLimit.js"],
+    "status": "confirmed",
+    "lastReviewed": "2026-09-16",
+    "featured": false
+  }
+]

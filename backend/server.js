@@ -9,7 +9,10 @@ const { syncToExcel, buildWorkbook } = require('./utils/excel');
 const { sendWhatsAppMessage } = require('./utils/whatsapp');
 const { sendEmailMessage } = require('./utils/email');
 const { requireAdmin } = require('./middleware/adminAuth');
+const { applicationRateLimit } = require('./middleware/applicationRateLimit');
+const { validateApplication } = require('./utils/validateApplication');
 const adminRoutes = require('./routes/admin');
+const chatRoutes = require('./routes/chat');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -43,7 +46,9 @@ app.use(cors(
     // which is required for credentialed (cookie-based) requests to work.
     : { origin: true, credentials: true }
 ));
-app.use(express.json());
+// Capped: the largest legitimate payload is a recruitment form submission.
+// Without a limit, any public endpoint will accept multi-megabyte bodies.
+app.use(express.json({ limit: '16kb' }));
 app.use(cookieParser());
 
 // Connect to MongoDB
@@ -85,6 +90,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/admin', adminRoutes);
+app.use('/api/chat', chatRoutes);
 
 // POST (not GET) so a filtered export can send any number of application IDs.
 app.post('/api/applications/export', requireAdmin, async (req, res) => {
@@ -116,26 +122,32 @@ app.get('/api/applications', requireAdmin, async (req, res) => {
   }
 });
 
-// POST a new application
-app.post('/api/applications', async (req, res) => {
+// POST a new application — public, so every field is validated and
+// allowlisted server-side (see utils/validateApplication.js). A client can
+// never set status, id, or any field outside this explicit list.
+app.post('/api/applications', applicationRateLimit, async (req, res) => {
+  const { error, application } = validateApplication(req.body);
+  if (error) {
+    return res.status(400).json({ error });
+  }
+
   try {
     const newApplication = new Application({
       id: 'gdg-' + Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 6),
-      ...req.body
+      ...application,
     });
     const saved = await newApplication.save();
-    
+
     // Sync to excel in the background
     updateExcelSheet();
 
     // Send WhatsApp message in the background (Disabled for now)
     // const whatsappMessage = `your application has been submited successfully, please join the below whatsapp group for the further information, [Insert WhatsApp Group Link Here]`;
-    // sendWhatsAppMessage(req.body.mobile, whatsappMessage);
+    // sendWhatsAppMessage(application.mobile, whatsappMessage);
 
-    // Send Email message in the background
-    if (req.body.email) {
-      const emailSubject = "Application Received - GDG Vimeet";
-      const emailHtml = `
+    // Send Email message in the background (always present — validated above)
+    const emailSubject = "Application Received - GDG Vimeet";
+    const emailHtml = `
         <div style="font-family: 'Google Sans', Roboto, 'Helvetica Neue', sans-serif; background-color: #eef2f6; padding: 40px 15px; margin: 0;">
           <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
             
@@ -158,7 +170,7 @@ app.post('/api/applications', async (req, res) => {
             
             <!-- Body Content -->
             <div style="padding: 40px 35px;">
-              <h3 style="color: #202124; margin-top: 0; font-size: 22px; font-weight: 700;">Hi ${req.body.fullName || 'Applicant'}, 👋</h3>
+              <h3 style="color: #202124; margin-top: 0; font-size: 22px; font-weight: 700;">Hi ${application.fullName}, 👋</h3>
               <p style="color: #4d5156; line-height: 1.8; font-size: 16px;">Your application has been received successfully! We are beyond excited that you're taking the first step to join our vibrant community of student developers.</p>
               
               <!-- Styled Applicant Details Card -->
@@ -172,27 +184,27 @@ app.post('/api/applications', async (req, res) => {
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; color: #70757a; border-bottom: 1px dashed #dadce0;">Full Name</td>
-                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${req.body.fullName || 'N/A'}</td>
+                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${application.fullName}</td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; color: #70757a; border-bottom: 1px dashed #dadce0;">Roll No</td>
-                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${req.body.rollNo || 'N/A'}</td>
+                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${application.rollNo}</td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; color: #70757a; border-bottom: 1px dashed #dadce0;">Department</td>
-                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${req.body.department || 'N/A'}</td>
+                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${application.department}</td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; color: #70757a; border-bottom: 1px dashed #dadce0;">Year</td>
-                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${req.body.year || 'N/A'}</td>
+                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${application.year}</td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; color: #70757a; border-bottom: 1px dashed #dadce0;">Mobile</td>
-                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${req.body.mobile || 'N/A'}</td>
+                    <td style="padding: 12px 0; color: #202124; font-weight: 600; text-align: right; border-bottom: 1px dashed #dadce0;">${application.mobile}</td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; color: #70757a;">Selected Teams</td>
-                    <td style="padding: 12px 0; color: #34A853; font-weight: 700; text-align: right;">${(req.body.teams || []).join(', ') || 'N/A'}</td>
+                    <td style="padding: 12px 0; color: #34A853; font-weight: 700; text-align: right;">${application.teams.join(', ')}</td>
                   </tr>
                 </table>
               </div>
@@ -220,8 +232,7 @@ app.post('/api/applications', async (req, res) => {
           </div>
         </div>
       `;
-      sendEmailMessage(req.body.email, emailSubject, emailHtml);
-    }
+    sendEmailMessage(application.email, emailSubject, emailHtml);
 
     res.status(201).json({ success: true, data: saved });
   } catch (error) {
