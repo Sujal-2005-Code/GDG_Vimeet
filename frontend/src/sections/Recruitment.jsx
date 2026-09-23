@@ -5,6 +5,7 @@ import NavBar from './NavBar';
 import Footer from '../components/Footer';
 import { saveApplication } from '../services/db';
 import { recruitmentTeams } from '../data/recruitment';
+import site from '../data/site';
 
 const TEAM_ICONS = {
   content: (
@@ -194,8 +195,8 @@ const Recruitment = () => {
           {/* Header Banner */}
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#00AEEF] mb-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-[#34A853] animate-pulse" />
-              Applications Open • ViMEET 2026-27
+              <span className={`inline-block w-2 h-2 rounded-full ${site.recruitmentOpen ? 'bg-[#34A853] animate-pulse' : 'bg-rose-500'}`} />
+              {site.recruitmentOpen ? 'Applications Open' : 'Applications Closed'} • ViMEET 2026-27
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-round-bold font-extrabold tracking-tight bg-gradient-to-r from-[#0066B1] via-[#00AEEF] to-[#E60C2C] bg-clip-text text-transparent">
               Join GDG ViMEET
@@ -214,7 +215,38 @@ const Recruitment = () => {
           </div>
 
           {/* Main Content Area */}
-          {submittedData ? (
+          {!site.recruitmentOpen ? (
+            /* Registrations Closed Notice */
+            <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-8 sm:p-12 text-center shadow-2xl">
+              <div className="w-16 h-16 rounded-full bg-rose-500/10 text-rose-400 mx-auto flex items-center justify-center mb-5 border border-rose-500/30">
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Registrations Are Closed</h2>
+              <p className="text-white/80 max-w-md mx-auto text-sm sm:text-base">
+                Thanks for your interest in GDG ViMEET! Applications for the 2026-27 recruitment cycle are now closed while our team reviews submissions. Follow us for the next opportunity to join.
+              </p>
+
+              <div className="flex flex-wrap gap-4 justify-center mt-8">
+                <Link
+                  to="/"
+                  className="rounded-full bg-white text-black font-semibold px-6 py-2.5 hover:bg-white/90 transition text-sm"
+                >
+                  Return to Home
+                </Link>
+                <a
+                  href="https://www.instagram.com/gdgvimeet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/20 text-white/90 hover:bg-white/10 transition px-6 py-2.5 text-sm"
+                >
+                  Follow @gdgvimeet
+                </a>
+              </div>
+            </div>
+          ) : submittedData ? (
             /* Submission Success Card */
             <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 backdrop-blur-xl p-8 sm:p-12 text-center shadow-2xl animate-fade-in">
               <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center mb-5 border border-emerald-500/30">

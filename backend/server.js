@@ -13,10 +13,18 @@ const { applicationRateLimit } = require('./middleware/applicationRateLimit');
 const { validateApplication } = require('./utils/validateApplication');
 const adminRoutes = require('./routes/admin');
 const chatRoutes = require('./routes/chat');
+const queriesRoutes = require('./routes/queries');
+const adminQueriesRoutes = require('./routes/adminQueries');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/gdg_vimeet';
+
+// Recruitment intake switch — mirrors `recruitmentOpen` in
+// frontend/src/data/site.js. The frontend hides the form when closed, but
+// this is what actually stops a submission POSTed straight to the API.
+// Flip both back to true (and redeploy) to reopen applications.
+const REGISTRATIONS_OPEN = false;
 
 // Behind Railway's reverse proxy so req.ip / secure cookies reflect the
 // real client instead of the proxy.
@@ -85,12 +93,20 @@ app.get('/api/health', (req, res) => {
       'DELETE /api/applications',
       'POST /api/applications/export',
       'POST /api/admin/login',
+      'POST /api/chat',
+      'GET /api/chat/suggestions',
+      'POST /api/queries',
+      'GET /api/admin/queries',
+      'PATCH /api/admin/queries/:id',
+      'DELETE /api/admin/queries/:id',
     ],
   });
 });
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/queries', queriesRoutes);
+app.use('/api/admin/queries', adminQueriesRoutes);
 
 // POST (not GET) so a filtered export can send any number of application IDs.
 app.post('/api/applications/export', requireAdmin, async (req, res) => {
@@ -126,6 +142,10 @@ app.get('/api/applications', requireAdmin, async (req, res) => {
 // allowlisted server-side (see utils/validateApplication.js). A client can
 // never set status, id, or any field outside this explicit list.
 app.post('/api/applications', applicationRateLimit, async (req, res) => {
+  if (!REGISTRATIONS_OPEN) {
+    return res.status(403).json({ error: 'Registrations are currently closed.' });
+  }
+
   const { error, application } = validateApplication(req.body);
   if (error) {
     return res.status(400).json({ error });

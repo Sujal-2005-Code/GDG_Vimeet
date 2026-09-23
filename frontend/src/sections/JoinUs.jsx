@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import site from '../data/site';
 
 const JoinUs = () => {
   return (
@@ -13,7 +14,7 @@ const JoinUs = () => {
         </p>
         <div className="mt-8">
           <Link to="/join" className="btn-primary">
-            Apply For 2026-27
+            {site.recruitmentOpen ? 'Apply For 2026-27' : 'Applications Closed'}
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>

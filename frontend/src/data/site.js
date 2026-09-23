@@ -9,6 +9,12 @@ export const site = {
   chapterYear: '2026-27',
   email: 'gdgvimeet@gmail.com',
 
+  // Recruitment intake switch. Set to true to reopen the /join form (and
+  // flip REGISTRATIONS_OPEN in backend/server.js back on too — the backend
+  // rejects submissions independently so the API can't be posted to
+  // directly while this is false).
+  recruitmentOpen: false,
+
   institute: {
     name: "Vishwaniketan's Institute of Management Entrepreneurship and Engineering Technology",
     shortName: 'ViMEET',
@@ -37,6 +43,14 @@ export const site = {
   // relative by default so API calls stay same-origin through Vercel's
   // /api rewrite proxy; VITE_API_BASE_URL overrides this if ever needed.
   apiBaseUrl: import.meta.env.VITE_API_BASE_URL || '',
+
+  // The FAQ chatbot's public-facing identity — the one place this is
+  // defined. Every chat component reads it from here rather than
+  // hardcoding a name, so renaming the assistant later is a one-line change.
+  chatbot: {
+    name: 'Vimi',
+    avatar: '/vimi/pfp.png',
+  },
 };
 
 export default site;
