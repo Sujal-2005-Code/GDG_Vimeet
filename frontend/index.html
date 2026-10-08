@@ -8,7 +8,18 @@
          Redesigned routes are "light", everything else is still "legacy" (dark).
          Keep this list in step with LIGHT_ROUTES in src/components/RootLayout.jsx. -->
     <script>
-      document.documentElement.dataset.theme = location.pathname === '/' ? 'light' : 'legacy';
+      var isHome = location.pathname === '/';
+      document.documentElement.dataset.theme = isHome ? 'light' : 'legacy';
+      // The hero lockup (site.brand.lockup) is the likely LCP on phones: start fetching it
+      // now instead of after React mounts. Home only — other routes don't use it as an <img>.
+      if (isHome) {
+        var preload = document.createElement('link');
+        preload.rel = 'preload';
+        preload.as = 'image';
+        preload.href = '/images/gdg-on-campus-vishwaniketan.svg';
+        preload.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(preload);
+      }
     </script>
 
     <!-- Primary Meta -->
@@ -36,9 +47,6 @@
 
     <!-- Self-hosted Inter (variable): preloaded so the hero text renders in the final font. -->
     <link rel="preload" href="/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
-    <!-- Hero lockup (site.brand.lockup): discovered at HTML-parse time instead of after React mounts.
-         Update/remove together with site.brand.lockup. -->
-    <link rel="preload" href="/images/gdg-on-campus-vishwaniketan.svg" as="image" type="image/svg+xml" fetchpriority="high" />
   </head>
   <body>
     <div id="root"></div>

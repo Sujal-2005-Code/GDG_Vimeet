@@ -209,7 +209,10 @@ const NavBar = () => {
           </nav>
 
           <div className="flex items-center gap-2">
-            <CtaButton cta={cta} className="hidden lg:inline-flex" />
+            {/* Wrapper (not a class on the button): Button already sets display:inline-flex, which beat `hidden`. */}
+            <div className="hidden lg:block">
+              <CtaButton cta={cta} />
+            </div>
             <button
               ref={toggleRef}
               type="button"

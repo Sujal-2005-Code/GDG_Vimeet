@@ -54,7 +54,7 @@ hero: { visual: { kind: 'image', src: '/events/cloud-campaign/1.webp', alt: 'Stu
 ```
 `kind: 'mark'` = the supplied 2.5D mark; `kind: 'image'` = any image as a rounded plane with the same rings/dots. No component or engine change.
 
-**Add the official logo** — `site.brand.logo = { src: '/images/<official>.svg', alt }`. The NavBar wordmark renders it instead of text. Set `site.brand.lockup = null` to drop the supplied hero lockup.
+**Update the logo** — the logo is `public/images/gdg-on-campus-vishwaniketan.svg`, wired in `site.brand.logo`. The header renders its `#gdg-mark` group (referenced with `<use>`, never redrawn in code) beside the name set as HTML text, so it stays crisp at nav size; the Hero shows the full lockup (`site.brand.lockup`). Replacing the file updates both — keep the `gdg-mark` group id and adjust `markViewBox` if the mark's bounds change. `site.brand.logo = null` falls back to text only.
 
 **Reopen applications** — `site.recruitmentOpen = true` (and `REGISTRATIONS_OPEN` in `backend/server.js`). Nav, Hero and the old sections all follow via `getRecruitmentCta()`.
 
@@ -81,7 +81,8 @@ Lighthouse 12.8, simulated throttling. Stage 2 = **local production build** (unc
 
 ## Temporary on purpose
 
-- The supplied `gdg-on-campus-vishwaniketan.svg` lockup is used **only** in the Hero. It is not used in the nav, favicon or share image. The favicon is a neutral four-diamond motif, not a logo.
+- The logo's `<text>` uses a font stack (Google Sans / Inter / Segoe UI…) that an `<img>` can't load from the page, so the Hero lockup text renders in a system font. Converting the text to outlines in the SVG makes it identical everywhere.
+- The favicon is still a neutral four-diamond motif: the logo's two wide chevrons don't read at 16px. A square favicon needs a purpose-made mark.
 - No `og:image` yet (the old one was the GTA-style graphic). Needs a 1200×630 once the official brand art exists.
 - The dark block under the Hero is the old home page; the hand-off edge is abrupt until Stage 3/4.
 - Legacy sections still lazy-load `animejs`; it goes when `animateCards` is rewritten in GSAP (Stage 4).

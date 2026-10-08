@@ -16,16 +16,23 @@ export const site = {
   recruitmentOpen: false,
 
   /**
-   * Branding. Until the official GDG On Campus logo is supplied, the
-   * Wordmark component renders the typographic name below. When the
-   * official SVG arrives, set `logo: { src, alt }` — nothing else changes.
-   * Do not draw or approximate the logo in code.
+   * Branding. The logo is the supplied SVG (public/images/gdg-on-campus-vishwaniketan.svg).
+   * The header shows its chevron mark (the `#gdg-mark` group, referenced
+   * straight from the file via <use>, never redrawn in code) next to the
+   * wordmark text set in HTML so it stays crisp at nav size; the Hero shows
+   * the full lockup. Replace the SVG file to update both — keep the
+   * `gdg-mark` group id and adjust `markViewBox` if the mark's bounds change.
+   * Set `logo: null` to fall back to the typographic wordmark only.
    */
   brand: {
     wordmark: { primary: 'GDG On Campus', secondary: 'Vishwaniketan' },
-    logo: null,
-    // Supplied wordmark lockup, shown in the Hero only. Swap `src` (or set
-    // to null to hide it) once the official lockup is available.
+    logo: {
+      src: '/images/gdg-on-campus-vishwaniketan.svg',
+      alt: "Google Developer Groups On Campus, Vishwaniketan's iMEET",
+      markId: 'gdg-mark',
+      markViewBox: '352 28 488 168',
+    },
+    // Full lockup, shown in the Hero. Set to null to hide it.
     lockup: {
       src: '/images/gdg-on-campus-vishwaniketan.svg',
       alt: "Google Developer Groups On Campus, Vishwaniketan's iMEET",
