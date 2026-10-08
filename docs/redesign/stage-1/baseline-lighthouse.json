@@ -1,0 +1,55 @@
+{
+  "note": "Baseline captured 2026-10-09 against the live site (commit 76f88cf). Compare against this in Stage 5.",
+  "mobile": {
+    "formFactor": "mobile",
+    "lighthouse": "12.8.2",
+    "url": "https://gdg-vimeet.vercel.app/",
+    "fetchedAt": "2026-10-08T18:58:42.922Z",
+    "scores": {
+      "performance": 37,
+      "accessibility": 94,
+      "bestPractices": 79,
+      "seo": 85
+    },
+    "metrics": {
+      "fcpMs": 4222,
+      "lcpMs": 4540,
+      "tbtMs": 5009,
+      "cls": 0.025,
+      "speedIndexMs": 10351,
+      "ttiMs": 11468
+    },
+    "transferKiB": 20204,
+    "requests": 60,
+    "lcpElement": "h1.hero-title"
+  },
+  "desktop": {
+    "formFactor": "desktop",
+    "lighthouse": "12.8.2",
+    "url": "https://gdg-vimeet.vercel.app/",
+    "fetchedAt": "2026-10-08T19:02:17.705Z",
+    "scores": {
+      "performance": 53,
+      "accessibility": 94,
+      "bestPractices": 78,
+      "seo": 85
+    },
+    "metrics": {
+      "fcpMs": 1771,
+      "lcpMs": 1771,
+      "tbtMs": 658,
+      "cls": 0.016,
+      "speedIndexMs": 3413,
+      "ttiMs": 2636
+    },
+    "transferKiB": 19948,
+    "requests": 59,
+    "lcpElement": "h1.hero-title"
+  },
+  "viteBuild": {
+    "mainJs": "644.62 kB / 212.37 kB gzip",
+    "animejsLazyChunk": "125.53 kB / 43.17 kB gzip",
+    "css": "86.82 kB / 14.33 kB gzip",
+    "adminChunks": "ApplicationsAdmin 17.04 kB, QueriesAdmin 6.51 kB, AdminGate 5.57 kB, ChatPanel 9.38 kB (all lazy)"
+  }
+}
