@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>GDG On Campus Vishwaniketan</title>
+  <!-- Neutral four-colour motif (four rounded diamonds). Not the GDG logo. -->
+  <g>
+    <rect x="9" y="9" width="22" height="22" rx="7" fill="#4285F4" transform="rotate(-45 20 20)"/>
+    <rect x="33" y="9" width="22" height="22" rx="7" fill="#EA4335" transform="rotate(45 44 20)"/>
+    <rect x="9" y="33" width="22" height="22" rx="7" fill="#FBBC05" transform="rotate(45 20 44)"/>
+    <rect x="33" y="33" width="22" height="22" rx="7" fill="#34A853" transform="rotate(-45 44 44)"/>
+  </g>
+</svg>

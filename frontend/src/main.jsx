@@ -1,29 +1,37 @@
 import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import gsap from 'gsap'
 import './index.css'
 import App from './App.jsx'
-import Team from './sections/Team.jsx'
-import Contact from './sections/Contact.jsx'
-import Events from './sections/Events.jsx'
-import Recruitment from './sections/Recruitment.jsx'
 import RootLayout from './components/RootLayout.jsx'
 import AdminFallback from './components/AdminFallback.jsx'
+import PageFallback from './components/PageFallback.jsx'
 
-// Only the public site ships in the main bundle. The admin panel is a
-// separate chunk that loads on first visit to /admin* — the vast majority
-// of visitors (applicants, not organizers) never pay for its weight.
+// The home page is the entry chunk. Every other route — the inner public
+// pages and the admin panel — is its own lazy chunk, so a visitor only
+// downloads the code for pages they actually open (Events alone pulls in the
+// photo stack + motion; Recruitment pulls in confetti).
+const Team = lazy(() => import('./sections/Team.jsx'))
+const Contact = lazy(() => import('./sections/Contact.jsx'))
+const Events = lazy(() => import('./sections/Events.jsx'))
+const Recruitment = lazy(() => import('./sections/Recruitment.jsx'))
 const ApplicationsAdmin = lazy(() => import('./sections/ApplicationsAdmin.jsx'))
 const AdminLogin = lazy(() => import('./sections/admin/AdminLogin.jsx'))
 const AdminGate = lazy(() => import('./sections/admin/AdminGate.jsx'))
 const AdminDashboard = lazy(() => import('./sections/admin/AdminDashboard.jsx'))
 const QueriesAdmin = lazy(() => import('./sections/admin/QueriesAdmin.jsx'))
 
-// Respect the OS-level reduced-motion preference for GSAP-driven animations
-// (CSS transitions/animations are handled separately in index.css).
-if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  gsap.globalTimeline.timeScale(50)
+// Reduced motion is handled per animation, not globally: see
+// animations/motion.js (tiers) and the story engine. The old global
+// gsap.globalTimeline.timeScale(50) hack is gone.
+
+const page = (lazyComponent) => {
+  const Page = lazyComponent
+  return (
+    <Suspense fallback={<PageFallback />}>
+      <Page />
+    </Suspense>
+  )
 }
 
 const router = createBrowserRouter([
@@ -31,11 +39,11 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { path: '/', element: <App /> },
-      { path: '/team', element: <Team /> },
-      { path: '/contact', element: <Contact /> },
-      { path: '/events', element: <Events /> },
-      { path: '/join', element: <Recruitment /> },
-      { path: '/recruitment', element: <Recruitment /> },
+      { path: '/team', element: page(Team) },
+      { path: '/contact', element: page(Contact) },
+      { path: '/events', element: page(Events) },
+      { path: '/join', element: page(Recruitment) },
+      { path: '/recruitment', element: page(Recruitment) },
       {
         path: '/admin',
         element: (

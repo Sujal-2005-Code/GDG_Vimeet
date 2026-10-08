@@ -1,10 +1,14 @@
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import { gsap } from "../animations/gsap";
+import { prefersReducedMotion } from "../animations/motion";
 import Loader from "../components/Loader";
 
 const Final = () => {
 
   useGSAP(() => {
+    // Reduced motion: no pin/scrub - the closing scene just stays visible.
+    if (prefersReducedMotion()) return;
+
     gsap.set('.final-content', { opacity: 0 });
 
     gsap.timeline({

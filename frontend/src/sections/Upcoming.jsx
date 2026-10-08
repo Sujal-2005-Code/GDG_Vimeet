@@ -1,13 +1,17 @@
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/all'
 import { useGSAP } from '@gsap/react'
 import { Link } from 'react-router-dom'
+import { gsap } from '../animations/gsap'
+import { prefersReducedMotion } from '../animations/motion'
 import { upcomingEvents } from '../data/events'
-
-gsap.registerPlugin(ScrollTrigger)
+import { getRecruitmentCta } from '../data/recruitment'
 
 const Upcoming = () => {
+  const recruit = getRecruitmentCta()
+
   useGSAP(() => {
+    // Reduced motion: leave the cards in their final, visible state.
+    if (prefersReducedMotion()) return
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.upcoming-wrap',
@@ -53,7 +57,7 @@ const Upcoming = () => {
                   <p className="text-white/80 md:mt-2 leading-relaxed text-sm">{e.desc}</p>
                 </div>
                 <div className="mt-4">
-                  <a href="/events" className="inline-block rounded-lg bg-white text-black font-semibold px-4 py-2 hover:opacity-90 text-sm">Event Details</a>
+                  <Link to="/events" className="inline-block rounded-lg bg-white text-black font-semibold px-4 py-2 hover:opacity-90 text-sm">Event Details</Link>
                 </div>
               </div>
             ))}
@@ -62,25 +66,42 @@ const Upcoming = () => {
             <div className="relative rounded-2xl border border-[#00AEEF]/40 bg-gradient-to-br from-[#0066B1]/20 via-[#00AEEF]/15 to-[#E60C2C]/15 hover:border-[#00AEEF] transition p-5 md:p-6 shadow-[0_10px_40px_rgba(0,174,239,0.15)] min-h-[180px] flex flex-col justify-between">
               <div>
                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-500/30">
-                  Hiring Now • ViMEET 2026-27
+                  {recruit.open ? 'Hiring Now' : 'Applications Closed'} • ViMEET 2026-27
                 </span>
                 <h3 className="text-white md:text-2xl text-xl font-bold mt-2 leading-snug">
                   GDG Core Member Recruitment
                 </h3>
                 <p className="text-white/80 md:mt-2 text-sm leading-relaxed">
-                  Join our Technical, Graphics & Design, Content & Social Media, PR & Outreach, and Event Management teams. Build projects, lead events, and grow!
+                  {recruit.open
+                    ? 'Join our Technical, Graphics & Design, Content & Social Media, PR & Outreach, and Event Management teams. Build projects, lead events, and grow!'
+                    : recruit.message}
                 </p>
               </div>
               <div className="mt-4">
-                <Link
-                  to="/join"
-                  className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#0066B1] to-[#00AEEF] text-white font-bold px-4 py-2 hover:opacity-90 transition text-sm shadow-md"
-                >
-                  Apply to Join
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </Link>
+                {recruit.open ? (
+                  <Link
+                    to={recruit.href}
+                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#0066B1] to-[#00AEEF] text-white font-bold px-4 py-2 hover:opacity-90 transition text-sm shadow-md"
+                  >
+                    Apply to Join
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </Link>
+                ) : (
+                  <a
+                    href={recruit.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={recruit.ariaLabel}
+                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#0066B1] to-[#00AEEF] text-white font-bold px-4 py-2 hover:opacity-90 transition text-sm shadow-md"
+                  >
+                    {recruit.label}
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                )}
               </div>
             </div>
           </div>

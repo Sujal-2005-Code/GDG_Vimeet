@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { animateCards } from '../animations';
+import { getRecruitmentCta } from '../data/recruitment';
 
 const Lucia = () => {
+  const recruit = getRecruitmentCta();
   const sectionRef = useRef(null);
   const hasAnimated = useRef(false);
 
@@ -64,17 +66,32 @@ const Lucia = () => {
             Recruitment 2026-27
           </span>
           <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            Ready to Join GDG ViMEET?
+            {recruit.open ? 'Ready to Join GDG ViMEET?' : 'Recruitment is closed'}
           </h3>
           <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-5">
-            We are actively hiring for <strong>Technical, Graphics &amp; Design, Content &amp; Social Media, PR &amp; Outreach, and Event Management</strong> teams. Step up and make an impact!
+            {recruit.open ? (
+              <>
+                We are actively hiring for <strong>Technical, Graphics &amp; Design, Content &amp; Social Media, PR &amp; Outreach, and Event Management</strong> teams. Step up and make an impact!
+              </>
+            ) : (
+              recruit.message
+            )}
           </p>
-          <Link to="/join" className="btn-primary">
-            Apply for GDG Teams
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          {recruit.open ? (
+            <Link to={recruit.href} className="btn-primary">
+              Apply for GDG Teams
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
-          </Link>
+            </Link>
+          ) : (
+            <a href={recruit.href} target="_blank" rel="noopener noreferrer" aria-label={recruit.ariaLabel} className="btn-primary">
+              {recruit.label}
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+            </a>
+          )}
         </div>
       </div>
     </section>

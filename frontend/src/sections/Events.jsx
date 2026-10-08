@@ -6,6 +6,7 @@ import EventGallery from '../components/EventGallery';
 import EventPhotoStack from '../components/EventPhotoStack';
 import { animateHeading, animateTextReveal, animateCards, animateCardsOut } from '../animations';
 import { upcomingEvents, pastEvents, eventCategories } from '../data/events';
+import { getRecruitmentCta } from '../data/recruitment';
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
@@ -226,6 +227,7 @@ const PastEventFeature = ({ item, index, onView }) => (
 );
 
 const Events = () => {
+  const recruit = getRecruitmentCta();
   const [activeCategory, setActiveCategory] = useState('All');
   const [displayedCategory, setDisplayedCategory] = useState('All');
   const [galleryEvent, setGalleryEvent] = useState(null);
@@ -371,7 +373,7 @@ const Events = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <span className="text-xs md:text-sm uppercase tracking-widest text-white/60">From the Community Archive</span>
-                <h2 className="text-yellow font-long uppercase md:text-4xl text-3xl mt-1">Past Events &amp; Sessions</h2>
+                <h2 className="text-[#0066B1] font-long uppercase md:text-4xl text-3xl mt-1">Past Events &amp; Sessions</h2>
               </div>
 
               {/* Category Filter Pills with sliding indicator */}
@@ -419,18 +421,26 @@ const Events = () => {
             <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-google-blue/20 via-google-green/20 to-google-yellow/20 p-6 md:p-12 text-center relative overflow-hidden shadow-2xl">
               <div className="max-w-2xl mx-auto">
                 <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-white mb-3">
-                  🚀 GDG ViMEET 2026-27 Recruitment
+                  {recruit.open ? '🚀 GDG ViMEET 2026-27 Recruitment' : 'GDG ViMEET 2026-27 · Applications closed'}
                 </span>
                 <h3 className="text-white md:text-3xl text-2xl font-bold">
                   Want to organize, design, or speak at our next big event?
                 </h3>
                 <p className="text-white/80 mt-3 text-sm sm:text-base leading-relaxed">
-                  Join our Technical, Event Management, Graphics & Design, PR & Outreach, or Content & Social Media teams and take your campus leadership to the next level.
+                  {recruit.open
+                    ? 'Join our Technical, Event Management, Graphics & Design, PR & Outreach, or Content & Social Media teams and take your campus leadership to the next level.'
+                    : recruit.message}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3 justify-center">
-                  <Link to="/join" className="btn-primary">
-                    Apply for GDG Teams
-                  </Link>
+                  {recruit.open ? (
+                    <Link to={recruit.href} className="btn-primary">
+                      Apply for GDG Teams
+                    </Link>
+                  ) : (
+                    <a href={recruit.href} target="_blank" rel="noopener noreferrer" aria-label={recruit.ariaLabel} className="btn-primary">
+                      {recruit.label}
+                    </a>
+                  )}
                   <a href="mailto:gdgvimeet@gmail.com" className="btn-secondary">
                     Propose a Workshop / Talk
                   </a>

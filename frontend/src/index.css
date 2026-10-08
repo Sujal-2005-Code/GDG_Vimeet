@@ -1,364 +1,207 @@
 @import "tailwindcss";
+@import "./styles/legacy.css";
 
+/* ===================================================================
+   GDG On Campus Vishwaniketan — design system (v2)
+   Public site is LIGHT ONLY. Legacy dark styles live in styles/legacy.css.
+   Components use semantic tokens (text-ink, bg-surface, border-line …),
+   never raw hex.
+   =================================================================== */
+
+/* --- Fonts: self-hosted variable fonts (latin subset), SIL OFL ------- */
 @font-face {
-  font-family: "Long";
-  src: url("/fonts/long.woff");
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-latin-wght.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Round";
-  src: url("/fonts/round.woff");
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("/fonts/jetbrains-mono-latin-wght.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Metric-matched fallback so text doesn't reflow when Inter swaps in. */
 @font-face {
-  font-family: "Round Bold";
-  font-weight: bold;
-  src: url("/fonts/round-bold.woff");
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
+  line-gap-override: 0%;
+  size-adjust: 107.4%;
 }
 
 @theme {
-  --font-sans: "Round", sans-serif;
-  --font-long: "Long", sans-serif;
-  --font-round-bold: "Round Bold", sans-serif;
-  /* BMW M colors (legacy — still used by Hero/Lucia/Loader until those are redesigned) */
-  --color-yellow: #0066B1; /* repurposed as primary blue */
-  --color-pink: #E60C2C;   /* repurposed as M red */
-  --breakpoint-sm: 40rem;
+  --font-sans: "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
   --breakpoint-xs: 20rem;
   --breakpoint-3xl: 120rem;
 
-  /* GDG / Google brand fonts */
-  --font-display: "Space Grotesk", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  /* Brand colours — DECORATIVE ONLY: shapes, strokes, illustration,
+     gradients. They fail WCAG AA as text on white (3.1–3.9:1), so never use
+     them for text, links or button labels. */
+  --color-google-blue: #4285f4;
+  --color-google-red: #ea4335;
+  --color-google-yellow: #fbbc05;
+  --color-google-green: #34a853;
 
-  /* Google brand palette */
-  --color-google-blue: #4285F4;
-  --color-google-red: #EA4335;
-  --color-google-yellow: #FBBC05;
-  --color-google-green: #34A853;
+  /* Accessible interactive colours (contrast on white, computed):
+     primary 4.51:1 · danger 5.80:1 · success 5.95:1 */
+  --color-primary: #1a73e8;
+  --color-primary-strong: #185abc;
+  --color-danger: #c5221f;
+  --color-success: #137333;
+
+  /* Neutrals: ink 16.1:1 · ink-2 6.05:1 on white */
   --color-ink: #202124;
-  --color-paper: #F8F9FA;
+  --color-ink-2: #5f6368;
+  --color-surface: #ffffff;
+  --color-surface-2: #f8f9fa;
+  --color-line: #dadce0; /* decorative dividers only (1.37:1) */
+  --color-line-strong: #80868b; /* input borders (3.68:1, WCAG 1.4.11) */
+
+  /* 8–12% tints for chips / status backgrounds. Use ink, primary-strong,
+     danger or success text on them — not the brand colours. */
+  --color-primary-tint: #e8f0fe;
+  --color-danger-tint: #fce8e6;
+  --color-warning-tint: #fef7e0;
+  --color-success-tint: #e6f4ea;
+
+  /* Fluid type scale — Tailwind utilities: text-display, text-h1 … */
+  --text-display: clamp(2.75rem, 1.6rem + 5vw, 5.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 700;
+
+  --text-h1: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 650;
+
+  --text-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h3--font-weight: 600;
+
+  --text-body-lg: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  --text-body-lg--line-height: 1.6;
+
+  --text-overline: 0.75rem;
+  --text-overline--line-height: 1.4;
+  --text-overline--letter-spacing: 0.12em;
+
+  /* Shape — new names so existing rounded-* utilities keep their meaning */
+  --radius-field: 0.5rem; /* 8: inputs, chips */
+  --radius-card: 1rem; /* 16: cards */
+  --radius-media: 1.75rem; /* 28: media / feature panels */
+
+  /* Elevation: 3 soft neutral levels; elevation = interactive */
+  --shadow-rest: 0 1px 2px rgb(60 64 67 / 0.08), 0 1px 3px 1px rgb(60 64 67 / 0.06);
+  --shadow-raised: 0 2px 6px 2px rgb(60 64 67 / 0.1), 0 1px 2px rgb(60 64 67 / 0.12);
+  --shadow-overlay: 0 8px 28px rgb(60 64 67 / 0.2), 0 2px 6px rgb(60 64 67 / 0.12);
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
 }
 
-body {
-  width: 100dvw;
-  overflow-x: hidden;
-  font-family: "Round", sans-serif;
-  background-color: black;
+:root {
+  --nav-h: 4.5rem; /* 72px */
+
+  /* Motion tokens (GSAP mirrors these in animations/motion.js) */
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
 }
 
-main {
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--nav-h) + 1rem);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  /* One visible focus style everywhere (also readable on legacy dark). */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-primary-tint);
+    color: var(--color-ink);
+  }
+}
+
+/* The signature motif: Blue → Red → Yellow → Green as one stroke. */
+@utility color-stroke {
   background: linear-gradient(
-    223.17deg,
-    rgb(28, 24, 41) 0%,
-    rgb(27, 24, 40) 8.61%,
-    rgb(25, 23, 36) 17.21%,
-    rgb(22, 21, 32) 25.82%,
-    rgb(20, 19, 28) 34.42%,
-    rgb(18, 18, 24) 43.03%,
-    rgb(17, 17, 23) 51.63%
+    90deg,
+    var(--color-google-blue) 0 25%,
+    var(--color-google-red) 25% 50%,
+    var(--color-google-yellow) 50% 75%,
+    var(--color-google-green) 75% 100%
   );
 }
 
-@layer utilities {
-  .flex-center {
-    @apply flex justify-center items-center;
-  }
-  .col-center {
-    @apply flex flex-col justify-center items-center;
-  }
-  .abs-center {
-    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
-  }
-}
-
-@layer components {
-  main {
-    @apply w-dvw overflow-x-hidden;
-  }
-  .gradient-title {
-    @apply md:text-[8rem] text-[5rem] font-round-bold !font-extrabold  md:leading-[7rem] leading-[4.5rem] text-center bg-gradient-to-r from-[#0066B1] via-[#00AEEF] to-[#E60C2C] bg-clip-text text-transparent;
-  }
-  .hero-section {
-    @apply w-dvw h-dvh relative overflow-hidden;
-
-    .scale-out {
-      @apply object-cover md:scale-125 h-full;
-    }
-  }
-  /* Sits above the hero headline but is purely decorative — it must not
-     swallow clicks meant for the hero CTAs underneath it. */
-  .entrance-message {
-    @apply absolute inset-0 w-full h-dvh overflow-hidden z-20 opacity-100 pointer-events-none;
-
-    .text-wrapper {
-      @apply mt-40 md:mt-60 2xl:mt-44 3xl:top-48;
-    }
-  }
-  .final {
-    @apply relative h-dvh overflow-hidden;
-
-    .final-content {
-      @apply scale-110;
-    }
-  }
-}
-
-.black-gradient-bg {
-  background: linear-gradient(
-    223.17deg,
-    rgb(28, 24, 41) 0%,
-    rgb(27, 24, 40) 8.61%,
-    rgb(25, 23, 36) 17.21%,
-    rgb(22, 21, 32) 25.82%,
-    rgb(20, 19, 28) 34.42%,
-    rgb(18, 18, 24) 43.03%,
-    rgb(17, 17, 23) 51.63%
-  );
-}
-
-.entrance-message {
-  mask-image: radial-gradient(circle at 50% 100vh, black 0%, transparent 0%);
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
-}
-
-.mask-wrapper {
-  mask-image: url("/images/big-hero-text.svg");
-  mask-repeat: no-repeat;
-  /* WebKit support for iOS Safari/Chrome */
-  -webkit-mask-image: url("/images/big-hero-text.svg");
-  -webkit-mask-repeat: no-repeat;
-}
-
-/* Global loader styles */
-.loader {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: radial-gradient(circle at center, #000 60%, #111);
-  overflow: hidden;
-}
-
-.bmw-text {
-  font-size: clamp(48px, 10vw, 100px);
-  font-family: "Audiowide", sans-serif;
-  font-weight: 400;
-  letter-spacing: 5px;
-  fill: none;
-  stroke: url(#bmwGradient);
-  stroke-width: 3px;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: text-draw 3.5s ease-in-out infinite alternate;
-}
-
-@keyframes text-draw {
-  0% {
-    stroke-dashoffset: 1000;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes spin {
+/* Entrance helpers: CSS-only, so they never delay LCP or need JS. `rise`
+   moves only (the h1 stays fully visible); `rise-fade` also fades. */
+@keyframes rise {
   from {
-    transform: rotate(0deg);
+    transform: translateY(14px);
   }
   to {
-    transform: rotate(360deg);
+    transform: none;
   }
 }
 
-/* Footer animations */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.3;
+@keyframes rise-fade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
   }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-@keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 102, 177, 0.6);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(0, 102, 177, 0.8), 0 0 60px rgba(230, 12, 44, 0.4);
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
-/* ===================================================================
-   GDG / Google design-system primitives (additive — new components
-   should use these; legacy BMW/GTA classes above stay until the
-   components that depend on them are redesigned)
-   =================================================================== */
-
-.gradient-text-google {
-  background: linear-gradient(90deg, #4285F4 0%, #EA4335 33%, #FBBC05 66%, #34A853 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+@utility anim-rise {
+  animation: rise var(--dur-slow) var(--ease-emphasized) both;
+  animation-delay: var(--delay, 0ms);
 }
 
-.bg-dark-cinematic {
-  background: radial-gradient(circle at center, #111117 0%, #000000 100%);
-  color: #F8F9FA;
+@utility anim-rise-fade {
+  animation: rise-fade var(--dur-slow) var(--ease-emphasized) both;
+  animation-delay: var(--delay, 0ms);
 }
 
-.bg-light {
-  background: #F8F9FA;
-  color: #202124;
-}
-
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin-inline: auto;
-  padding-inline: 1.25rem;
-}
-
-.section {
-  padding-block: 4rem;
-}
-
-@media (min-width: 768px) {
-  .section {
-    padding-block: 6rem;
-  }
-}
-
-.card {
-  border-radius: 1rem;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: transform 0.25s ease, border-color 0.25s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  border-radius: 999px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  background: linear-gradient(90deg, #4285F4, #34A853);
-  color: #fff;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  border-radius: 999px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  background: transparent;
-  /* Every secondary button sits on a dark surface; `inherit` picked up the
-     page's default black text and made the label unreadable. */
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
-.hero-headline {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 1.25rem;
-  gap: 0.75rem;
-}
-
-.hero-eyebrow {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #F8F9FA;
-  opacity: 0.85;
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2.2rem, 7vw, 5rem);
-  line-height: 1.05;
-  background: linear-gradient(90deg, #4285F4 0%, #EA4335 33%, #FBBC05 66%, #34A853 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
-}
-
-.hero-subtitle {
-  font-family: var(--font-body);
-  font-size: clamp(0.95rem, 2vw, 1.25rem);
-  color: #F8F9FA;
-  max-width: 42rem;
-  opacity: 0.9;
-}
-
-.hero-ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 0.5rem;
-}
-
-@keyframes events-blob-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(20px, -16px) scale(1.06); }
-}
-
-.events-blob {
-  animation: events-blob-float 12s ease-in-out infinite;
-}
-
-.events-blob-delay {
-  animation-delay: 3s;
-  animation-duration: 14s;
-}
-
-.events-blob-delay2 {
-  animation-delay: 6s;
-  animation-duration: 16s;
-}
-
+/* Reduced motion: every CSS animation/transition collapses; GSAP is handled
+   per-tier in src/animations (tier "static" builds no timelines). */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -369,5 +212,3 @@ main {
     scroll-behavior: auto !important;
   }
 }
-
-

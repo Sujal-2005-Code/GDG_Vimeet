@@ -1,46 +1,44 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Theme: set before first paint so there is no white/black flash.
+         Redesigned routes are "light", everything else is still "legacy" (dark).
+         Keep this list in step with LIGHT_ROUTES in src/components/RootLayout.jsx. -->
+    <script>
+      document.documentElement.dataset.theme = location.pathname === '/' ? 'light' : 'legacy';
+    </script>
+
     <!-- Primary Meta -->
-    <title>GDG ViMEET 2026-27</title>
-    <meta name="title" content="GDG ViMEET 2026-27" />
-    <meta name="description" content="GDG ViMEET 2026-27 — Google Developer Groups on Campus at Vishwaniketan ViMEET. Join our student-led developer community for workshops, hackathons, study jams, and collaboration." />
-    <meta name="keywords" content="GDG, GDG ViMEET, Google Developer Groups, ViMEET, Vishwaniketan, events, community, 2026-27" />
-    <meta name="author" content="GDG ViMEET" />
+    <title>GDG On Campus Vishwaniketan (ViMEET) 2026-27</title>
+    <meta name="title" content="GDG On Campus Vishwaniketan (ViMEET) 2026-27" />
+    <meta name="description" content="GDG On Campus Vishwaniketan (ViMEET) â€” a student-led Google Developer Groups community. Workshops, hackathons, study jams and a place to build, learn and grow together." />
+    <meta name="keywords" content="GDG, GDG On Campus, GDG ViMEET, Google Developer Groups, Vishwaniketan, ViMEET, events, community, 2026-27" />
+    <meta name="author" content="GDG On Campus Vishwaniketan" />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="/" />
+    <link rel="canonical" href="https://gdg-vimeet.vercel.app/" />
 
-    <!-- Icons / Favicons -->
-    <link rel="icon" type="image/webp" href="/images/logo.webp" />
-    <link rel="icon" type="image/png" href="/images/fav.png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/images/fav.png" />
-    <meta name="theme-color" content="#4285F4" />
+    <!-- Icons: neutral four-colour favicon (the official logo is not used until supplied) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#ffffff" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Twitter. TODO: add a 1200x630 og:image once the official logo/brand art is supplied. -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="/" />
-    <meta property="og:title" content="GDG ViMEET 2026-27" />
-    <meta property="og:description" content="GDG ViMEET 2026-27 — Join our student-led Google Developer Groups on Campus community for workshops, hackathons, and collaboration." />
-    <meta property="og:image" content="/images/logo.webp" />
+    <meta property="og:site_name" content="GDG On Campus Vishwaniketan" />
+    <meta property="og:url" content="https://gdg-vimeet.vercel.app/" />
+    <meta property="og:title" content="GDG On Campus Vishwaniketan (ViMEET) 2026-27" />
+    <meta property="og:description" content="A student-led Google Developer Groups community â€” workshops, hackathons, study jams and collaboration." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="GDG On Campus Vishwaniketan (ViMEET) 2026-27" />
+    <meta name="twitter:description" content="A student-led Google Developer Groups community â€” workshops, hackathons, study jams and collaboration." />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="GDG ViMEET 2026-27" />
-    <meta name="twitter:description" content="GDG ViMEET 2026-27 — Join our student-led Google Developer Groups on Campus community." />
-    <meta name="twitter:image" content="/images/logo.webp" />
-
-    <!-- Preconnect for Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Preload font CSS to avoid FOUC -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap"></noscript>
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+    <!-- Self-hosted Inter (variable): preloaded so the hero text renders in the final font. -->
+    <link rel="preload" href="/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Hero lockup (site.brand.lockup): discovered at HTML-parse time instead of after React mounts.
+         Update/remove together with site.brand.lockup. -->
+    <link rel="preload" href="/images/gdg-on-campus-vishwaniketan.svg" as="image" type="image/svg+xml" fetchpriority="high" />
   </head>
   <body>
     <div id="root"></div>

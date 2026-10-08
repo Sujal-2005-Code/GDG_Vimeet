@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import NavBar from './NavBar'
 import Footer from '../components/Footer'
 import { guidance, previousTenureGroups } from '../data/team'
-import { recruitmentTeams } from '../data/recruitment'
+import { recruitmentTeams, getRecruitmentCta } from '../data/recruitment'
 
 const SectionHeader = ({ title, subtitle }) => (
   <header className="pt-28 md:pt-32 pb-10 md:pb-14 text-center">
@@ -90,6 +90,7 @@ const RecruitmentCard = ({ team }) => (
 )
 
 const Team = () => {
+  const recruit = getRecruitmentCta()
   return (
     <main>
       <NavBar />
@@ -114,15 +115,27 @@ const Team = () => {
               <h2 className="font-long uppercase md:text-4xl text-3xl bg-gradient-to-r from-google-blue via-google-green to-google-blue bg-clip-text text-transparent tracking-wide">
                 2026-27 Recruitment
               </h2>
-              <Link
-                to="/join"
-                className="inline-flex items-center gap-2 rounded-full bg-white text-black font-bold px-5 py-2.5 hover:bg-white/90 transition text-sm shadow-lg"
-              >
-                Apply Now
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
+              {recruit.open ? (
+                <Link
+                  to={recruit.href}
+                  className="inline-flex items-center gap-2 rounded-full bg-white text-black font-bold px-5 py-2.5 hover:bg-white/90 transition text-sm shadow-lg"
+                >
+                  Apply Now
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+              ) : (
+                <a
+                  href={recruit.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={recruit.ariaLabel}
+                  className="inline-flex items-center gap-2 rounded-full bg-white text-black font-bold px-5 py-2.5 hover:bg-white/90 transition text-sm shadow-lg"
+                >
+                  Applications closed - {recruit.label}
+                </a>
+              )}
             </div>
             <div className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {recruitmentTeams.map((team) => (

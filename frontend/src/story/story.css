@@ -1,0 +1,80 @@
+/* 2.5D stage. Plain CSS (not processed by Tailwind). */
+
+.story-root {
+  position: relative;
+}
+
+.story-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* `clip` (not `hidden`): hidden would flatten the 3D context of children. */
+  overflow: clip;
+  perspective: 1200px; /* overwritten by the engine from the viewport width */
+}
+
+/* Reduced motion: no timelines, so the stage simply scrolls away with the page. */
+.story-root[data-tier='static'] .story-stage {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 100svh;
+}
+
+/* Do not flash unpositioned pieces before the engine places them. */
+.story-stage:not([data-ready]) .story-entity {
+  visibility: hidden;
+}
+
+.story-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.story-entity {
+  position: absolute;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* The mark: a square of side --s (set by the engine) at the stage centre. */
+.gdg-mark {
+  left: 50%;
+  top: 50%;
+  width: var(--s, 0px);
+  height: var(--s, 0px);
+}
+
+.story-slice,
+.story-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  backface-visibility: hidden;
+}
+
+/* Soft contact shadow: ONE static gradient layer whose opacity/scale animate,
+   instead of an animated SVG filter (filters re-rasterise every frame). */
+.story-shadow {
+  background: radial-gradient(closest-side, rgb(60 64 67 / 0.2), rgb(60 64 67 / 0));
+  border-radius: 50%;
+}
+
+.story-plane {
+  overflow: hidden;
+  border-radius: 12%;
+  background: var(--color-surface-2);
+  box-shadow: 0 24px 60px -20px rgb(60 64 67 / 0.45);
+}
+
+.story-plane img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}

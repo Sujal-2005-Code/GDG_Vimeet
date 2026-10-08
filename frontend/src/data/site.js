@@ -15,6 +15,45 @@ export const site = {
   // directly while this is false).
   recruitmentOpen: false,
 
+  /**
+   * Branding. Until the official GDG On Campus logo is supplied, the
+   * Wordmark component renders the typographic name below. When the
+   * official SVG arrives, set `logo: { src, alt }` — nothing else changes.
+   * Do not draw or approximate the logo in code.
+   */
+  brand: {
+    wordmark: { primary: 'GDG On Campus', secondary: 'Vishwaniketan' },
+    logo: null,
+    // Supplied wordmark lockup, shown in the Hero only. Swap `src` (or set
+    // to null to hide it) once the official lockup is available.
+    lockup: {
+      src: '/images/gdg-on-campus-vishwaniketan.svg',
+      alt: "Google Developer Groups On Campus, Vishwaniketan's iMEET",
+      width: 1192,
+      height: 394,
+    },
+  },
+
+  /**
+   * Hero content + visual. `visual.kind` picks how the right-hand visual
+   * is built; the Hero component and the story engine do not change:
+   *   'mark'  → the supplied 2.5D geometric mark, split into layers that
+   *             separate/rotate/orbit as you scroll
+   *   'image' → any image (e.g. a real event photo) as a rounded plane with
+   *             the same orbit/dot accents around it
+   * Example: visual: { kind: 'image', src: '/events/cloud-campaign/1.webp',
+   *                    alt: 'Students at the Google Cloud Study Jams' }
+   */
+  hero: {
+    headline: ['Build. Create.', 'Connect.', 'Go Beyond.'],
+    subhead: 'Where students build, learn and grow together.',
+    visual: {
+      kind: 'mark',
+      src: '/images/gdg-vishwaniketan-2-5d-mark.svg',
+      alt: '',
+    },
+  },
+
   institute: {
     name: "Vishwaniketan's Institute of Management Entrepreneurship and Engineering Technology",
     shortName: 'ViMEET',
