@@ -1,0 +1,322 @@
+{
+  "home/d1440": {
+    "height": 8280,
+    "fonts": [
+      "Round",
+      "Space Grotesk",
+      "DM Sans",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "activeNav": [
+      "Home",
+      "About",
+      "GDG ViMEET"
+    ],
+    "imgs": 3,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 20,
+    "h1Count": 1,
+    "videos": [
+      {
+        "src": "/videos/herovideo.mp4",
+        "visible": true,
+        "preload": "auto"
+      },
+      {
+        "src": "/videos/newbmw.mp4",
+        "visible": false,
+        "preload": "auto"
+      }
+    ],
+    "loadEventMs": 4809,
+    "loaderInDomAt5_5s": true,
+    "totalTransferredKB": 9016,
+    "requests": 18,
+    "videoKB": 6757,
+    "imageKB": 649,
+    "scriptKB": 250,
+    "fontKB": 176,
+    "thirdParty": [
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com",
+      "https://www.instagram.com"
+    ]
+  },
+  "events/d1440": {
+    "height": 4061,
+    "fonts": [
+      "Round",
+      "Round Bold",
+      "ui-monospace",
+      "Space Grotesk",
+      "Long"
+    ],
+    "activeNav": [
+      "Events"
+    ],
+    "imgs": 65,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 27,
+    "h1Count": 1,
+    "videos": [],
+    "loadEventMs": 379,
+    "loaderInDomAt5_5s": false,
+    "totalTransferredKB": 10279,
+    "requests": 75,
+    "videoKB": 0,
+    "imageKB": 9389,
+    "scriptKB": 250,
+    "fontKB": 197,
+    "thirdParty": [
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com"
+    ]
+  },
+  "team/d1440": {
+    "height": 4762,
+    "fonts": [
+      "Round",
+      "Round Bold",
+      "Long"
+    ],
+    "activeNav": [
+      "Teams"
+    ],
+    "imgs": 0,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 43,
+    "h1Count": 1,
+    "videos": [],
+    "loadEventMs": 138,
+    "loaderInDomAt5_5s": false,
+    "totalTransferredKB": 826,
+    "requests": 8,
+    "videoKB": 0,
+    "imageKB": 0,
+    "scriptKB": 208,
+    "fontKB": 175,
+    "thirdParty": [
+      "https://fonts.googleapis.com"
+    ]
+  },
+  "join/d1440": {
+    "height": 1174,
+    "fonts": [
+      "Round",
+      "Round Bold"
+    ],
+    "activeNav": [
+      "Join Us"
+    ],
+    "imgs": 0,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 19,
+    "h1Count": 1,
+    "videos": [],
+    "loadEventMs": 127,
+    "loaderInDomAt5_5s": false,
+    "totalTransferredKB": 769,
+    "requests": 7,
+    "videoKB": 0,
+    "imageKB": 0,
+    "scriptKB": 208,
+    "fontKB": 118,
+    "thirdParty": [
+      "https://fonts.googleapis.com"
+    ]
+  },
+  "contact/d1440": {
+    "height": 1432,
+    "fonts": [
+      "Round",
+      "Round Bold"
+    ],
+    "activeNav": [
+      "Contact"
+    ],
+    "imgs": 1,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 22,
+    "h1Count": 1,
+    "videos": [],
+    "loadEventMs": 1410,
+    "loaderInDomAt5_5s": false,
+    "totalTransferredKB": 786,
+    "requests": 10,
+    "videoKB": 0,
+    "imageKB": 17,
+    "scriptKB": 208,
+    "fontKB": 118,
+    "thirdParty": [
+      "https://fonts.googleapis.com",
+      "https://www.google.com",
+      "https://docs.google.com"
+    ]
+  },
+  "home/m390": {
+    "height": 8511,
+    "fonts": [
+      "Round",
+      "Space Grotesk",
+      "DM Sans",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "activeNav": [
+      "Home",
+      "About",
+      "GDG ViMEET"
+    ],
+    "imgs": 3,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 16,
+    "h1Count": 1,
+    "videos": [
+      {
+        "src": "/videos/herovideo.mp4",
+        "visible": false,
+        "preload": "auto"
+      },
+      {
+        "src": "/videos/newbmw.mp4",
+        "visible": true,
+        "preload": "auto"
+      }
+    ],
+    "loadEventMs": 1763,
+    "loaderInDomAt5_5s": true,
+    "totalTransferredKB": 18834,
+    "requests": 17,
+    "videoKB": 17316,
+    "imageKB": 649,
+    "scriptKB": 250,
+    "fontKB": 176,
+    "thirdParty": [
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com",
+      "https://www.instagram.com"
+    ]
+  },
+  "events/m390": {
+    "height": 5157,
+    "fonts": [
+      "Round",
+      "Round Bold",
+      "ui-monospace",
+      "Space Grotesk",
+      "Long"
+    ],
+    "activeNav": [
+      "Events"
+    ],
+    "imgs": 65,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 23,
+    "h1Count": 1,
+    "videos": [],
+    "loadEventMs": 298,
+    "loaderInDomAt5_5s": false,
+    "totalTransferredKB": 10279,
+    "requests": 75,
+    "videoKB": 0,
+    "imageKB": 9389,
+    "scriptKB": 250,
+    "fontKB": 197,
+    "thirdParty": [
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com"
+    ]
+  },
+  "team/m390": {
+    "height": 7075,
+    "fonts": [
+      "Round",
+      "Round Bold",
+      "Long"
+    ],
+    "activeNav": [
+      "Teams"
+    ],
+    "imgs": 0,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 39,
+    "h1Count": 1,
+    "videos": [],
+    "loadEventMs": 408,
+    "loaderInDomAt5_5s": false,
+    "totalTransferredKB": 826,
+    "requests": 8,
+    "videoKB": 0,
+    "imageKB": 0,
+    "scriptKB": 208,
+    "fontKB": 175,
+    "thirdParty": [
+      "https://fonts.googleapis.com"
+    ]
+  },
+  "join/m390": {
+    "height": 1388,
+    "fonts": [
+      "Round",
+      "Round Bold"
+    ],
+    "activeNav": [
+      "Join Us"
+    ],
+    "imgs": 0,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 15,
+    "h1Count": 1,
+    "videos": [],
+    "loadEventMs": 137,
+    "loaderInDomAt5_5s": false,
+    "totalTransferredKB": 769,
+    "requests": 7,
+    "videoKB": 0,
+    "imageKB": 0,
+    "scriptKB": 208,
+    "fontKB": 118,
+    "thirdParty": [
+      "https://fonts.googleapis.com"
+    ]
+  },
+  "contact/m390": {
+    "height": 2160,
+    "fonts": [
+      "Round",
+      "Round Bold"
+    ],
+    "activeNav": [
+      "Contact"
+    ],
+    "imgs": 1,
+    "imgsNoAlt": 0,
+    "overflowX": 0,
+    "interactiveUnder44": 18,
+    "h1Count": 1,
+    "videos": [],
+    "loadEventMs": 648,
+    "loaderInDomAt5_5s": false,
+    "totalTransferredKB": 786,
+    "requests": 10,
+    "videoKB": 0,
+    "imageKB": 17,
+    "scriptKB": 208,
+    "fontKB": 118,
+    "thirdParty": [
+      "https://fonts.googleapis.com",
+      "https://www.google.com",
+      "https://docs.google.com"
+    ]
+  }
+}

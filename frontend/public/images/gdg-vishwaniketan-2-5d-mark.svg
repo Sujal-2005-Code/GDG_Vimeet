@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title desc">
+  <title id="title">GDG On Campus Vishwaniketan inspired 2.5D geometric mark</title>
+  <desc id="desc">A Google-inspired four-color geometric developer-community mark for use as a temporary visual asset. This is not an official GDG logo.</desc>
+
+  <defs>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-opacity=".16"/>
+    </filter>
+
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4285F4"/>
+      <stop offset="1" stop-color="#1A73E8"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EA4335"/>
+      <stop offset="1" stop-color="#C5221F"/>
+    </linearGradient>
+    <linearGradient id="yellow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBBC05"/>
+      <stop offset="1" stop-color="#F9AB00"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34A853"/>
+      <stop offset="1" stop-color="#137333"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Soft depth/orbit rings for 2.5D scroll animation -->
+  <g fill="none" stroke="#DADCE0" stroke-width="4" opacity=".75">
+    <ellipse cx="400" cy="400" rx="315" ry="115" transform="rotate(-18 400 400)"/>
+    <ellipse cx="400" cy="400" rx="315" ry="115" transform="rotate(42 400 400)"/>
+  </g>
+
+  <!-- Main geometric mark -->
+  <g filter="url(#shadow)">
+    <!-- Blue -->
+    <rect x="205" y="185" width="175" height="175" rx="58"
+          fill="url(#blue)" transform="rotate(-45 292.5 272.5)"/>
+
+    <!-- Red -->
+    <rect x="420" y="185" width="175" height="175" rx="58"
+          fill="url(#red)" transform="rotate(45 507.5 272.5)"/>
+
+    <!-- Yellow -->
+    <rect x="205" y="420" width="175" height="175" rx="58"
+          fill="url(#yellow)" transform="rotate(45 292.5 507.5)"/>
+
+    <!-- Green -->
+    <rect x="420" y="420" width="175" height="175" rx="58"
+          fill="url(#green)" transform="rotate(-45 507.5 507.5)"/>
+  </g>
+
+  <!-- Central negative-space lens -->
+  <circle cx="400" cy="400" r="72" fill="#fff"/>
+  <circle cx="400" cy="400" r="48" fill="#F8F9FA"/>
+
+  <!-- Small depth accents -->
+  <g opacity=".9">
+    <circle cx="137" cy="400" r="12" fill="#4285F4"/>
+    <circle cx="663" cy="400" r="12" fill="#EA4335"/>
+    <circle cx="400" cy="137" r="12" fill="#FBBC05"/>
+    <circle cx="400" cy="663" r="12" fill="#34A853"/>
+  </g>
+</svg>

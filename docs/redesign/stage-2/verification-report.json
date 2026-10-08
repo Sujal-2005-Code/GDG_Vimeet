@@ -1,0 +1,472 @@
+{
+  "desktop_s0": {
+    "theme": "light",
+    "tier": "full",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "1368px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 754,
+      "y": 171,
+      "w": 566,
+      "h": 566
+    },
+    "entities": 14,
+    "slices": 12,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 0,
+    "docH": 7392
+  },
+  "desktop_s25": {
+    "theme": "light",
+    "tier": "full",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "1368px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 725,
+      "y": 162,
+      "w": 584,
+      "h": 584
+    },
+    "entities": 14,
+    "slices": 12,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 225,
+    "docH": 7392
+  },
+  "desktop_s50": {
+    "theme": "light",
+    "tier": "full",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "1368px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 448,
+      "y": 89,
+      "w": 724,
+      "h": 724
+    },
+    "entities": 14,
+    "slices": 12,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 450,
+    "docH": 7392
+  },
+  "desktop_s80": {
+    "theme": "light",
+    "tier": "full",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "0.96",
+      "visibility": "visible",
+      "perspective": "1368px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 299,
+      "y": 29,
+      "w": 842,
+      "h": 842
+    },
+    "entities": 14,
+    "slices": 12,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 720,
+    "docH": 7392
+  },
+  "desktop_s100": {
+    "theme": "light",
+    "tier": "full",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "0.0004",
+      "visibility": "visible",
+      "perspective": "1368px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 265,
+      "y": -5,
+      "w": 911,
+      "h": 911
+    },
+    "entities": 14,
+    "slices": 12,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 1000,
+    "docH": 7392
+  },
+  "desktop_back_to_0": {
+    "theme": "light",
+    "tier": "full",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "1368px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 754,
+      "y": 171,
+      "w": 566,
+      "h": 566
+    },
+    "entities": 14,
+    "slices": 12,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 0,
+    "docH": 7392
+  },
+  "desktop_pointer_far": {
+    "x": 743,
+    "y": 173,
+    "w": 569,
+    "h": 573
+  },
+  "desktop_pointer_near": {
+    "x": 762,
+    "y": 161,
+    "w": 570,
+    "h": 573
+  },
+  "reduced_s0": {
+    "theme": "light",
+    "tier": "static",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "1368px",
+      "position": "absolute"
+    },
+    "markRect": {
+      "x": 754,
+      "y": 171,
+      "w": 566,
+      "h": 566
+    },
+    "entities": 14,
+    "slices": 4,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 0,
+    "docH": 6582
+  },
+  "reduced_s50": {
+    "theme": "light",
+    "tier": "static",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "1368px",
+      "position": "absolute"
+    },
+    "markRect": {
+      "x": 754,
+      "y": -279,
+      "w": 566,
+      "h": 566
+    },
+    "entities": 14,
+    "slices": 4,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 450,
+    "docH": 6582
+  },
+  "mobile_s0": {
+    "theme": "light",
+    "tier": "lite",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "900px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 75,
+      "y": 646,
+      "w": 240,
+      "h": 240
+    },
+    "entities": 14,
+    "slices": 4,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 0,
+    "docH": 7758
+  },
+  "mobile_s35": {
+    "theme": "light",
+    "tier": "lite",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "900px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 68,
+      "y": 589,
+      "w": 253,
+      "h": 253
+    },
+    "entities": 14,
+    "slices": 4,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 300,
+    "docH": 7758
+  },
+  "mobile_s75": {
+    "theme": "light",
+    "tier": "lite",
+    "overflowX": 0,
+    "navActive": [
+      "Home"
+    ],
+    "h1": 1,
+    "stage": {
+      "ready": "true",
+      "opacity": "1",
+      "visibility": "visible",
+      "perspective": "900px",
+      "position": "fixed"
+    },
+    "markRect": {
+      "x": 30,
+      "y": 266,
+      "w": 330,
+      "h": 330
+    },
+    "entities": 14,
+    "slices": 4,
+    "fonts": [
+      "Inter",
+      "Round",
+      "Round Bold",
+      "Audiowide"
+    ],
+    "scrollY": 620,
+    "docH": 7758
+  },
+  "menu_open": {
+    "present": true,
+    "modal": "true",
+    "focusInside": true,
+    "activeTag": "GDG On Campus Vishwaniketan — home",
+    "htmlOverflow": "hidden"
+  },
+  "menu_after_tabs": {
+    "focusInside": true
+  },
+  "menu_after_esc": {
+    "closed": true,
+    "focusReturnedToToggle": true,
+    "htmlOverflow": ""
+  },
+  "page_events": {
+    "theme": "legacy",
+    "overflowX": 0,
+    "navActive": [
+      "Events"
+    ],
+    "h1": 1,
+    "stage": null,
+    "markRect": null,
+    "entities": 0,
+    "slices": 0,
+    "fonts": [
+      "Round",
+      "JetBrains Mono",
+      "Round Bold",
+      "Inter",
+      "Long"
+    ],
+    "scrollY": 0,
+    "docH": 4116
+  },
+  "page_team": {
+    "theme": "legacy",
+    "overflowX": 0,
+    "navActive": [
+      "Team"
+    ],
+    "h1": 1,
+    "stage": null,
+    "markRect": null,
+    "entities": 0,
+    "slices": 0,
+    "fonts": [
+      "Round",
+      "JetBrains Mono",
+      "Round Bold",
+      "Long"
+    ],
+    "scrollY": 0,
+    "docH": 4861
+  },
+  "page_contact": {
+    "theme": "legacy",
+    "overflowX": 0,
+    "navActive": [
+      "Contact"
+    ],
+    "h1": 1,
+    "stage": null,
+    "markRect": null,
+    "entities": 0,
+    "slices": 0,
+    "fonts": [
+      "Round",
+      "JetBrains Mono",
+      "Round Bold"
+    ],
+    "scrollY": 0,
+    "docH": 1506
+  },
+  "page_join": {
+    "theme": "legacy",
+    "overflowX": 0,
+    "navActive": [],
+    "h1": 1,
+    "stage": null,
+    "markRect": null,
+    "entities": 0,
+    "slices": 0,
+    "fonts": [
+      "Round",
+      "JetBrains Mono",
+      "Round Bold"
+    ],
+    "scrollY": 0,
+    "docH": 1247
+  },
+  "page_events_m390": {
+    "theme": "legacy",
+    "overflowX": 0,
+    "navActive": [],
+    "h1": 0,
+    "stage": null,
+    "markRect": null,
+    "entities": 0,
+    "slices": 0,
+    "fonts": [],
+    "scrollY": 0,
+    "docH": 844
+  },
+  "problems": []
+}

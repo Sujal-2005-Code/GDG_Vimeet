@@ -15,6 +15,52 @@ export const site = {
   // directly while this is false).
   recruitmentOpen: false,
 
+  /**
+   * Branding. The logo is the supplied SVG (public/images/gdg-on-campus-vishwaniketan.svg).
+   * The header shows its chevron mark (the `#gdg-mark` group, referenced
+   * straight from the file via <use>, never redrawn in code) next to the
+   * wordmark text set in HTML so it stays crisp at nav size; the Hero shows
+   * the full lockup. Replace the SVG file to update both — keep the
+   * `gdg-mark` group id and adjust `markViewBox` if the mark's bounds change.
+   * Set `logo: null` to fall back to the typographic wordmark only.
+   */
+  brand: {
+    wordmark: { primary: 'GDG On Campus', secondary: 'Vishwaniketan' },
+    logo: {
+      src: '/images/gdg-on-campus-vishwaniketan.svg',
+      alt: "Google Developer Groups On Campus, Vishwaniketan's iMEET",
+      markId: 'gdg-mark',
+      markViewBox: '352 28 488 168',
+    },
+    // Full lockup, shown in the Hero. Set to null to hide it.
+    lockup: {
+      src: '/images/gdg-on-campus-vishwaniketan.svg',
+      alt: "Google Developer Groups On Campus, Vishwaniketan's iMEET",
+      width: 1192,
+      height: 394,
+    },
+  },
+
+  /**
+   * Hero content + visual. `visual.kind` picks how the right-hand visual
+   * is built; the Hero component and the story engine do not change:
+   *   'mark'  → the supplied 2.5D geometric mark, split into layers that
+   *             separate/rotate/orbit as you scroll
+   *   'image' → any image (e.g. a real event photo) as a rounded plane with
+   *             the same orbit/dot accents around it
+   * Example: visual: { kind: 'image', src: '/events/cloud-campaign/1.webp',
+   *                    alt: 'Students at the Google Cloud Study Jams' }
+   */
+  hero: {
+    headline: ['Build. Create.', 'Connect.', 'Go Beyond.'],
+    subhead: 'Where students build, learn and grow together.',
+    visual: {
+      kind: 'mark',
+      src: '/images/gdg-vishwaniketan-2-5d-mark.svg',
+      alt: '',
+    },
+  },
+
   institute: {
     name: "Vishwaniketan's Institute of Management Entrepreneurship and Engineering Technology",
     shortName: 'ViMEET',

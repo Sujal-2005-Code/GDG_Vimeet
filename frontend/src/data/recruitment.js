@@ -1,3 +1,32 @@
+import { site } from './site';
+
+/**
+ * Single source of truth for every recruitment-related call to action.
+ * Anything that advertises joining/applying MUST read this instead of
+ * hard-coding "Apply" / "Hiring" copy, so the site can never claim
+ * applications are open while `site.recruitmentOpen` is false.
+ */
+export const getRecruitmentCta = () =>
+  site.recruitmentOpen
+    ? {
+        open: true,
+        label: 'Join GDG',
+        href: '/join',
+        external: false,
+        ariaLabel: 'Join GDG',
+        statusLabel: 'Applications open',
+        message: 'We are recruiting for the 2026-27 teams. Step up and make an impact.',
+      }
+    : {
+        open: false,
+        label: 'Follow us',
+        href: site.social.instagram,
+        external: true,
+        ariaLabel: 'Follow us on Instagram (opens in a new tab)',
+        statusLabel: 'Applications closed',
+        message: 'Applications for 2026-27 are closed. Follow us to hear when they reopen.',
+      };
+
 /**
  * The 5 official GDG ViMEET 2026-27 recruitment teams. `id` is the value
  * stored/submitted with an application — keep it stable once applications

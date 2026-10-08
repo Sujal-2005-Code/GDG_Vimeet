@@ -1,0 +1,58 @@
+{
+  "note": "Stage 2 measured against a LOCAL production build (vite preview, uncompressed). Baseline was the LIVE site (Vercel, compressed), so treat the comparison as indicative; both use Lighthouse 12.8 simulated throttling.",
+  "mobile": {
+    "formFactor": "mobile",
+    "scores": {
+      "performance": 66,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "fcpMs": 2939,
+      "lcpMs": 3894,
+      "tbtMs": 620,
+      "cls": 0,
+      "speedIndexMs": 4094,
+      "ttiMs": 4962
+    },
+    "transferKiB": 561,
+    "requests": 12
+  },
+  "desktop": {
+    "formFactor": "desktop",
+    "scores": {
+      "performance": 100,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "fcpMs": 537,
+      "lcpMs": 600,
+      "tbtMs": 11,
+      "cls": 0,
+      "speedIndexMs": 903,
+      "ttiMs": 894
+    },
+    "transferKiB": 561,
+    "requests": 12
+  },
+  "accessibilityAfterFinalFixes": {
+    "mobileRun": 100
+  },
+  "heroOnlyExperiment": {
+    "mobilePerformance": 96,
+    "lcpMs": 2500,
+    "tbtMs": 60,
+    "fcpMs": 2000,
+    "note": "Throwaway build with only NavBar+Hero+story engine (no legacy sections). Shows the new foundation meets the mobile target on its own; the remaining gap on the full page is the old sections below the fold."
+  },
+  "viteBuild": {
+    "mainJs": "441.97 kB / 151.40 kB gzip (baseline 644.62 / 212.37)",
+    "legacyHomeChunk": "19.72 kB / 5.46 kB gzip (lazy, mounts after hero paint)",
+    "eventsChunk": "150.97 kB / 49.25 kB gzip (lazy route)",
+    "animejsLazyChunk": "125.53 kB / 43.17 kB gzip (unchanged; removed in Stage 4)",
+    "css": "92.87 kB / 15.52 kB gzip"
+  }
+}

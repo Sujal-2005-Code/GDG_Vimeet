@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1192 394"
+     width="1192"
+     height="394"
+     role="img"
+     aria-labelledby="title desc">
+  <title id="title">Google Developer Groups On Campus Vishwaniketan's iMEET</title>
+  <desc id="desc">Google Developer Groups On Campus Vishwaniketan's iMEET wordmark based on the supplied reference image.</desc>
+
+  <defs>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <!--
+    Reusable / animation-friendly groups:
+    #gdg-mark
+      #left-red
+      #left-blue
+      #right-green
+      #right-yellow
+    #wordmark
+      #gdg-title
+      #campus-line
+  -->
+
+  <g id="gdg-mark" filter="url(#softShadow)"
+     stroke-linecap="round" stroke-linejoin="round" fill="none"
+     stroke-width="56">
+
+    <!-- Left chevron -->
+    <path id="left-red"
+          d="M 470 62 L 385 112"
+          stroke="#EA4335"/>
+    <path id="left-blue"
+          d="M 385 112 L 470 162"
+          stroke="#4285F4"/>
+
+    <!-- Right chevron -->
+    <path id="right-green"
+          d="M 722 62 L 807 112"
+          stroke="#0F9D58"/>
+    <path id="right-yellow"
+          d="M 807 112 L 722 162"
+          stroke="#FBBC04"/>
+  </g>
+
+  <g id="wordmark"
+     text-anchor="middle"
+     font-family="'Google Sans','Product Sans','Inter','Segoe UI',Arial,sans-serif">
+
+    <!-- Primary line -->
+    <text id="gdg-title"
+          x="596"
+          y="283"
+          font-size="53"
+          font-weight="600"
+          letter-spacing="-1.4"
+          fill="#0B1F49">
+      Google Developer Groups
+    </text>
+
+    <!-- Secondary line -->
+    <text id="campus-line"
+          x="596"
+          y="350"
+          font-size="42"
+          font-weight="400"
+          letter-spacing="-0.8">
+      <tspan fill="#3C99C7">On Campus</tspan>
+      <tspan fill="#3C99C7"> • </tspan>
+      <tspan fill="#202124">Vishwaniketan's iMEET</tspan>
+    </text>
+  </g>
+</svg>

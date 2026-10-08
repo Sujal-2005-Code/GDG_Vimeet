@@ -71,7 +71,7 @@ const Footer = () => (
         </div>
       </div>
 
-      <div className="mt-8 pt-6 border-t border-white/10 text-center text-xs text-white/40 space-y-1">
+      <div className="mt-8 pt-6 border-t border-white/10 text-center text-xs text-white/60 space-y-1">
         <p>© {site.chapterYear} {site.name}</p>
         <p>{site.institute.name}</p>
       </div>

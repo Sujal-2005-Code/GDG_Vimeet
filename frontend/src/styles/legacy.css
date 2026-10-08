@@ -1,0 +1,271 @@
+/* ===================================================================
+   LEGACY (pre-redesign) styles — dark theme, "Round/Long" fonts, BMW-era
+   gradients. Everything here is SCOPED under `.legacy-dark` so none of it
+   leaks into redesigned components. Pages are moved out of this file as
+   they are redesigned (Stage 3-4); Stage 5 deletes the file outright.
+
+   Where it applies:
+   - every route that has not been redesigned yet (RootLayout adds
+     `legacy-dark` to its wrapper), including /admin/* (kept dark until
+     Stage 5 by decision),
+   - the not-yet-redesigned sections below the new Hero on the home page
+     (App.jsx wraps them in `.legacy-dark.legacy-home`).
+   =================================================================== */
+
+@font-face {
+  font-family: "Long";
+  font-display: swap;
+  src: url("/fonts/long.woff");
+}
+
+@font-face {
+  font-family: "Round";
+  font-display: swap;
+  src: url("/fonts/round.woff");
+}
+
+@font-face {
+  font-family: "Round Bold";
+  font-weight: bold;
+  font-display: swap;
+  src: url("/fonts/round-bold.woff");
+}
+
+/* These two names back the `font-long` / `font-round-bold` utilities that
+   legacy components still use. */
+@theme {
+  --font-long: "Long", sans-serif;
+  --font-round-bold: "Round Bold", sans-serif;
+}
+
+/* Prevents a white flash / overscroll strip on legacy routes. Set by an
+   inline script in index.html and by RootLayout. */
+html[data-theme="legacy"] {
+  background-color: #000;
+}
+
+.legacy-dark {
+  font-family: "Round", sans-serif;
+  color: #fff;
+  background-color: #000;
+
+  /* Whole-route wrapper (RootLayout) */
+  &.legacy-route {
+    min-height: 100dvh;
+  }
+
+  /* Public legacy routes render the new fixed NavBar themselves; keep their
+     content clear of it. (Admin routes have no NavBar and no offset.) */
+  &.legacy-route-nav {
+    padding-top: var(--nav-h);
+  }
+
+  main {
+    width: 100dvw;
+    overflow-x: hidden;
+    background: linear-gradient(
+      223.17deg,
+      rgb(28, 24, 41) 0%,
+      rgb(27, 24, 40) 8.61%,
+      rgb(25, 23, 36) 17.21%,
+      rgb(22, 21, 32) 25.82%,
+      rgb(20, 19, 28) 34.42%,
+      rgb(18, 18, 24) 43.03%,
+      rgb(17, 17, 23) 51.63%
+    );
+  }
+
+  /* The dark block under the new Hero on the home page. */
+  &.legacy-home {
+    position: relative;
+    z-index: 20;
+    overflow-x: clip;
+    background: linear-gradient(
+      223.17deg,
+      rgb(28, 24, 41) 0%,
+      rgb(27, 24, 40) 8.61%,
+      rgb(25, 23, 36) 17.21%,
+      rgb(22, 21, 32) 25.82%,
+      rgb(20, 19, 28) 34.42%,
+      rgb(18, 18, 24) 43.03%,
+      rgb(17, 17, 23) 51.63%
+    );
+  }
+
+  .black-gradient-bg {
+    background: linear-gradient(
+      223.17deg,
+      rgb(28, 24, 41) 0%,
+      rgb(27, 24, 40) 8.61%,
+      rgb(25, 23, 36) 17.21%,
+      rgb(22, 21, 32) 25.82%,
+      rgb(20, 19, 28) 34.42%,
+      rgb(18, 18, 24) 43.03%,
+      rgb(17, 17, 23) 51.63%
+    );
+  }
+
+  .gradient-title {
+    @apply md:text-[8rem] text-[5rem] font-round-bold !font-extrabold md:leading-[7rem] leading-[4.5rem] text-center bg-gradient-to-r from-[#0066B1] via-[#00AEEF] to-[#E60C2C] bg-clip-text text-transparent;
+  }
+
+  .gradient-text-google {
+    background: linear-gradient(90deg, #4285f4 0%, #ea4335 33%, #fbbc05 66%, #34a853 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .final {
+    @apply relative h-dvh overflow-hidden;
+
+    .final-content {
+      @apply scale-110;
+    }
+  }
+
+  /* Closing scene of the old home page (Final.jsx renders <Loader/>). */
+  .loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: radial-gradient(circle at center, #000 60%, #111);
+    overflow: hidden;
+  }
+
+  .bmw-text {
+    font-size: clamp(48px, 10vw, 100px);
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    letter-spacing: 5px;
+    fill: none;
+    stroke: url(#bmwGradient);
+    stroke-width: 3px;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: text-draw 3.5s ease-in-out infinite alternate;
+  }
+
+  .card {
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    background: linear-gradient(90deg, #4285f4, #34a853);
+    color: #fff;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    background: transparent;
+    /* Every secondary button sits on a dark surface. */
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: background 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .events-blob {
+    animation: events-blob-float 12s ease-in-out infinite;
+  }
+
+  .events-blob-delay {
+    animation-delay: 3s;
+    animation-duration: 14s;
+  }
+
+  .events-blob-delay2 {
+    animation-delay: 6s;
+    animation-duration: 16s;
+  }
+}
+
+/* Keyframes cannot be scoped. `pulse` deliberately overrides Tailwind's
+   default so the existing legacy dots keep their current look. */
+@keyframes text-draw {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 102, 177, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 102, 177, 0.8), 0 0 60px rgba(230, 12, 44, 0.4);
+  }
+}
+
+@keyframes events-blob-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -16px) scale(1.06);
+  }
+}

@@ -1,7 +1,32 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { site } from '../data/site'
 
 const Social = () => {
+  // The Instagram embed pulls ~1.3 MB of third-party JS (and a cookie), so it
+  // only mounts when the section is actually near the viewport — not for
+  // every visitor who never scrolls that far.
+  const feedRef = useRef(null)
+  const [loadFeed, setLoadFeed] = useState(false)
+
+  useEffect(() => {
+    const el = feedRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setLoadFeed(true)
+      return undefined
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoadFeed(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   useEffect(() => {
     // Nudge iframe repaint on mount for better visual sync during transitions
     const timer = setTimeout(() => window.dispatchEvent(new Event('resize')), 150)
@@ -56,16 +81,17 @@ const Social = () => {
         <div className="mt-6 [perspective:1200px]">
           <div className="group relative rounded-2xl border border-white/10 bg-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] overflow-hidden will-change-transform [transform-style:preserve-3d] transition duration-500 group-hover:rotate-x-2 group-hover:rotate-y-[-1.5deg]">
             <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition pointer-events-none" />
-            <div className="relative aspect-[4/3] md:aspect-[21/9]">
-              <iframe
-                title="GDG Vimeet Instagram"
-                src={`${site.social.instagram}embed`}
-                className="absolute inset-0 w-full h-full"
-                loading="lazy"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+            <div ref={feedRef} className="relative aspect-[4/3] md:aspect-[21/9]">
+              {loadFeed && (
+                <iframe
+                  title="GDG Vimeet Instagram"
+                  src={`${site.social.instagram}embed`}
+                  className="absolute inset-0 w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              )}
             </div>
           </div>
         </div>
