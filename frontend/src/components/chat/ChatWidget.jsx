@@ -1,9 +1,11 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { fetchChatSuggestions } from '../../services/chat';
+import { site } from '../../data/site';
 
 // Only the launcher ships eagerly; the panel and its deps load on first open.
 const ChatPanel = lazy(() => import('./ChatPanel'));
+const QueryFallback = lazy(() => import('./QueryFallback'));
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +48,7 @@ const ChatWidget = () => {
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        aria-label={isOpen ? 'Close chat' : 'Ask GDG ViMEET a question'}
+        aria-label={isOpen ? 'Close chat' : `Ask ${site.chatbot.name} a question`}
         aria-expanded={isOpen}
         className="fixed bottom-5 right-5 z-[1500] inline-flex items-center justify-center size-14 rounded-full bg-gradient-to-br from-google-blue to-google-green text-white shadow-[0_8px_30px_rgba(0,0,0,0.45)] hover:scale-105 active:scale-95 transition motion-reduce:transition-none motion-reduce:hover:scale-100"
       >
@@ -72,19 +74,7 @@ const ChatWidget = () => {
               }
             >
               {isUnavailable ? (
-                <div className="flex flex-col items-center justify-center text-center h-full gap-3 px-6 bg-neutral-950 border border-white/10 sm:rounded-2xl">
-                  <p className="text-white text-sm font-semibold">The assistant is offline</p>
-                  <p className="text-white/60 text-xs leading-relaxed">
-                    Email <a className="underline" href="mailto:gdgvimeet@gmail.com">gdgvimeet@gmail.com</a> and the team will help you directly.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setIsOpen(false)}
-                    className="mt-1 text-xs text-white/70 hover:text-white underline"
-                  >
-                    Close
-                  </button>
-                </div>
+                <QueryFallback onClose={() => setIsOpen(false)} />
               ) : (
                 <ChatPanel onClose={() => setIsOpen(false)} suggestions={suggestions} />
               )}

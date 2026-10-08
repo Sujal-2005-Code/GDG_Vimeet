@@ -18,6 +18,7 @@ const ApplicationsAdmin = lazy(() => import('./sections/ApplicationsAdmin.jsx'))
 const AdminLogin = lazy(() => import('./sections/admin/AdminLogin.jsx'))
 const AdminGate = lazy(() => import('./sections/admin/AdminGate.jsx'))
 const AdminDashboard = lazy(() => import('./sections/admin/AdminDashboard.jsx'))
+const QueriesAdmin = lazy(() => import('./sections/admin/QueriesAdmin.jsx'))
 
 // Respect the OS-level reduced-motion preference for GSAP-driven animations
 // (CSS transitions/animations are handled separately in index.css).
@@ -59,6 +60,16 @@ const router = createBrowserRouter([
           <Suspense fallback={<AdminFallback />}>
             <AdminGate>
               <ApplicationsAdmin />
+            </AdminGate>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/admin/queries',
+        element: (
+          <Suspense fallback={<AdminFallback />}>
+            <AdminGate>
+              <QueriesAdmin />
             </AdminGate>
           </Suspense>
         ),

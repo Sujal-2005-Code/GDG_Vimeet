@@ -21,6 +21,15 @@ const NAV_ITEMS = [
       </svg>
     ),
   },
+  {
+    label: 'User Queries',
+    path: '/admin/queries',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8-1.5 0-2.91-.32-4.14-.89L3 20l1.13-3.39C3.42 15.49 3 13.8 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+    ),
+  },
 ];
 
 const navLinkClass = ({ isActive }) =>

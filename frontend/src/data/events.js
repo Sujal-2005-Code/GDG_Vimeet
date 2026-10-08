@@ -21,6 +21,24 @@ const galleryPaths = (slug, count) =>
 
 const rawPastEvents = [
   {
+    // `id` is the stable React key — this title is shared with the 2025-26
+    // Git & GitHub Workshop below, so the title alone can't identify it.
+    id: 'git-github-workshop-2026',
+    title: 'Git & GitHub Workshop',
+    date: '7 October 2026',
+    category: 'Workshops',
+    status: 'Completed',
+    meta: {
+      time: '2:00 PM – 4:15 PM',
+      venue: 'Lab B008',
+      audience: 'FE & SE',
+      organizer: 'GDG On Campus Vishwaniketan',
+    },
+    desc: 'An interactive Git & GitHub workshop for FE and SE students, covering version control, Git fundamentals, GitHub workflows, repositories, commits, branches, and basics of deployment.',
+    cover: `/events/git-github-workshop-2026/1.webp`,
+    gallery: galleryPaths('git-github-workshop-2026', 12),
+  },
+  {
     title: 'Google Cloud Study Jams Campaign',
     date: 'Date TBD — 2025-26', // TODO: replace with the real date
     category: 'Study Jams',

@@ -69,13 +69,13 @@ router.post('/', chatRateLimit, async (req, res) => {
 
   try {
     const result = await generateReply({ system: SYSTEM_PROMPT, messages });
-    const { reply, sources } = extractSources(result.text);
+    const { reply, sources, noMatch } = extractSources(result.text);
 
     if (!reply) {
       return res.status(502).json({ error: 'The assistant did not return an answer. Please try again.' });
     }
 
-    return res.json({ reply, sources, provider: result.provider });
+    return res.json({ reply, sources, provider: result.provider, noMatch });
   } catch (err) {
     if (err instanceof NoProviderError) {
       console.error('Chat is enabled but no provider is configured.');

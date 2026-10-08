@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import ChatMessage from './ChatMessage';
 import { useChat } from '../../hooks/useChat';
+import { site } from '../../data/site';
 
 const ChatPanel = ({ onClose, suggestions }) => {
-  const { messages, isSending, error, retryAfter, canRetry, send, retry, MAX_CHARS } = useChat();
+  const { messages, isSending, error, retryAfter, canRetry, send, retry, sendToTeam, MAX_CHARS } = useChat();
   const [draft, setDraft] = useState('');
   const listRef = useRef(null);
   const inputRef = useRef(null);
@@ -34,9 +35,9 @@ const ChatPanel = ({ onClose, suggestions }) => {
       {/* Header */}
       <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
         <div className="flex items-center gap-2.5 min-w-0">
-          <img src="/images/nav-logo.svg" alt="" className="h-5 w-auto shrink-0" />
+          <img src={site.chatbot.avatar} alt={site.chatbot.name} className="size-7 rounded-full object-cover shrink-0" />
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-white leading-tight">Ask GDG ViMEET</p>
+            <p className="text-sm font-semibold text-white leading-tight">{site.chatbot.name}</p>
             <p className="text-[11px] text-white/45 leading-tight">Answers about recruitment, teams and events</p>
           </div>
         </div>
@@ -57,7 +58,7 @@ const ChatPanel = ({ onClose, suggestions }) => {
         {messages.length === 0 ? (
           <div>
             <p className="text-sm text-white/70">
-              Hi! Ask me anything about GDG ViMEET — joining a team, the application process, or our events.
+              Hey, I'm {site.chatbot.name}! Ask me anything about GDG ViMEET — joining a team, the application process, or our events.
             </p>
             {suggestions.length > 0 && (
               <div className="flex flex-col items-start gap-2 mt-4">
@@ -75,7 +76,14 @@ const ChatPanel = ({ onClose, suggestions }) => {
             )}
           </div>
         ) : (
-          messages.map((message, index) => <ChatMessage key={index} message={message} />)
+          messages.map((message, index) => (
+            <ChatMessage
+              key={index}
+              message={message}
+              precedingQuestion={index > 0 ? messages[index - 1]?.content : undefined}
+              onSendToTeam={(question, source) => sendToTeam(question, index, source)}
+            />
+          ))
         )}
 
         {isSending && (
@@ -134,7 +142,7 @@ const ChatPanel = ({ onClose, suggestions }) => {
           </button>
         </div>
         <p className="text-[10px] text-white/30 mt-2 text-center">
-          Automated assistant — it can be wrong. Email gdgvimeet@gmail.com to reach a person.
+          {site.chatbot.name} is automated and can be wrong. Email gdgvimeet@gmail.com to reach a person.
         </p>
       </div>
     </div>

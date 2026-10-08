@@ -18,12 +18,42 @@ const ArrowIcon = ({ className = 'w-4 h-4' }) => (
   </svg>
 );
 
-const PinIcon = () => (
-  <svg className="w-4 h-4 text-white/40 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+const PinIcon = ({ className = 'w-4 h-4 text-white/40 shrink-0' }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
   </svg>
 );
+
+const CalendarIcon = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+  </svg>
+);
+
+const ClockIcon = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+const UsersIcon = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+  </svg>
+);
+
+// Key facts for events that carry structured metadata (date/time/venue/
+// audience). Events without `meta` render exactly as before.
+const getMetaItems = (item) =>
+  item.meta
+    ? [
+        { key: 'date', Icon: CalendarIcon, tone: 'text-google-blue', text: item.date },
+        { key: 'time', Icon: ClockIcon, tone: 'text-google-yellow', text: item.meta.time },
+        { key: 'venue', Icon: PinIcon, tone: 'text-google-red', text: item.meta.venue },
+        { key: 'audience', Icon: UsersIcon, tone: 'text-google-green', text: item.meta.audience },
+      ].filter((m) => m.text)
+    : [];
 
 const GalleryIcon = () => (
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -121,8 +151,27 @@ const PastEventFeature = ({ item, index, onView }) => (
             Highlight
           </span>
         )}
+        {item.status && (
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-google-green/40 bg-google-green/10 text-google-green">
+            <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-google-green" />
+            {item.status}
+          </span>
+        )}
       </div>
       <h3 className="text-white text-2xl md:text-3xl font-bold mt-4 leading-snug">{item.title}</h3>
+      {getMetaItems(item).length > 0 && (
+        <ul className="flex flex-wrap items-center justify-center md:justify-start gap-2 mt-4">
+          {getMetaItems(item).map((m) => (
+            <li
+              key={m.key}
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs md:text-[13px] text-white/85 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.08]"
+            >
+              <m.Icon className={`w-4 h-4 shrink-0 ${m.tone}`} />
+              {m.text}
+            </li>
+          ))}
+        </ul>
+      )}
       <p className="text-white/70 text-sm md:text-base mt-3 leading-relaxed max-w-xl mx-auto md:mx-0">
         {item.desc}
       </p>
@@ -136,6 +185,11 @@ const PastEventFeature = ({ item, index, onView }) => (
             </div>
           ))}
         </dl>
+      )}
+      {item.meta?.organizer && (
+        <p className="text-white/45 text-xs mt-4 leading-relaxed max-w-xl mx-auto md:mx-0">
+          Organized by <span className="text-white/70 font-medium">{item.meta.organizer}</span>
+        </p>
       )}
       {item.credits && (
         <p className="text-white/45 text-xs mt-4 leading-relaxed max-w-xl mx-auto md:mx-0">{item.credits}</p>
@@ -348,7 +402,7 @@ const Events = () => {
             ) : (
               <div>
                 {filteredPast.map((item, index) => (
-                  <PastEventFeature key={item.title} item={item} index={index} onView={setGalleryEvent} />
+                  <PastEventFeature key={item.id ?? item.title} item={item} index={index} onView={setGalleryEvent} />
                 ))}
               </div>
             )}

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { sendChatMessage } from '../services/chat';
+import { submitQuery } from '../services/queries';
 
 const MAX_CHARS = 600;
 
@@ -22,7 +23,15 @@ export const useChat = () => {
     setError(null);
     try {
       const data = await sendChatMessage(history);
-      setMessages([...history, { role: 'assistant', content: data.reply, sources: data.sources ?? [] }]);
+      setMessages([
+        ...history,
+        {
+          role: 'assistant',
+          content: data.reply,
+          sources: data.sources ?? [],
+          noMatch: Boolean(data.noMatch),
+        },
+      ]);
       lastAttempt.current = null;
     } catch (err) {
       setError(err.message);
@@ -49,6 +58,26 @@ export const useChat = () => {
     if (lastAttempt.current) run(lastAttempt.current);
   }, [run]);
 
+  // Hands a question to the GDG ViMEET team's inbox — used when the model
+  // has nothing grounded to say (noMatch) or after a 👎 on an answer.
+  // `messageIndex` marks just that one message as sent/failed, so the rest
+  // of the conversation is untouched.
+  const sendToTeam = useCallback(async (question, messageIndex, source) => {
+    setMessages((current) =>
+      current.map((m, i) => (i === messageIndex ? { ...m, querySubmitted: 'sending' } : m))
+    );
+    try {
+      await submitQuery(question, source);
+      setMessages((current) =>
+        current.map((m, i) => (i === messageIndex ? { ...m, querySubmitted: 'success' } : m))
+      );
+    } catch {
+      setMessages((current) =>
+        current.map((m, i) => (i === messageIndex ? { ...m, querySubmitted: 'error' } : m))
+      );
+    }
+  }, []);
+
   const reset = useCallback(() => {
     setMessages([]);
     setError(null);
@@ -56,7 +85,18 @@ export const useChat = () => {
     lastAttempt.current = null;
   }, []);
 
-  return { messages, isSending, error, retryAfter, canRetry: Boolean(lastAttempt.current), send, retry, reset, MAX_CHARS };
+  return {
+    messages,
+    isSending,
+    error,
+    retryAfter,
+    canRetry: Boolean(lastAttempt.current),
+    send,
+    retry,
+    sendToTeam,
+    reset,
+    MAX_CHARS,
+  };
 };
 
 export default useChat;
