@@ -1,94 +1,111 @@
-# Stage 3 — The scroll story
+# Stage 3 — The scroll story (revised: the real GDG mark is the hero)
 
-Branch `redesign/ui-v2`. Screenshots and raw results are in [`stage-3/`](stage-3/).
+Branch `redesign/ui-v2`. Screenshots and measured results are in [`stage-3/`](stage-3/).
 
-One continuous visual journey from the hero to the real event photography, with every number and word from `data/story.js`:
+The first Stage 3 built the story out of four rounded blocks that formed a "cloud". That visual was rejected as generic and disconnected from GDG identity, and has been **removed entirely** — no diamonds, no cloud, no rings, no slices. The object on the stage is now the **actual GDG mark**: the `#gdg-mark` group (the two chevrons) of `public/images/gdg-on-campus-vishwaniketan.svg`, referenced with `<use>`. It is never redrawn, split, re-coloured or morphed; the text lockup is not part of it.
+
+[Desktop, part 1](stage-3/journey-1440-1-hero-tier1-cloud.jpg) · [Desktop, part 2](stage-3/journey-1440-2-metrics-closing-photos.jpg) · [Phone](stage-3/journey-390-phone.jpg) · [Reduced motion](stage-3/reduced-motion.jpg) · [Orbit and depth, 2× close-up](stage-3/orbit-depth-closeup-2x.jpg) · [Logo cap fix](stage-3/logo-cap-fix-before-after.png)
+
+## The scene
 
 ```
-GDG mark → separates and orbits → "Google Developer Group · On Campus · Vishwaniketan"
-        → reshapes into an abstract cloud → "Google Cloud" → "Cloud Study Jams"
-        → 245+ Participants → 107 Completed Milestones → 20+ Cloud Labs & Courses   (one at a time)
-        → TIER 1 · 3 YEARS STRONG → 4TH COLLEGE TO COMPLETE THE JAMS
-        → the cloud recedes; real Study Jams photographs fan in; "See all events"
+THE REAL GDG MARK  +  4 orbiting accent dots  +  depth / tilt  +  scroll-driven rotation  +  camera
 ```
 
-[Part 1](stage-3/journey-1440-part1-orbit-cloud-metrics.jpg) · [Part 2](stage-3/journey-1440-part2-achievement-photography.jpg) · [Phone](stage-3/journey-390-phone.jpg) · [Reduced motion](stage-3/reduced-motion-static-story.jpg)
+| Part | What it is | Driven by |
+|---|---|---|
+| The mark | `<svg viewBox="352 28 488 168"><use href="…svg#gdg-mark"/></svg>`, one object | — |
+| Rotation | One smooth curve through **0° → 25° → 90° → 180° → 270° → 360°** at **0 / 20 / 40 / 60 / 80 / 100 %** of the scroll from the hero to the end of the third metric | scroll (not a free-running spin) |
+| Tilt | `rotateX`/`rotateY` up to ±16°, `translateZ`, scale — in screen axes, *outside* the rotation, so the object leans toward the camera while it turns | scroll (poses) |
+| Orbit | 4 small dots (blue, red, yellow, green — the logo's own colours), each on its **own** inclined orbit (different radius, tilt, slant, speed). Computed in true 3D, so a dot passes **in front of** the mark on the near side and **behind** it on the far side; the far side is a little dimmer | scroll |
+| Camera | Perspective ≈1200 px; the world dollies toward the mark for *Google Cloud* and sways a few degrees per beat | scroll |
+| Float | The mark breathes a few px in 3D on its own (desktop only), so it reads as a physical object even when you stop scrolling | time |
+| Parallax | Pointer tilt of the whole scene (desktop only) | pointer |
 
-## Copy rules (user-approved, do not embellish)
+## Exact scroll sequence
 
-All strings live in [`src/data/story.js`](../../frontend/src/data/story.js); components never hard-code them.
+Measured in a headless Chrome on the production build (`stage-3/verification-report.json` has every value).
 
-| Beat | Text |
-|---|---|
-| Metrics | **245+** Participants · **107** Completed Milestones · **20+** Cloud Labs & Courses |
-| Achievement | **TIER 1 · 3 YEARS STRONG** · **4TH COLLEGE TO COMPLETE THE JAMS** |
+| # | 1440 × 900 scrollY | 390 × 844 scrollY | Logo rotation | Left (copy) | Right (stage) |
+|---|---|---|---|---|---|
+| 1 | 0 | 0 | 0° | Hero: lockup, *Build. Create. Connect. Go Beyond.* | The mark upright, dots orbiting; flies in once on load |
+| 2 | 540 | 506 | 8° | Hero copy lifts away | The mark glides into the story frame and leans in |
+| 3 | 1035 | 1027 | 23° | **TIER 1** fades in | Turning, tilting; dots sweep round |
+| 4 | 1575 | 1433 | 48° | **TIER 1 / 3 YEARS STRONG** | Tilt swings the other way |
+| 5 | 2183 | 1888 | 89° | (same) | The mark **lifts up and to the right** as the next chapter arrives |
+| 6 | 2700 | 2277 | 129° | **Google Cloud** | Camera dolly toward the mark, orbit widens |
+| 7 | 3582 | 2938 | 204° | **Cloud Study Jams** · *A full learning cycle, executed start to finish.* | Camera eases back |
+| 8 | 4248 | 3438 | 258° | **245+** Participants (counts up) | Mark smaller, upper right, leaning one way |
+| 9 | 4788 | 3843 | 310° | **107** Completed Milestones | Leans the other way |
+| 10 | 5328 | 4248 | 356° | **20+** Cloud Labs & Courses | Nearly upright again |
+| 11 | 6030 | 4774 | 360° | **4TH COLLEGE TO COMPLETE THE JAMS** | Upright, centred, orbit wide |
+| 12 | 6624 | 5220 | 360° | *From the Cloud Study Jams* | The mark recedes |
+| 13 | 7209 | 5659 | — | Credits · **See all events** | Four real Study Jams photos fan in (three on phones) |
 
-No rankings or extra claims ("#4 in India", "top 4 college") unless an official source is supplied. Numbers enter **one per beat** — never together — and count up once (the final value is always in the HTML).
+Numbers enter **one per beat**, never together, and count once (final values are always in the HTML).
 
-> The Events page now reads the same figures (`data/events.js` imports `studyJams`), so its Cloud Study Jams card says "Completed Milestones" and "Cloud Labs & Courses" instead of the earlier "Completed & earned goodies" / "Cloud courses each". One source means the two pages cannot disagree; revert by editing `studyJams.stats[].label`.
+### Chapter order and two placement decisions
 
-## The chapters (`src/story/chapters.js`)
+The order follows the correction brief: **Tier 1 → Google Cloud → Cloud Study Jams → 245+ / 107 / 20+**. Two things the brief did not place:
 
-| Chapter | Pinned length | Words | Visual |
-|---|---|---|---|
-| hero → drift | 1 screen | headline (fades as it leaves) | mark glides into the story frame, pieces loosen |
-| orbit | 150 svh | Google Developer Group → On Campus · Vishwaniketan | the ring of pieces completes a full orbit, each piece counter-rotating so it stays upright |
-| cloud | 100 | Google Cloud | pieces stand up and gather into an abstract cloud (blue / red / yellow lobes, green base) |
-| jams | 80 | Cloud Study Jams + one-line lede | cloud settles, halos widen |
-| m1 · m2 · m3 | 60 each | 245+ · 107 · 20+ | a different lobe lifts toward the camera each beat; the dots swing a third of a turn |
-| achieve | 110 | TIER 1 · 3 YEARS STRONG → 4TH COLLEGE… | halos open wide |
-| community | 130 | From the Cloud Study Jams + credits + link | cloud recedes; 4 real photos fan in (3 on phones) |
+- **"4TH COLLEGE TO COMPLETE THE JAMS"** now comes *after* the three metrics, as the closing beat. Before the Jams are introduced the sentence has nothing to refer to. Moving it is one line in `ScrollStory.jsx`.
+- The old orbit chapter's *Google Developer Group / On Campus · Vishwaniketan* lines were dropped (the hero lockup already says it, and the brief goes straight from the hero to Tier 1). `story.orbit` was removed from `data/story.js`.
 
-Total ≈ 750 svh of scroll after the hero. Phones get 80% of every length.
+All copy is unchanged and still comes from `data/story.js`.
 
-## How it works (changes since Stage 2)
+## One fix inside the logo file
 
-**One master timeline.** The first version gave each chapter its own timeline. That broke on jumps: when several timelines write the same properties at once, which one renders last is undefined, so dragging the scrollbar or following a link could leave the pieces in the *previous* chapter's pose. Now every chapter is a segment of **one** timeline driven by **one** scrubbed ScrollTrigger, placed by the measured scroll geometry. The journey is a pure function of scroll position: scrolling in order, jumping in a scrambled order and reloading mid-page produce identical states (tested, below).
-
-**The intro yields to the journey.** The one-time load-in animation writes the same properties. If the browser restores your scroll after a reload (or you start scrolling during the intro) the intro finishes instantly and the journey is re-applied; otherwise it would complete *after* the right state was set and overwrite it.
-
-**Pieces are built big and only scaled down.** A piece that grows 1.9× for the cloud used to be rasterized small and scaled up, which stair-stepped the edges (worst on phones, where the mark also grows 1.46× into the story frame). Each cloud piece is now built at its cloud size (`data-kx/ky`) and the engine divides the authored scale by it; the mark's box is sized by the larger of the hero/story frames. Poses still mean "1 = the original diamond". Result: [clean edges at 2× density](stage-3/edge-sharpness-before-after-phone-2x.jpg); the hero is pixel-identical to before.
-
-**Sticky tracks, no GSAP pinning.** Each chapter is a `pinned + 100svh` tall section with a CSS-sticky layer; the next overlaps the previous by 100svh, so chapters are contiguous. No pin-spacers, nothing to fight React. Every beat is real HTML in DOM order (hidden with `opacity`, not `visibility`) so screen readers read the whole story; each chapter has a labelled `h2`.
-
-**Photos cost nothing until needed.** They are fetched only when the visitor comes within one screen of the achievement chapter (0 requests on first load, verified).
+The supplied SVG's `softShadow` filter region was sized as a percentage of the chevrons' **centre-lines**, which ignores the 56-unit round stroke, so the filter **sliced the round caps flat** (the red tip ended at y = 42 instead of 34). Invisible at nav size, obvious at hero size. The filter region is now set in user space (`filterUnits="userSpaceOnUse" x="320" y="10" width="540" height="210"`). Geometry and colours are untouched — [before / after](stage-3/logo-cap-fix-before-after.png).
 
 ## Tiers
 
-| Tier | Story behaviour |
+| Tier | Behaviour |
 |---|---|
-| `full` | 3-slice depth, pointer parallax, full orbit width, 4 photos |
-| `lite` (phones/touch) | 1 slice, no pointer parallax, orbit 32% narrower so it stays on screen, tracks 80% as long, 3 photos |
-| `static` (reduced motion) | **no timelines**; every beat is ordinary stacked content with final numbers; nothing pinned |
+| `full` (desktop, mouse) | Everything above |
+| `lite` (phones/touch) | Same journey; mark 86% size, orbits 80% radius so dots stay on screen, softer tilt, no idle float, no pointer parallax, tracks 80% as long, 3 photos |
+| `static` (`prefers-reduced-motion`) | **No rotation, no orbit, no timelines** (0 ScrollTriggers). The mark sits upright in the hero; each chapter fades in once and eases from 97% to 100% size as it scrolls into view |
+
+## How it is built
+
+```
+stage (perspective) → parallax (pointer) → world (camera)
+  anchor ── mark ─┬─ orbit ── 4 dots            (positions from the rig)
+                  └─ core (tilt) ── float ── spin (rotation from the rig) ── <use #gdg-mark>
+         └─ photo-1…4
+```
+
+- **Poses** (`story/poses.js`): named states — position, size, tilt, camera — tweened between chapters.
+- **Rig** (`story/rig.js`): the rotation curve (monotone cubic through the keys, so it passes exactly through 25°/90°/… with no jolts) and the dot orbits, evaluated from the master timeline's time.
+- Both run on **one master timeline driven by one scrubbed ScrollTrigger**, so the picture is a pure function of scroll position: scrolling in order, jumping around and reloading mid-page land on identical states (tested).
+- The logo is built 1.3× larger than its largest on-screen size and only ever scaled **down**, and it sits on its own compositor layers, so it is rasterised once (shadow included) and then only moved by the GPU.
+- The hero visual is still swappable by data: `site.hero.visual.kind = 'image'` puts a photo plane in the same rig (tilt + orbit, no spin) — tested.
 
 ## Verification
 
-All in a headless Chrome against the production build (`stage-3/verification-report.json`, `stage-3/results.json`).
+- **Rotation curve** — measured at 0/20/40/60/80/100%: **0°, 25°, 90°, 180°, 270°, 360°** exactly, on desktop and phone.
+- **Nothing leaves the screen** — the whole journey swept every 60 px: the logo and every dot stay inside the viewport and below the header at 1440 × 900 and 390 × 844 (0 violations).
+- **Order independence** — scroll-in-order vs. scrambled jumps: **8/8 identical** on desktop and phone (now including the spin and every dot position); **reload mid-page** restores the identical state.
+- **Reduced motion** — tier `static`, 0 ScrollTriggers, orbit hidden, no rotation, nothing pinned, all 8 chapters fade in when reached, counters show 245/107/20.
+- **Regression suite** (Stage 2) — nav, mobile menu focus trap + Esc + focus return, `/#about`, all inner pages: pass; 0 horizontal overflow anywhere; 0 console errors or warnings.
+- **Lighthouse** (local production build): mobile **84 / 100 / 100 / 100**, desktop **97–98 / 100 / 100 / 100** (interleaved with the previous build: 97, 97 vs 95, 97).
 
-- **Order independence:** scroll-in-order vs a scrambled sequence of jumps → **8/8 identical** on desktop and phone. **Reload mid-page** with restored scroll → identical to the in-order state. (These tests found two real bugs that single-pass screenshots had hidden — see above.)
-- **0** console errors/warnings · **0** horizontal overflow · **0** photo requests on first load · all nine chapters have a labelled heading · counters read 245 → 107 → 20 · reverse scroll returns the mark to the exact hero pixel · the Stage 2 suite (nav, menu focus trap, `/#about`, inner pages) still passes.
-- **Lighthouse** (local production build, simulated throttling): **mobile 83 / 100 / 100 / 100** (LCP 3.0 s, TBT 380 ms, CLS 0), **desktop 100 / 100 / 100 / 100**. Stage 2 was 66 on mobile.
-- **Frame cadence** — real wheel input down the whole journey, median of 3 runs, % of frames over 20 ms (a trivial page measures ~0–3% under the same slowdown):
+### Performance — measured carefully
 
-| Device model | Before the fix | After |
+Headless measurements on this machine turned out to be very noisy (the same build swings between ~5% and ~30% late frames depending on background load), and an early run was contaminated by leftover headless browsers. So the new build was compared **interleaved** with the previous build, run by run:
+
+| Model | New | Previous build |
 |---|---|---|
-| Desktop, full speed | 1.5% | **1.7%** |
-| Desktop, 4× CPU slowdown (college-lab PC) | 33% | **3.3%** |
-| Phone @2×, 4× slowdown (mid-range) | — | **2.5%** |
-| Phone @2×, 6× slowdown (budget) | 60% | **14%** (p95 33 ms) |
+| Desktop, 4× CPU slowdown | 22.9, 22.8 % | 23.6, 22.7 % |
+| Phone @2×, 4× slowdown (quiet runs) | 5.7, 5.7 % | 4.8, 4.6 % |
+| Main-thread time per frame (desktop 4×, trace) | **1.85 ms** | 2.05 ms |
 
-**The slowdown was not the 3D stage.** Isolation experiments (stage hidden, photos hidden, every ScrollTrigger killed) all left 20–26% of frames late. What fixed it was pausing an **infinite SVG animation in the old closing scene** that ran continuously even off-screen — a legacy leftover that disappears in Stage 4. It is now paused unless that scene is visible. Two smaller changes also went in: the NavBar's scroll listener (a forced layout every frame) became an IntersectionObserver, and tweens that change nothing are no longer created.
-
-## Things to know
-
-- The home page **below the story** is still the old dark sections (Stage 4). The hand-off from the last chapter is a fade, then the dark block.
-- `?story=debug` shows tier / chapter / progress, and exposes `window.__ScrollTrigger` for the console.
-- Headless Chrome with a CPU-throttle flag is a **model** of a slow device, not a measurement of one. The budget-phone model (14%) is the weakest result; real hardware may differ either way.
-- Mobile LCP (3.0 s) is held back by the old block mounting below the fold; a hero-only build scored 96 on mobile in Stage 2.
+Parity. One real improvement came out of it: the photos are now **decoded as soon as they load** (a screen before they are needed), which removed the 166–284 ms stalls that both builds had when the photos fanned in (0 such frames in 3 runs, vs. 7/7 before).
 
 ## Editing the story
 
-- **Copy / numbers:** `src/data/story.js` (events page follows automatically).
-- **Length of a chapter:** its `pinned` value in `src/story/chapters.js`.
-- **Where pieces go:** the named poses in `src/story/poses.js` (units are fractions of the mark's size; `kx/ky` in `marks/GdgMark.jsx` must match the cloud scales).
-- **Add a chapter:** add a track in `sections/ScrollStory.jsx` (`<Track id=…>`), a pose in `poses.js`, and an entry in `chapters.js` (`from` = previous `to`). The engine does the rest.
+- **Copy / numbers:** `src/data/story.js`.
+- **Rotation:** `SPIN.keys` in `src/story/chapters.js` (`[progress, degrees]`).
+- **Orbit:** `src/story/orbit.js` (radius, tilt, slant, speed, phase, size per dot); sweep speed `ORBIT_SWEEP` in `chapters.js`.
+- **Where the mark goes / how it leans / camera:** the named poses in `src/story/poses.js`.
+- **Length of a chapter:** its `pinned` value in `chapters.js`.
+- `?story=debug` shows tier / chapter / progress / rotation live.

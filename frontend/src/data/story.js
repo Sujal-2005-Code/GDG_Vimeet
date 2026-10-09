@@ -37,8 +37,12 @@ export const studyJams = {
   ],
 };
 
+/**
+ * Scroll order on the home page: TIER 1 / 3 YEARS STRONG (achievements.badges)
+ * → cloud.title → studyJams.title + lede → the three stats, one per beat →
+ * achievements.milestone → community.
+ */
 export const story = {
-  orbit: { line1: 'Google Developer Group', line2: 'On Campus · Vishwaniketan' },
   cloud: { overline: 'Powered by', title: 'Google Cloud' },
   community: {
     overline: 'From the Cloud Study Jams',

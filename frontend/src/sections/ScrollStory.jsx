@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Container from '../components/layout/Container';
 import Button from '../components/ui/Button';
 import ColorStroke from '../components/ui/ColorStroke';
@@ -12,6 +13,9 @@ import { LITE_TRACK_SCALE, storyChapters } from '../story/chapters';
  * chapter, with the same two-column frame as the Hero so the copy stays on
  * the left while the stage plays on the right.
  *
+ * Order: TIER 1 / 3 YEARS STRONG → Google Cloud → Cloud Study Jams →
+ * 245+ → 107 → 20+ → 4TH COLLEGE TO COMPLETE THE JAMS → event photography.
+ *
  * `data-at="0.45"` = that element fades in when the chapter is 45% through.
  * `data-count` = number that counts up the first time it appears (the final
  * value is always in the markup).
@@ -19,18 +23,6 @@ import { LITE_TRACK_SCALE, storyChapters } from '../story/chapters';
  * Copy comes from data/story.js — never edit strings here.
  */
 const PINNED = Object.fromEntries(storyChapters.map((c) => [c.id, c.pinned]));
-
-/** "A · B" → keeps the dot with A and never lets it start a new line. */
-const DotPair = ({ text }) => {
-  const [a, b] = text.split(' · ');
-  return b ? (
-    <>
-      <span className="whitespace-nowrap">{a}&nbsp;·</span> <span className="whitespace-nowrap">{b}</span>
-    </>
-  ) : (
-    text
-  );
-};
 
 const Track = ({ id, index, tier, slot = false, children }) => {
   const pinned = PINNED[id] * (tier === 'full' ? 1 : LITE_TRACK_SCALE);
@@ -89,19 +81,49 @@ const Stat = ({ id, index, tier, stat }) => (
 const ScrollStory = () => {
   const tier = useMotionTier();
   const [participants, milestones, labs] = studyJams.stats;
-  const { badges, milestone } = studyJams.achievements;
+  const [tierBadge, yearsBadge] = studyJams.achievements.badges;
+  const { milestone } = studyJams.achievements;
+
+  // Reduced motion: no scroll-driven motion, so each chapter just fades in
+  // (and eases from 97% size) once, when it first comes into view.
+  useEffect(() => {
+    if (tier !== 'static' || typeof IntersectionObserver === 'undefined') return undefined;
+    const sections = [...document.querySelectorAll('[data-story-chapter]:not([data-story-chapter="hero"])')];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.dataset.inView = 'true';
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.25 }
+    );
+    sections.forEach((s) => {
+      s.dataset.reveal = 'ready';
+      observer.observe(s);
+    });
+    return () => {
+      observer.disconnect();
+      sections.forEach((s) => {
+        delete s.dataset.reveal;
+        delete s.dataset.inView;
+      });
+    };
+  }, [tier]);
 
   return (
     <>
-      <Track id="orbit" index={0} tier={tier} slot>
-        <h2 id="orbit-title" className="text-h1 text-balance text-ink">
-          <span data-at="0.08" className="block">
-            {story.orbit.line1}
+      <Track id="tier1" index={0} tier={tier} slot>
+        <h2 id="tier1-title" className="text-ink">
+          <span data-at="0.08" className="block text-display">
+            {tierBadge}
           </span>
-          <span data-at="0.5" className="block text-primary">
-            <DotPair text={story.orbit.line2} />
+          <span data-at="0.32" className="mt-2 block text-h1 text-primary">
+            {yearsBadge}
           </span>
         </h2>
+        <ColorStroke data-at="0.55" className="mt-6 h-[3px] w-28" />
       </Track>
 
       <Track id="cloud" index={1} tier={tier}>
@@ -125,14 +147,12 @@ const ScrollStory = () => {
       <Stat id="m3" index={5} tier={tier} stat={labs} />
 
       <Track id="achieve" index={6} tier={tier}>
-        <h2 id="achieve-title" className="text-ink">
-          <span data-at="0.1" className="block text-h1 uppercase">
-            <DotPair text={badges.join(' · ')} />
-          </span>
-          <span data-at="0.5" className="mt-4 block text-h2 uppercase text-primary">
+        <h2 id="achieve-title" className="text-h1 uppercase text-balance text-ink">
+          <span data-at="0.1" className="block">
             {milestone}
           </span>
         </h2>
+        <ColorStroke data-at="0.4" className="mt-6 h-[3px] w-28" />
       </Track>
 
       <Track id="community" index={7} tier={tier}>

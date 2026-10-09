@@ -15,14 +15,16 @@ gsap.registerPlugin(ScrollTrigger);
 // toolbar change, which looks like jank.
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-// Selecting entities that may legitimately be absent (e.g. image mode has no
-// diamonds) should not spam the console.
+// Selecting entities that may legitimately be absent (e.g. no photo planes
+// until they are rendered) should not spam the console.
 gsap.config({ nullTargetWarn: false });
 
-// Development aid: with ?story=debug in the URL, `window.__ScrollTrigger` lets you
-// inspect every trigger (progress, start/end) from the console.
-if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('story') === 'debug') {
+// Development aid: with ?story=debug in the URL, `window.__ScrollTrigger` / `window.__gsap`
+// let you inspect every trigger (progress, start/end) and tween from the console.
+// (?story=hook exposes the same objects without the on-screen HUD, for measurements.)
+if (typeof window !== 'undefined' && ['debug', 'hook'].includes(new URLSearchParams(window.location.search).get('story'))) {
   window.__ScrollTrigger = ScrollTrigger;
+  window.__gsap = gsap;
 }
 
 export { gsap, ScrollTrigger };

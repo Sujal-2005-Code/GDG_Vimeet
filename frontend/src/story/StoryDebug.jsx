@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { storyState } from './engine';
 
-/** Add ?story=debug to the URL to see the tier / chapter / progress live. */
+/** Add ?story=debug to the URL to see the tier / chapter / progress / logo rotation live. */
 const StoryDebug = () => {
   const [snap, setSnap] = useState(storyState);
 
@@ -20,6 +20,7 @@ const StoryDebug = () => {
       <div>tier: {snap.tier}</div>
       <div>chapter: {snap.chapter ?? '—'}</div>
       <div>progress: {snap.progress.toFixed(3)}</div>
+      <div>spin: {snap.spin.toFixed(1)}°</div>
     </div>
   );
 };

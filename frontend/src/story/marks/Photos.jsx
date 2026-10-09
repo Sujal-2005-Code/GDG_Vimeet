@@ -8,10 +8,17 @@
  * Decorative here (the stage is aria-hidden); the same photos are fully
  * described in the Events gallery.
  */
+
+// Decode each photo as soon as it has loaded (a screen before it is needed),
+// so decoding never lands on the frame where it flies in.
+const predecode = (img) => {
+  img?.decode?.().catch(() => {});
+};
+
 const Photos = ({ srcs = [], on = false }) =>
   srcs.map((src, i) => (
     <div key={src} data-entity={`photo-${i + 1}`} className="story-entity story-photo">
-      {on && <img src={src} alt="" decoding="async" draggable="false" />}
+      {on && <img ref={predecode} src={src} alt="" decoding="async" draggable="false" />}
     </div>
   ));
 

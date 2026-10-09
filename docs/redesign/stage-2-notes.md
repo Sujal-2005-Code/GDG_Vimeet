@@ -2,6 +2,8 @@
 
 Branch `redesign/ui-v2`. Screenshots and the raw verification report are in [`stage-2/`](stage-2/).
 
+> **Superseded visual:** the four-diamond hero mark described below was replaced in the revised Stage 3 by the real GDG mark from the logo SVG (rotating, with orbiting accent dots). The engine structure described here still applies — see [stage-3-notes.md](stage-3-notes.md).
+
 ## What shipped
 
 | Area | Files |

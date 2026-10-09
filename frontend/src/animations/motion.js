@@ -6,11 +6,12 @@
  * runs in every tier; only fidelity changes:
  *
  *   full   desktop-class: ≥1024px wide, mouse-like pointer, motion allowed
- *          → depth slices, pointer parallax, pinned/scrubbed chapters
+ *          → scroll-driven rotation + tilt, orbiting dots, idle float, pointer parallax
  *   lite   phones/tablets/touch, motion allowed
- *          → single layer, no pointer parallax, shorter scrub smoothing
+ *          → the same journey, smaller mark/orbit, softer tilt, no float or pointer parallax
  *   static prefers-reduced-motion
- *          → no timelines at all; the final composition, scrolls with the page
+ *          → no timelines, no rotation, no orbit; the upright mark and plain content
+ *            with a one-time opacity/scale fade as each chapter appears
  */
 
 export const MQ = {

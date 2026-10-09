@@ -44,10 +44,10 @@ export const site = {
   /**
    * Hero content + visual. `visual.kind` picks how the right-hand visual
    * is built; the Hero component and the story engine do not change:
-   *   'mark'  → the supplied 2.5D geometric mark, split into layers that
-   *             separate/rotate/orbit as you scroll
+   *   'mark'  → the real GDG mark (the `gdg-mark` group of `brand.logo`),
+   *             turned by scroll with small accent dots orbiting it
    *   'image' → any image (e.g. a real event photo) as a rounded plane with
-   *             the same orbit/dot accents around it
+   *             the same orbit/dot accents around it (needs `src`)
    * Example: visual: { kind: 'image', src: '/events/cloud-campaign/1.webp',
    *                    alt: 'Students at the Google Cloud Study Jams' }
    */
@@ -56,7 +56,6 @@ export const site = {
     subhead: 'Where students build, learn and grow together.',
     visual: {
       kind: 'mark',
-      src: '/images/gdg-vishwaniketan-2-5d-mark.svg',
       alt: '',
     },
   },

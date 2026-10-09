@@ -1,18 +1,27 @@
 import { useEffect, useState } from 'react';
 import { site } from '../data/site';
 import { studyJams } from '../data/story';
-import GdgMark, { MarkDefs } from './marks/GdgMark';
+import Composition from './marks/Composition';
 import ImagePlane from './marks/ImagePlane';
+import LogoMark from './marks/LogoMark';
 import './story.css';
+
+/** width / height of the logo mark's viewBox ("x y w h"). */
+const markAspect = (logo) => {
+  const [, , w, h] = logo.markViewBox.split(/\s+/).map(Number);
+  return w / h;
+};
 
 /**
  * The persistent stage. Decorative only (aria-hidden): every word on the
- * page is real HTML above it. The hero visual is chosen by data
- * (site.hero.visual.kind), so swapping it never touches the engine.
+ * page is real HTML above it. The visual is chosen by data
+ * (site.hero.visual.kind), so swapping it never touches the engine:
+ *   'mark'  the real GDG mark from the logo SVG (site.brand.logo)
+ *   'image' any image as a plane
  */
 const StoryStage = ({ tier }) => {
   const { kind, src } = site.hero.visual;
-  const slices = tier === 'full' ? 3 : 1;
+  const { logo } = site.brand;
   const photos = studyJams.photos.slice(0, tier === 'full' ? 4 : 3);
 
   // Fetch the event photos only once the visitor is within ~one screen of
@@ -37,16 +46,21 @@ const StoryStage = ({ tier }) => {
     return () => observer.disconnect();
   }, []);
 
+  const asImage = kind === 'image';
+  const hasLogo = Boolean(logo?.markId);
+
   return (
-    <div data-story-stage className="story-stage" aria-hidden="true">
-      <MarkDefs />
+    <div data-story-stage data-visual-kind={asImage ? 'image' : 'mark'} className="story-stage" aria-hidden="true">
       <div data-story-parallax className="story-layer">
         <div data-story-world className="story-layer">
-          {kind === 'image' ? (
-            <ImagePlane src={src} photos={photos} photosOn={photosOn} />
-          ) : (
-            <GdgMark slices={slices} photos={photos} photosOn={photosOn} />
-          )}
+          <Composition
+            aspect={asImage ? 1 : hasLogo ? markAspect(logo) : 1}
+            width={asImage ? 0.66 : 0.72}
+            photos={photos}
+            photosOn={photosOn}
+          >
+            {asImage ? <ImagePlane src={src} /> : hasLogo ? <LogoMark logo={logo} /> : null}
+          </Composition>
         </div>
       </div>
     </div>
