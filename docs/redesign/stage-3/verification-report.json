@@ -1,0 +1,1119 @@
+{
+  "d1440_chapters": [
+    {
+      "id": "hero",
+      "top": 0,
+      "h": 900
+    },
+    {
+      "id": "orbit",
+      "top": 900,
+      "h": 2250
+    },
+    {
+      "id": "cloud",
+      "top": 2250,
+      "h": 1800
+    },
+    {
+      "id": "jams",
+      "top": 3150,
+      "h": 1620
+    },
+    {
+      "id": "m1",
+      "top": 3870,
+      "h": 1440
+    },
+    {
+      "id": "m2",
+      "top": 4410,
+      "h": 1440
+    },
+    {
+      "id": "m3",
+      "top": 4950,
+      "h": 1440
+    },
+    {
+      "id": "achieve",
+      "top": 5490,
+      "h": 1890
+    },
+    {
+      "id": "community",
+      "top": 6480,
+      "h": 2070
+    }
+  ],
+  "d1440": {
+    "hero@0": {
+      "scrollY": 0,
+      "navBg": "rgba(0, 0, 0, 0)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 754,
+        "y": 171,
+        "w": 566
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: full chapter: — progress: 0.000"
+    },
+    "hero@0.5": {
+      "scrollY": 450,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 751,
+        "y": 193,
+        "w": 573
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: full chapter: hero progress: 0.500"
+    },
+    "orbit@0.05": {
+      "scrollY": 968,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "orbit",
+          "copyOpacity": 0.75,
+          "shown": []
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 747,
+        "y": 196,
+        "w": 580
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: full chapter: orbit progress: 0.050"
+    },
+    "orbit@0.3": {
+      "scrollY": 1305,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "orbit",
+          "copyOpacity": 1,
+          "shown": [
+            "Google Developer Group"
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 745,
+        "y": 194,
+        "w": 580
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: full chapter: orbit progress: 0.300"
+    },
+    "orbit@0.55": {
+      "scrollY": 1643,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "orbit",
+          "copyOpacity": 1,
+          "shown": [
+            "Google Developer Group",
+            "On Campus · Vishwaniketan"
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 741,
+        "y": 191,
+        "w": 579
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: full chapter: orbit progress: 0.550"
+    },
+    "orbit@0.95": {
+      "scrollY": 2183,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "orbit",
+          "copyOpacity": 0.75,
+          "shown": [
+            "Google Developer Group",
+            "On Campus · Vishwaniketan"
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 738,
+        "y": 187,
+        "w": 576
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: full chapter: orbit progress: 0.950"
+    },
+    "cloud@0.55": {
+      "scrollY": 2745,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "cloud",
+          "copyOpacity": 1,
+          "shown": [
+            ""
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 745,
+        "y": 194,
+        "w": 577
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: full chapter: cloud progress: 0.550"
+    },
+    "jams@0.55": {
+      "scrollY": 3546,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "jams",
+          "copyOpacity": 1,
+          "shown": [
+            "A full learning cycle, executed start to finish."
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 749,
+        "y": 198,
+        "w": 575
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: full chapter: jams progress: 0.550"
+    },
+    "m1@0.6": {
+      "scrollY": 4194,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "m1",
+          "copyOpacity": 1,
+          "shown": [
+            "245+",
+            "Participants"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 747,
+        "y": 185,
+        "w": 588
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: full chapter: m1 progress: 0.600"
+    },
+    "m2@0.6": {
+      "scrollY": 4734,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "m2",
+          "copyOpacity": 1,
+          "shown": [
+            "107",
+            "Completed Milestones"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "0"
+      ],
+      "anchor": {
+        "x": 747,
+        "y": 191,
+        "w": 585
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: full chapter: m2 progress: 0.600"
+    },
+    "m3@0.6": {
+      "scrollY": 5274,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "m3",
+          "copyOpacity": 1,
+          "shown": [
+            "20+",
+            "Cloud Labs & Courses"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 747,
+        "y": 196,
+        "w": 567
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: full chapter: m3 progress: 0.600"
+    },
+    "achieve@0.25": {
+      "scrollY": 5738,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "achieve",
+          "copyOpacity": 1,
+          "shown": [
+            "TIER 1 · 3 YEARS STRONG"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 747,
+        "y": 196,
+        "w": 564
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: full chapter: achieve progress: 0.251"
+    },
+    "achieve@0.7": {
+      "scrollY": 6183,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "achieve",
+          "copyOpacity": 1,
+          "shown": [
+            "TIER 1 · 3 YEARS STRONG",
+            "4TH COLLEGE TO COMPLETE THE JAMS"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 743,
+        "y": 192,
+        "w": 585
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: full chapter: achieve progress: 0.700"
+    },
+    "community@0.2": {
+      "scrollY": 6714,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "community",
+          "copyOpacity": 1,
+          "shown": [
+            "From the Cloud Study Jams"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 743,
+        "y": 192,
+        "w": 588
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0.62
+        },
+        {
+          "loaded": true,
+          "op": 0.26
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: full chapter: community progress: 0.200"
+    },
+    "community@0.55": {
+      "scrollY": 7124,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "community",
+          "copyOpacity": 1,
+          "shown": [
+            "From the Cloud Study Jams",
+            "Guided by Faculty Coordinator Prof. Charusheela Pandit and l",
+            "See all events"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 749,
+        "y": 198,
+        "w": 575
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0.99
+        },
+        {
+          "loaded": true,
+          "op": 0.97
+        },
+        {
+          "loaded": true,
+          "op": 0.89
+        },
+        {
+          "loaded": true,
+          "op": 0.8
+        }
+      ],
+      "hud": "tier: full chapter: community progress: 0.550"
+    },
+    "community@0.9": {
+      "scrollY": 7533,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 900,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "community",
+          "copyOpacity": 1,
+          "shown": [
+            "From the Cloud Study Jams",
+            "Guided by Faculty Coordinator Prof. Charusheela Pandit and l",
+            "See all events"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 754,
+        "y": 203,
+        "w": 566
+      },
+      "stageOpacity": 0.8,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 1
+        },
+        {
+          "loaded": true,
+          "op": 1
+        },
+        {
+          "loaded": true,
+          "op": 1
+        },
+        {
+          "loaded": true,
+          "op": 1
+        }
+      ],
+      "hud": "tier: full chapter: community progress: 0.900"
+    }
+  },
+  "d1440_back_to_top": {
+    "scrollY": 0,
+    "navBg": "rgba(0, 0, 0, 0)",
+    "vh": 900,
+    "overflowX": 0,
+    "visibleCopy": [],
+    "counters": [
+      "245",
+      "107",
+      "20"
+    ],
+    "anchor": {
+      "x": 754,
+      "y": 171,
+      "w": 566
+    },
+    "stageOpacity": 1,
+    "photos": [
+      {
+        "loaded": true,
+        "op": 0
+      },
+      {
+        "loaded": true,
+        "op": 0
+      },
+      {
+        "loaded": true,
+        "op": 0
+      },
+      {
+        "loaded": true,
+        "op": 0
+      }
+    ],
+    "hud": "tier: full chapter: hero progress: 0.000"
+  },
+  "m390_chapters": [
+    {
+      "id": "hero",
+      "top": 0,
+      "h": 926
+    },
+    {
+      "id": "orbit",
+      "top": 926,
+      "h": 1857
+    },
+    {
+      "id": "cloud",
+      "top": 1939,
+      "h": 1519
+    },
+    {
+      "id": "jams",
+      "top": 2614,
+      "h": 1384
+    },
+    {
+      "id": "m1",
+      "top": 3154,
+      "h": 1249
+    },
+    {
+      "id": "m2",
+      "top": 3559,
+      "h": 1249
+    },
+    {
+      "id": "m3",
+      "top": 3964,
+      "h": 1249
+    },
+    {
+      "id": "achieve",
+      "top": 4369,
+      "h": 1587
+    },
+    {
+      "id": "community",
+      "top": 5112,
+      "h": 1722
+    }
+  ],
+  "m390": {
+    "hero@0": {
+      "scrollY": 0,
+      "navBg": "rgba(0, 0, 0, 0)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 75,
+        "y": 646,
+        "w": 240
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: lite chapter: — progress: 0.000"
+    },
+    "orbit@0.3": {
+      "scrollY": 1230,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "orbit",
+          "copyOpacity": 1,
+          "shown": [
+            "Google Developer Group"
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 14,
+        "y": 477,
+        "w": 360
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: lite chapter: orbit progress: 0.300"
+    },
+    "orbit@0.85": {
+      "scrollY": 1787,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "orbit",
+          "copyOpacity": 1,
+          "shown": [
+            "Google Developer Group",
+            "On Campus · Vishwaniketan"
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 7,
+        "y": 468,
+        "w": 367
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: lite chapter: orbit progress: 0.850"
+    },
+    "cloud@0.55": {
+      "scrollY": 2310,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "cloud",
+          "copyOpacity": 1,
+          "shown": [
+            ""
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 13,
+        "y": 476,
+        "w": 361
+      },
+      "stageOpacity": 1,
+      "photos": [],
+      "hud": "tier: lite chapter: cloud progress: 0.550"
+    },
+    "jams@0.55": {
+      "scrollY": 2911,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "jams",
+          "copyOpacity": 1,
+          "shown": [
+            "A full learning cycle, executed start to finish."
+          ]
+        }
+      ],
+      "counters": [
+        "0",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 17,
+        "y": 481,
+        "w": 356
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: lite chapter: jams progress: 0.550"
+    },
+    "m1@0.6": {
+      "scrollY": 3397,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "m1",
+          "copyOpacity": 1,
+          "shown": [
+            "245+",
+            "Participants"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "0",
+        "0"
+      ],
+      "anchor": {
+        "x": 20,
+        "y": 477,
+        "w": 356
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: lite chapter: m1 progress: 0.600"
+    },
+    "m3@0.6": {
+      "scrollY": 4207,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "m3",
+          "copyOpacity": 1,
+          "shown": [
+            "20+",
+            "Cloud Labs & Courses"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 13,
+        "y": 476,
+        "w": 357
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: lite chapter: m3 progress: 0.600"
+    },
+    "achieve@0.7": {
+      "scrollY": 4889,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "achieve",
+          "copyOpacity": 1,
+          "shown": [
+            "TIER 1 · 3 YEARS STRONG",
+            "4TH COLLEGE TO COMPLETE THE JAMS"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 13,
+        "y": 476,
+        "w": 363
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        },
+        {
+          "loaded": true,
+          "op": 0
+        }
+      ],
+      "hud": "tier: lite chapter: achieve progress: 0.700"
+    },
+    "community@0.6": {
+      "scrollY": 5639,
+      "navBg": "rgb(255, 255, 255)",
+      "vh": 844,
+      "overflowX": 0,
+      "visibleCopy": [
+        {
+          "id": "community",
+          "copyOpacity": 1,
+          "shown": [
+            "From the Cloud Study Jams",
+            "Guided by Faculty Coordinator Prof. Charusheela Pandit and l",
+            "See all events"
+          ]
+        }
+      ],
+      "counters": [
+        "245",
+        "107",
+        "20"
+      ],
+      "anchor": {
+        "x": 18,
+        "y": 481,
+        "w": 354
+      },
+      "stageOpacity": 1,
+      "photos": [
+        {
+          "loaded": true,
+          "op": 1
+        },
+        {
+          "loaded": true,
+          "op": 0.98
+        },
+        {
+          "loaded": true,
+          "op": 0.94
+        }
+      ],
+      "hud": "tier: lite chapter: community progress: 0.600"
+    }
+  },
+  "reduced": {
+    "tier": "static",
+    "trackHeights": [
+      339,
+      172,
+      193,
+      209,
+      209,
+      209,
+      327,
+      253
+    ],
+    "pinPositions": [
+      "static"
+    ],
+    "copyOpacities": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "counters": [
+      "245",
+      "107",
+      "20"
+    ],
+    "overflowX": 0,
+    "docH": 8492
+  },
+  "photoRequestsAtFirstLoad": 0,
+  "a11y": {
+    "h1": 1,
+    "chapterHeadings": [
+      {
+        "id": "hero",
+        "heading": "Build. Create.Connect.Go Beyond."
+      },
+      {
+        "id": "orbit",
+        "heading": "Google Developer GroupOn Campus · Vishwaniketan"
+      },
+      {
+        "id": "cloud",
+        "heading": "Google Cloud"
+      },
+      {
+        "id": "jams",
+        "heading": "Cloud Study Jams"
+      },
+      {
+        "id": "m1",
+        "heading": "245+ Participants0+Participants"
+      },
+      {
+        "id": "m2",
+        "heading": "107 Completed Milestones0Completed Milestones"
+      },
+      {
+        "id": "m3",
+        "heading": "20+ Cloud Labs & Courses0+Cloud Labs & Courses"
+      },
+      {
+        "id": "achieve",
+        "heading": "TIER 1 · 3 YEARS STRONG4TH COLLEGE TO COMPLETE THE JAMS"
+      },
+      {
+        "id": "community",
+        "heading": "From the Cloud Study Jams"
+      }
+    ]
+  },
+  "problems": []
+}
