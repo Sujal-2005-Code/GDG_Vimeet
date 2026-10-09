@@ -53,7 +53,7 @@ Claude and Gemini sit behind one interface (`backend/services/llm/`), selected b
 
 ## Tech stack
 
-**Frontend** — React 19, Vite 6, Tailwind CSS 4, React Router 6. **GSAP + ScrollTrigger is the single animation engine** (the home-page scroll story, section reveals, the pointer parallax); everything else is CSS transitions. Every route is its own lazy chunk. Everything respects `prefers-reduced-motion`.
+**Frontend** — React 19, Vite 6, Tailwind CSS 4, React Router 6. **GSAP + ScrollTrigger is the single animation engine** (the home-page scroll story and the section reveals); everything else is CSS transitions. Every route is its own lazy chunk. Everything respects `prefers-reduced-motion`.
 
 **Backend** — Express 5, Mongoose/MongoDB. `backend/utils/excel.js` builds a styled, multi-sheet workbook (one tab per team, frozen headers, autofilter, status colour-coding, IST-corrected timestamps) with ExcelJS. `backend/utils/email.js` sends over Brevo's HTTP API rather than SMTP, worked around a hosting provider that blocks outbound SMTP.
 
@@ -104,7 +104,7 @@ frontend/src/
   sections/          route-level pages (Hero, ScrollStory, Events, EventDetail, Team, Contact, Recruitment, NotFound)
   sections/home/     the home-page sections after the scroll story (events, moments, about, find-your-place, team, final CTA)
   sections/admin/    admin dashboard, login, route guard
-  story/             the scroll-story engine: poses, chapters, rig (rotation + orbit), the real logo mark
+  story/             the scroll-story engine: chapters, poses, rig (the diamonds/rings/dots turning), DiamondMark
   components/ui/     Button, Chip/StatusChip, SectionHeader, TextLink, Photo, Lightbox, Avatar, Icon, SocialIcon, ColorStroke
   components/layout/ Container, Section, PageHeader, NavBar, SkipLink
   components/events/ EventCard, UpcomingCard
@@ -134,7 +134,7 @@ The site is light, built on a small set of tokens defined once in `frontend/src/
 | `bg-surface` / `bg-surface-2` | page / alternate section band |
 | `primary` `#1A73E8`, `primary-strong` | links, buttons, focus ring (AA on white; use `primary-strong` for small text on the grey band) |
 | `danger`, `success` + `*-tint` | errors, completed/open states and their chip backgrounds |
-| `google-blue/red/yellow/green` | **decoration only** — shapes, the four-colour stroke, orbit dots (they fail AA as text) |
+| `google-blue/red/yellow/green` | **decoration only** — shapes, the four-colour stroke, the hero mark and its dots (they fail AA as text) |
 | `text-display` … `text-overline` | fluid type scale (Inter + JetBrains Mono, self-hosted) |
 | `rounded-field` / `-card` / `-media` | 8 / 16 / 28 px radii |
 | `shadow-rest` / `-raised` / `-overlay` | the three elevations |
@@ -159,4 +159,31 @@ The signature motif is the **four-colour stroke** (`ColorStroke`): active nav it
 
 ### The scroll story
 
-The home page's visual is the real GDG mark from the logo SVG (`#gdg-mark`, referenced with `<use>`, never redrawn) — one object that turns with scroll, with four small accent dots orbiting it. See [`docs/redesign/stage-3-notes.md`](docs/redesign/stage-3-notes.md) for the choreography and how to edit it.
+The home page's visual is the four-diamond GDG mark (`story/marks/DiamondMark.jsx`: four rounded diamonds in the Google colours around a white lens, two orbit rings, a soft shadow and four accent dots), drawn once as a flat SVG and kept on a fixed stage behind the page. Every word is real HTML above it; the stage is decorative and `aria-hidden`.
+
+**Design rule: calm and predictable.** Scroll does only a few things to the stage, each with a reason, and nothing moves at random:
+
+| When | What moves |
+|---|---|
+| Page load | The mark fades in once. |
+| Hero scrolls out | The mark settles from the hero slot into the story frame; the diamonds loosen outward once (`DIAMOND_SPREAD`). |
+| Every chapter after that | The mark stays put. The diamonds revolve around the lens, the dots sweep the other way and the two rings turn in opposite directions, each at **one constant speed in one direction, with no easing** (`DIAMOND_SWEEP`, `DOT_SWEEP`, `RING_SWEEP`, in degrees per screen of scroll). |
+| Last chapter | The mark fades and the event photos settle in one after another in a tidy 2×2 layout. |
+
+There is no tilt, 3D depth, camera move, idle float or pointer parallax. Because every value is a plain function of scroll position, scrolling back or jumping to an anchor always gives the same picture.
+
+Text uses one reveal everywhere: a chapter's copy fades in over the first 10% and out over the last 10% of its scroll range, and individual lines fade in with a 12px rise.
+
+| To change… | Edit |
+|---|---|
+| how long each beat lasts, or the order of chapters | `story/chapters.js` (`pinned` is in screen heights; phones get 80%) |
+| the speed or spread of the motion | `DIAMOND_SPREAD`, `DIAMOND_SWEEP`, `DOT_SWEEP`, `RING_SWEEP` at the bottom of `story/chapters.js` |
+| where the mark and photos sit, and the photo layout | `story/poses.js` |
+| the mark's shapes and colours | `story/marks/DiamondMark.jsx` |
+| the words and figures | `data/story.js` |
+
+`site.hero.visual.kind = 'image'` swaps the mark for any photo plane without touching the engine (the photo does not turn).
+
+**Motion tiers** (`animations/motion.js`): `full` (desktop with a mouse) and `lite` (phones and tablets: shorter chapters, a slightly smaller mark) run the same journey; `static` (`prefers-reduced-motion`) builds no timelines at all, so the mark sits assembled and each chapter fades in once as it scrolls into view.
+
+[`docs/redesign/stage-3-notes.md`](docs/redesign/stage-3-notes.md) records the earlier rotating-logo version and is kept as history; this section is current.

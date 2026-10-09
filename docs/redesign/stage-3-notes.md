@@ -1,5 +1,7 @@
 # Stage 3 — The scroll story (revised: the real GDG mark is the hero)
 
+> **Superseded:** the rotating logo mark, 3D tilt, camera dolly, idle float and pointer parallax described below were replaced by a calmer choreography with the four-diamond mark. The current behaviour is documented in the README's "The scroll story" section. This file is kept as history.
+
 Branch `redesign/ui-v2`. Screenshots and measured results are in [`stage-3/`](stage-3/).
 
 The first Stage 3 built the story out of four rounded blocks that formed a "cloud". That visual was rejected as generic and disconnected from GDG identity, and has been **removed entirely** — no diamonds, no cloud, no rings, no slices. The object on the stage is now the **actual GDG mark**: the `#gdg-mark` group (the two chevrons) of `public/images/gdg-on-campus-vishwaniketan.svg`, referenced with `<use>`. It is never redrawn, split, re-coloured or morphed; the text lockup is not part of it.
