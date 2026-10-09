@@ -27,14 +27,14 @@ export const site = {
   brand: {
     wordmark: { primary: 'GDG On Campus', secondary: 'Vishwaniketan' },
     logo: {
-      src: '/images/gdg-on-campus-vishwaniketan.svg',
+      src: '/images/gdg-symbol.png',
       alt: "Google Developer Groups On Campus, Vishwaniketan's iMEET",
-      markId: 'gdg-mark',
+      markId: null,
       markViewBox: '352 28 488 168',
     },
     // Full lockup, shown in the Hero. Set to null to hide it.
     lockup: {
-      src: '/images/gdg-on-campus-vishwaniketan.svg',
+      src: '/images/gdg-vishwaniketan-logo-1192x394.svg',
       alt: "Google Developer Groups On Campus, Vishwaniketan's iMEET",
       width: 1192,
       height: 394,

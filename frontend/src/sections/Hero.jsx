@@ -40,7 +40,7 @@ const Hero = () => {
               // transform only (an opacity fade would delay LCP).
               fetchPriority="high"
               decoding="async"
-              className="anim-rise mb-6 aspect-[19/10] h-auto w-[min(100%,17rem)] object-cover object-center"
+              className="anim-rise mb-6 h-auto w-[min(100%,17rem)] object-contain object-left"
             />
           )}
 

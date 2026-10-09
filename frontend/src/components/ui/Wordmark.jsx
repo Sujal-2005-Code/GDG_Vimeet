@@ -15,15 +15,12 @@ const Wordmark = ({ className = '', onClick }) => {
       onClick={onClick}
       className={`group inline-flex min-h-11 items-center gap-3 rounded-field leading-none ${className}`}
     >
-      {logo?.markId && (
-        <svg
-          viewBox={logo.markViewBox}
-          aria-hidden="true"
-          focusable="false"
-          className="h-6 w-auto shrink-0"
-        >
-          <use href={`${logo.src}#${logo.markId}`} />
-        </svg>
+      {logo?.src && (
+        <img
+          src={logo.src}
+          alt=""
+          className="h-8 w-auto shrink-0 object-contain"
+        />
       )}
       <span className="flex flex-col">
         <span className="whitespace-nowrap text-[1.0625rem] font-semibold tracking-tight text-ink">
