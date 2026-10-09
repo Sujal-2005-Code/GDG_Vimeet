@@ -12,7 +12,8 @@ const VARIANTS = {
     'bg-primary text-white shadow-rest hover:-translate-y-px hover:bg-primary-strong hover:shadow-raised',
   secondary:
     'border border-line-strong bg-surface text-ink hover:-translate-y-px hover:border-ink-2 hover:bg-surface-2',
-  text: 'px-1 text-primary underline-offset-4 hover:text-primary-strong hover:underline',
+  // primary-strong (not primary): the plain blue is 4.27:1 on the grey section bands.
+  text: 'px-1 text-primary-strong underline-offset-4 hover:text-ink hover:underline',
 };
 
 const SIZES = {

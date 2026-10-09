@@ -60,6 +60,21 @@ export const site = {
     },
   },
 
+  /**
+   * About — wording taken from the previous About section (no new claims).
+   * Pillars are Learn · Build · Grow, each one line.
+   */
+  about: {
+    overline: 'About us',
+    title: 'More than a coding community',
+    body: 'GDG ViMEET is a student-led developer community that empowers members to learn, create, and innovate. Through workshops, hackathons, study jams, and speaker sessions, we bring together technology, creativity, leadership, and collaboration in one place.',
+    pillars: [
+      { key: 'learn', title: 'Learn', icon: 'book', text: 'Workshops, study jams and speaker sessions in Web, Mobile, Cloud and AI/ML.' },
+      { key: 'build', title: 'Build', icon: 'hammer', text: 'Project-based workshops, team challenges, hackathons and innovation labs.' },
+      { key: 'grow', title: 'Grow', icon: 'sprout', text: 'Mentorship that helps members grow as developers, designers and leaders.' },
+    ],
+  },
+
   institute: {
     name: "Vishwaniketan's Institute of Management Entrepreneurship and Engineering Technology",
     shortName: 'ViMEET',

@@ -2,18 +2,22 @@ import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
-import App from './App.jsx'
 import RootLayout from './components/RootLayout.jsx'
 import AdminFallback from './components/AdminFallback.jsx'
 import PageFallback from './components/PageFallback.jsx'
 
-// The home page is the entry chunk. Every other route — the inner public
-// pages and the admin panel — is its own lazy chunk, so a visitor only
-// downloads the code for pages they actually open (Events alone pulls in the
-// photo stack + motion; Recruitment pulls in confetti).
+// Every route is its own lazy chunk, so a visitor only downloads the code for
+// the page they open (Recruitment, for example, pulls in confetti; the home
+// page brings the scroll-story engine). When a visit starts on `/`, the home
+// chunk is requested right away instead of waiting for the router to ask.
+const loadHome = () => import('./App.jsx')
+const App = lazy(loadHome)
+if (window.location.pathname === '/') loadHome()
 const Team = lazy(() => import('./sections/Team.jsx'))
 const Contact = lazy(() => import('./sections/Contact.jsx'))
 const Events = lazy(() => import('./sections/Events.jsx'))
+const EventDetail = lazy(() => import('./sections/EventDetail.jsx'))
+const NotFound = lazy(() => import('./sections/NotFound.jsx'))
 const Recruitment = lazy(() => import('./sections/Recruitment.jsx'))
 const ApplicationsAdmin = lazy(() => import('./sections/ApplicationsAdmin.jsx'))
 const AdminLogin = lazy(() => import('./sections/admin/AdminLogin.jsx'))
@@ -38,10 +42,11 @@ const router = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [
-      { path: '/', element: <App /> },
+      { path: '/', element: page(App) },
       { path: '/team', element: page(Team) },
       { path: '/contact', element: page(Contact) },
       { path: '/events', element: page(Events) },
+      { path: '/events/:slug', element: page(EventDetail) },
       { path: '/join', element: page(Recruitment) },
       { path: '/recruitment', element: page(Recruitment) },
       {
@@ -82,6 +87,7 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      { path: '*', element: page(NotFound) },
     ],
   },
 ])

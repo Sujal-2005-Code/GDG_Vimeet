@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import ChatMessage from './ChatMessage';
 import { useChat } from '../../hooks/useChat';
 import { site } from '../../data/site';
+import Icon from '../ui/Icon';
+import ChatHeader from './ChatHeader';
 
 const ChatPanel = ({ onClose, suggestions }) => {
   const { messages, isSending, error, retryAfter, canRetry, send, retry, sendToTeam, MAX_CHARS } = useChat();
@@ -31,43 +33,25 @@ const ChatPanel = ({ onClose, suggestions }) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-neutral-950 border border-white/10 sm:rounded-2xl shadow-2xl overflow-hidden">
-      {/* Header */}
-      <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <img src={site.chatbot.avatar} alt={site.chatbot.name} className="size-7 rounded-full object-cover shrink-0" />
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-white leading-tight">{site.chatbot.name}</p>
-            <p className="text-[11px] text-white/45 leading-tight">Answers about recruitment, teams and events</p>
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close chat"
-          className="shrink-0 inline-flex items-center justify-center size-8 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition"
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+    <div className="flex h-full flex-col overflow-hidden border border-line bg-surface shadow-overlay sm:rounded-media">
+      <ChatHeader onClose={onClose} subtitle="Answers about recruitment, teams and events" />
 
-      {/* Messages */}
-      <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+      {/* Messages — announced to screen readers as they arrive. */}
+      <div ref={listRef} role="log" aria-live="polite" aria-label="Conversation" className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
         {messages.length === 0 ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="rounded-card bg-surface-2 px-4 py-3 text-sm text-ink">
               Hey, I'm {site.chatbot.name}! Ask me anything about GDG ViMEET — joining a team, the application process, or our events.
             </p>
             {suggestions.length > 0 && (
-              <div className="flex flex-col items-start gap-2 mt-4">
+              <div className="mt-4 flex flex-col items-start gap-2">
+                <p className="font-mono text-overline font-medium uppercase text-ink-2">Try asking</p>
                 {suggestions.map((question) => (
                   <button
                     key={question}
                     type="button"
                     onClick={() => submit(question)}
-                    className="text-left text-xs px-3 py-2 rounded-xl border border-white/10 bg-white/[0.03] text-white/80 hover:bg-white/10 hover:text-white transition"
+                    className="min-h-11 rounded-card border border-line bg-surface px-3.5 py-2 text-left text-sm text-ink transition-colors hover:border-line-strong hover:bg-surface-2"
                   >
                     {question}
                   </button>
@@ -87,27 +71,27 @@ const ChatPanel = ({ onClose, suggestions }) => {
         )}
 
         {isSending && (
-          <div className="flex items-center gap-1.5 text-white/40 text-xs px-1" aria-live="polite">
-            <span className="size-1.5 rounded-full bg-white/40 animate-pulse" />
-            <span className="size-1.5 rounded-full bg-white/40 animate-pulse [animation-delay:150ms]" />
-            <span className="size-1.5 rounded-full bg-white/40 animate-pulse [animation-delay:300ms]" />
+          <div className="flex items-center gap-1.5 px-1 text-xs text-ink-2" role="status">
+            <span className="size-1.5 animate-pulse rounded-full bg-google-blue" />
+            <span className="size-1.5 animate-pulse rounded-full bg-google-red [animation-delay:150ms]" />
+            <span className="size-1.5 animate-pulse rounded-full bg-google-yellow [animation-delay:300ms]" />
             <span className="ml-1">Thinking…</span>
           </div>
         )}
 
         {error && (
-          <div role="alert" className="rounded-xl border border-rose-500/30 bg-rose-500/[0.08] px-3 py-2.5">
-            <p className="text-rose-200 text-xs leading-relaxed">{error}</p>
+          <div role="alert" className="rounded-card bg-danger-tint px-3.5 py-3">
+            <p className="text-sm text-danger">{error}</p>
             {retryAfter > 0 ? (
-              <p className="text-rose-200/70 text-[11px] mt-1">Try again in {retryAfter}s.</p>
+              <p className="mt-1 text-xs text-ink-2">Try again in {retryAfter}s.</p>
             ) : (
-              <div className="flex items-center gap-3 mt-1.5">
+              <div className="mt-1.5 flex items-center gap-4">
                 {canRetry && (
-                  <button type="button" onClick={retry} className="text-[11px] text-white/80 hover:text-white underline">
+                  <button type="button" onClick={retry} className="min-h-11 text-sm font-semibold text-primary hover:underline">
                     Try again
                   </button>
                 )}
-                <a href="mailto:gdgvimeet@gmail.com" className="text-[11px] text-white/80 hover:text-white underline">
+                <a href={`mailto:${site.email}`} className="inline-flex min-h-11 items-center text-sm font-semibold text-primary hover:underline">
                   Email us instead
                 </a>
               </div>
@@ -117,9 +101,13 @@ const ChatPanel = ({ onClose, suggestions }) => {
       </div>
 
       {/* Composer */}
-      <div className="border-t border-white/10 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <div className="border-t border-line p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="flex items-end gap-2">
+          <label htmlFor="chat-input" className="sr-only">
+            Your question
+          </label>
           <textarea
+            id="chat-input"
             ref={inputRef}
             rows={1}
             value={draft}
@@ -127,22 +115,20 @@ const ChatPanel = ({ onClose, suggestions }) => {
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={onKeyDown}
             placeholder="Ask a question…"
-            className="flex-1 resize-none max-h-28 rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-sm text-white placeholder-white/35 focus:border-google-blue focus:outline-none focus:ring-1 focus:ring-google-blue transition"
+            className="max-h-28 min-h-11 flex-1 resize-none rounded-field border border-line-strong bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-ink-2/70 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 sm:text-sm"
           />
           <button
             type="button"
             onClick={() => submit(draft)}
             disabled={isSending || draft.trim().length === 0 || retryAfter > 0}
             aria-label="Send message"
-            className="shrink-0 inline-flex items-center justify-center size-10 rounded-xl bg-white text-black hover:bg-white/90 transition disabled:opacity-40 disabled:cursor-not-allowed"
+            className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-primary-strong disabled:cursor-not-allowed disabled:opacity-40"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <Icon name="send" className="size-5" />
           </button>
         </div>
-        <p className="text-[10px] text-white/30 mt-2 text-center">
-          {site.chatbot.name} is automated and can be wrong. Email gdgvimeet@gmail.com to reach a person.
+        <p className="mt-2 text-center text-xs text-ink-2">
+          {site.chatbot.name} is automated and can be wrong. Email {site.email} to reach a person.
         </p>
       </div>
     </div>

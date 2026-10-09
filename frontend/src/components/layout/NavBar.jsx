@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { navItems } from '../../data/navigation';
 import { getRecruitmentCta } from '../../data/recruitment';
 import useFocusTrap from '../../hooks/useFocusTrap';
+import useModalOpen from '../../hooks/useModalOpen';
 import Button from '../ui/Button';
 import ColorStroke from '../ui/ColorStroke';
 import Icon from '../ui/Icon';
@@ -38,6 +39,7 @@ const MobileMenu = ({ pathname, cta, onClose }) => {
   }, []);
 
   useFocusTrap(panelRef, true, onClose);
+  useModalOpen(true);
 
   // Lock page scroll while the menu is open.
   useEffect(() => {

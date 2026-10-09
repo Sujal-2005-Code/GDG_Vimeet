@@ -1,465 +1,161 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import NavBar from './NavBar';
-import Footer from '../components/Footer';
-import EventGallery from '../components/EventGallery';
-import EventPhotoStack from '../components/EventPhotoStack';
-import { animateHeading, animateTextReveal, animateCards, animateCardsOut } from '../animations';
-import { upcomingEvents, pastEvents, eventCategories } from '../data/events';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import useReveal from '../animations/reveal';
+import EventCard from '../components/events/EventCard';
+import UpcomingCard from '../components/events/UpcomingCard';
+import Container from '../components/layout/Container';
+import PageHeader from '../components/layout/PageHeader';
+import Section from '../components/layout/Section';
+import Button from '../components/ui/Button';
+import SectionHeader from '../components/ui/SectionHeader';
+import { eventCategories, pastEvents, upcomingEvents } from '../data/events';
 import { getRecruitmentCta } from '../data/recruitment';
+import { site } from '../data/site';
+import usePageMeta from '../hooks/usePageMeta';
 
-const prefersReducedMotion = () =>
-  typeof window !== 'undefined' &&
-  typeof window.matchMedia === 'function' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Editorial rhythm for the archive: the newest event is the lead story, the
+// rest alternate wide/narrow in pairs (7/5, 5/7 …) instead of a uniform grid.
+const spanFor = (i) => {
+  if (i === 0) return 'lg:col-span-12';
+  const pair = Math.floor((i - 1) / 2);
+  const first = (i - 1) % 2 === 0;
+  return (pair % 2 === 0) === first ? 'lg:col-span-7' : 'lg:col-span-5';
+};
 
-const ArrowIcon = ({ className = 'w-4 h-4' }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-  </svg>
-);
+/** Category filter with a sliding indicator (one element, transform only). */
+const CategoryFilter = ({ value, onChange }) => {
+  const refs = useRef({});
+  const [box, setBox] = useState({ x: 0, w: 0 });
 
-const PinIcon = ({ className = 'w-4 h-4 text-white/40 shrink-0' }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-);
-
-const CalendarIcon = ({ className }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-  </svg>
-);
-
-const ClockIcon = ({ className }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
-
-const UsersIcon = ({ className }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-  </svg>
-);
-
-// Key facts for events that carry structured metadata (date/time/venue/
-// audience). Events without `meta` render exactly as before.
-const getMetaItems = (item) =>
-  item.meta
-    ? [
-        { key: 'date', Icon: CalendarIcon, tone: 'text-google-blue', text: item.date },
-        { key: 'time', Icon: ClockIcon, tone: 'text-google-yellow', text: item.meta.time },
-        { key: 'venue', Icon: PinIcon, tone: 'text-google-red', text: item.meta.venue },
-        { key: 'audience', Icon: UsersIcon, tone: 'text-google-green', text: item.meta.audience },
-      ].filter((m) => m.text)
-    : [];
-
-const GalleryIcon = () => (
-  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-  </svg>
-);
-
-const FeaturedEventCard = ({ event }) => (
-  <div className="up-next-card group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.015] p-7 md:p-12 shadow-2xl">
-    <div
-      aria-hidden
-      className="absolute -top-24 -right-24 w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-google-blue via-google-green to-google-yellow opacity-20 blur-3xl transition-opacity duration-700 group-hover:opacity-30"
-    />
-    <div className="relative">
-      <div className="flex flex-wrap items-center gap-3 mb-5">
-        <span className="text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full border border-white/15 bg-white/5 text-white/80">
-          {event.tag}
-        </span>
-        <span className="text-xs text-white/50 font-mono">{event.when}</span>
-      </div>
-      <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.1] mb-4 max-w-2xl">
-        {event.title}
-      </h2>
-      <p className="text-white/75 text-sm md:text-base leading-relaxed max-w-xl mb-6">
-        {event.desc}
-      </p>
-      <div className="flex items-center gap-2 text-xs md:text-sm text-white/60 mb-8">
-        <PinIcon />
-        {event.venue}
-      </div>
-      {event.cta && (
-        <a
-          href={event.cta.href}
-          target={event.cta.href.startsWith('http') ? '_blank' : '_self'}
-          rel="noreferrer"
-          className="btn-primary group/btn"
-        >
-          {event.cta.label}
-          <ArrowIcon className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-        </a>
-      )}
-    </div>
-  </div>
-);
-
-const EmptyUpNext = () => (
-  <div className="rounded-3xl border border-dashed border-white/15 bg-white/[0.02] p-12 text-center">
-    <p className="text-white text-xl md:text-2xl font-semibold mb-2">Something new is brewing.</p>
-    <p className="text-white/60 text-sm md:text-base max-w-md mx-auto mb-6">
-      Check back soon for the next GDG ViMEET experience — or follow us so you don't miss the announcement.
-    </p>
-    <a
-      href="https://www.instagram.com/gdgvimeet/"
-      target="_blank"
-      rel="noreferrer"
-      className="btn-secondary"
-    >
-      Follow the Journey
-    </a>
-  </div>
-);
-
-const PastEventFeature = ({ item, index, onView }) => (
-  <article className="past-event-feature grid md:grid-cols-[auto_minmax(220px,320px)_1fr] items-center gap-6 md:gap-10 lg:gap-14 py-10 md:py-14 border-b border-white/10 last:border-b-0">
-    {/* Index number — desktop only; on mobile it badges the stack instead */}
-    <span
-      aria-hidden
-      className="hidden md:block text-6xl lg:text-7xl font-round-bold !font-extrabold text-white/10 leading-none select-none"
-    >
-      {String(index + 1).padStart(2, '0')}
-    </span>
-
-    {/* Photo stack — the hero visual */}
-    <div className="relative mx-auto md:mx-0 w-full max-w-[260px] sm:max-w-[300px] md:max-w-none aspect-square">
-      <span
-        aria-hidden
-        className="md:hidden absolute top-2 left-2 z-20 text-2xl font-round-bold !font-extrabold text-white/70 [text-shadow:0_1px_6px_rgba(0,0,0,0.8)] select-none"
-      >
-        {String(index + 1).padStart(2, '0')}
-      </span>
-      <EventPhotoStack images={item.photos} title={item.title} />
-    </div>
-
-    {/* Event info */}
-    <div className="text-center md:text-left">
-      <div className="flex items-center justify-center md:justify-start flex-wrap gap-2">
-        <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-white/15 bg-white/5 text-white/70">
-          {item.category}
-        </span>
-        {item.highlight && (
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-google-yellow/40 bg-google-yellow/10 text-google-yellow">
-            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z" />
-            </svg>
-            Highlight
-          </span>
-        )}
-        {item.status && (
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-google-green/40 bg-google-green/10 text-google-green">
-            <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-google-green" />
-            {item.status}
-          </span>
-        )}
-      </div>
-      <h3 className="text-white text-2xl md:text-3xl font-bold mt-4 leading-snug">{item.title}</h3>
-      {getMetaItems(item).length > 0 && (
-        <ul className="flex flex-wrap items-center justify-center md:justify-start gap-2 mt-4">
-          {getMetaItems(item).map((m) => (
-            <li
-              key={m.key}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs md:text-[13px] text-white/85 transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.08]"
-            >
-              <m.Icon className={`w-4 h-4 shrink-0 ${m.tone}`} />
-              {m.text}
-            </li>
-          ))}
-        </ul>
-      )}
-      <p className="text-white/70 text-sm md:text-base mt-3 leading-relaxed max-w-xl mx-auto md:mx-0">
-        {item.desc}
-      </p>
-      {item.stats?.length > 0 && (
-        <dl className="flex items-start justify-center md:justify-start flex-wrap gap-x-8 gap-y-3 mt-5">
-          {item.stats.map((stat) => (
-            <div key={stat.label} className="text-center md:text-left">
-              <dt className="sr-only">{stat.label}</dt>
-              <dd className="text-2xl md:text-3xl font-bold text-white leading-none">{stat.value}</dd>
-              <dd className="text-[11px] uppercase tracking-wider text-white/50 mt-1.5">{stat.label}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
-      {item.meta?.organizer && (
-        <p className="text-white/45 text-xs mt-4 leading-relaxed max-w-xl mx-auto md:mx-0">
-          Organized by <span className="text-white/70 font-medium">{item.meta.organizer}</span>
-        </p>
-      )}
-      {item.credits && (
-        <p className="text-white/45 text-xs mt-4 leading-relaxed max-w-xl mx-auto md:mx-0">{item.credits}</p>
-      )}
-      <div className="flex items-center justify-center md:justify-start flex-wrap gap-x-5 gap-y-2 mt-5">
-        {item.photos.length > 0 && (
-          <button
-            type="button"
-            onClick={() => onView(item)}
-            className="group/btn inline-flex items-center gap-1.5 text-xs text-white/80 hover:text-white transition"
-          >
-            <GalleryIcon />
-            View Photos ({item.photos.length})
-            <ArrowIcon className="w-3 h-3 transition-transform duration-300 group-hover/btn:translate-x-1" />
-          </button>
-        )}
-        {item.link && (
-          <a
-            href={item.link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/btn inline-flex items-center gap-1.5 text-xs text-white/80 hover:text-white transition"
-          >
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-            {item.link.label}
-            <ArrowIcon className="w-3 h-3 transition-transform duration-300 group-hover/btn:translate-x-1" />
-          </a>
-        )}
-      </div>
-    </div>
-  </article>
-);
-
-const Events = () => {
-  const recruit = getRecruitmentCta();
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [displayedCategory, setDisplayedCategory] = useState('All');
-  const [galleryEvent, setGalleryEvent] = useState(null);
-  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
-  const pillRefs = useRef({});
-  const pastSectionRef = useRef(null);
-  const hasRevealedPast = useRef(false);
-  const isFirstRender = useRef(true);
-
-  const filteredPast = useMemo(
-    () => pastEvents.filter((e) => displayedCategory === 'All' || e.category === displayedCategory),
-    [displayedCategory]
-  );
-
-  // Hero entrance
-  useEffect(() => {
-    animateTextReveal('.events-eyebrow', { split: 'words' });
-    // split: false — char-splitting breaks the gradient-text-google background-clip
-    animateHeading('.events-heading', { split: false });
-    animateCards('.up-next-card', { delay: 150 });
-  }, []);
-
-  // Reveal past-events grid the first time it scrolls into view
-  useEffect(() => {
-    const el = pastSectionRef.current;
-    if (!el || typeof IntersectionObserver === 'undefined') return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasRevealedPast.current) {
-          hasRevealedPast.current = true;
-          animateCards('.past-event-feature');
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  // Re-animate cards in whenever the displayed (post-transition) set changes
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    if (!hasRevealedPast.current) return;
-    const id = requestAnimationFrame(() => animateCards('.past-event-feature'));
-    return () => cancelAnimationFrame(id);
-  }, [displayedCategory]);
-
-  // Slide the filter-pill indicator under the active category
-  useEffect(() => {
-    const el = pillRefs.current[activeCategory];
-    if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
-  }, [activeCategory]);
-
-  const handleCategoryChange = async (cat) => {
-    if (cat === activeCategory) return;
-    setActiveCategory(cat);
-    if (!prefersReducedMotion() && hasRevealedPast.current) {
-      animateCardsOut('.past-event-feature');
-      await new Promise((resolve) => setTimeout(resolve, 180));
-    }
-    setDisplayedCategory(cat);
-  };
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = refs.current[value];
+      if (el) setBox({ x: el.offsetLeft, w: el.offsetWidth });
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    document.fonts?.ready.then(measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [value]);
 
   return (
-    <main>
-      <NavBar />
+    <div role="group" aria-label="Filter past events by category" className="max-w-full overflow-x-auto">
+      <div className="relative inline-flex rounded-full border border-line bg-surface-2 p-1">
+        <span
+          aria-hidden="true"
+          className="absolute left-0 top-1 bottom-1 w-[100px] origin-left rounded-full bg-surface shadow-rest transition-transform duration-[var(--dur-slow)] ease-emphasized"
+          style={{ transform: `translateX(${box.x}px) scaleX(${box.w / 100})` }}
+        />
+        {eventCategories.map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            ref={(el) => {
+              refs.current[cat] = el;
+            }}
+            onClick={() => onChange(cat)}
+            aria-pressed={value === cat}
+            className={`relative z-10 min-h-11 whitespace-nowrap rounded-full px-4 text-sm font-medium transition-colors duration-[var(--dur-fast)] ${
+              value === cat ? 'text-ink' : 'text-ink-2 hover:text-ink'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-      <div className="black-gradient-bg min-h-dvh">
-        <div className="md:max-w-6xl mx-auto md:px-8 px-5">
-          <nav className="relative md:static md:top-auto md:left-auto md:w-auto md:px-0 !px-0 !pt-6">
-            <ol className="flex items-center gap-2 text-white/70 text-sm">
-              <li>
-                <Link to="/" className="hover:text-white">Home</Link>
-              </li>
-              <li className="opacity-60">/</li>
-              <li className="text-white">Events</li>
-            </ol>
-          </nav>
+const Events = () => {
+  usePageMeta('Events', 'Workshops, hackathons, study jams and community sessions by GDG On Campus Vishwaniketan — what’s next and every past gallery.');
+  const ref = useRef(null);
+  useReveal(ref);
+
+  const recruit = getRecruitmentCta();
+  const [category, setCategory] = useState('All');
+  const filtered = useMemo(
+    () => pastEvents.filter((e) => category === 'All' || e.category === category),
+    [category]
+  );
+
+  return (
+    <main id="main" ref={ref}>
+      <PageHeader
+        current="Events"
+        overline="What’s happening"
+        title={
+          <>
+            Explore <span className="text-primary">events</span>
+          </>
+        }
+        lede="Workshops, hackathons, and community experiences built for people who want to learn, create, and grow together."
+      />
+
+      <Section labelledBy="upnext-title" className="pt-0!">
+        <SectionHeader id="upnext-title" overline="Up next" title="Coming up" stroke={false} />
+        <div className="mt-8 grid gap-5 lg:grid-cols-12">
+          <UpcomingCard event={upcomingEvents[0]} headingLevel="h3" className="lg:col-span-8" />
+          <aside data-reveal className="flex flex-col justify-between gap-6 rounded-media bg-surface-2 p-7 sm:p-8 lg:col-span-4">
+            <div>
+              <h3 className="text-h3 text-ink">Want to organise, design, or speak at our next event?</h3>
+              <p className="mt-3 text-ink-2">
+                {recruit.open
+                  ? 'Join our Technical, Event Management, Graphics & Design, PR & Outreach, or Content & Social Media teams.'
+                  : recruit.message}
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <Button href={`mailto:${site.email}?subject=Workshop%20%2F%20talk%20proposal`} variant="secondary" icon="mail">
+                Propose a workshop or talk
+              </Button>
+              <Button
+                variant="text"
+                icon={recruit.external ? 'external' : 'arrow-right'}
+                aria-label={recruit.ariaLabel}
+                {...(recruit.external ? { href: recruit.href } : { to: recruit.href })}
+              >
+                {recruit.open ? 'Apply for GDG teams' : recruit.label}
+              </Button>
+            </div>
+          </aside>
+        </div>
+      </Section>
+
+      <Section labelledBy="past-title" tone="tint">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeader id="past-title" overline="From the community archive" title="Past events" />
+          <div data-reveal>
+            <CategoryFilter value={category} onChange={setCategory} />
+          </div>
         </div>
 
-        {/* Hero */}
-        <header className="relative overflow-hidden pt-16 md:pt-24 pb-12 md:pb-16 text-center">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-            <div className="events-blob absolute -top-20 -left-16 w-64 h-64 md:w-80 md:h-80 rounded-full bg-google-blue/20 blur-3xl" />
-            <div className="events-blob events-blob-delay absolute top-4 right-0 w-72 h-72 md:w-96 md:h-96 rounded-full bg-google-red/15 blur-3xl" />
-            <div className="events-blob events-blob-delay2 absolute bottom-0 left-1/3 w-56 h-56 md:w-72 md:h-72 rounded-full bg-google-yellow/15 blur-3xl" />
-          </div>
+        <p className="sr-only" aria-live="polite">
+          {filtered.length} {filtered.length === 1 ? 'event' : 'events'} shown
+        </p>
 
-          <p className="events-eyebrow text-white/60 text-xs md:text-sm uppercase tracking-[0.3em] mb-3">
-            What&apos;s Happening
+        {filtered.length === 0 ? (
+          <p className="mt-10 rounded-card border border-dashed border-line-strong p-10 text-center text-ink-2">
+            No sessions in this category yet.
           </p>
-          <h1 className="events-heading inline-block mx-auto text-[2.4rem] md:text-[4rem] lg:text-[4.5rem] font-round-bold !font-extrabold leading-[1.05] gradient-text-google">
-            Explore Events
-          </h1>
-          <p className="text-white/70 max-w-xl mx-auto mt-4 text-sm md:text-base px-4">
-            Workshops, hackathons, and community experiences built for people who want to learn, create, and grow together.
-          </p>
-        </header>
-
-        {/* Up Next / Featured */}
-        <section className="relative z-10 pb-14 md:pb-20">
-          <div className="md:max-w-6xl mx-auto md:px-8 px-5">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="inline-block w-2 h-2 rounded-full bg-google-green animate-pulse" />
-              <span className="text-xs md:text-sm uppercase tracking-widest text-white/60">Up Next</span>
-            </div>
-
-            {upcomingEvents.length === 0 ? (
-              <EmptyUpNext />
-            ) : (
-              <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
-                <FeaturedEventCard event={upcomingEvents[0]} />
-                {upcomingEvents.length > 1 && (
-                  <div className="flex flex-col gap-4">
-                    {upcomingEvents.slice(1).map((e, i) => (
-                      <div
-                        key={i}
-                        className="up-next-card rounded-2xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.07] transition p-5"
-                      >
-                        <div className="flex items-center justify-between gap-2 mb-2">
-                          <span className="text-white/60 text-xs font-mono">{e.when}</span>
-                          <span className={`text-[11px] px-2.5 py-0.5 rounded-full border font-medium ${e.tagColor}`}>
-                            {e.tag}
-                          </span>
-                        </div>
-                        <h3 className="text-white text-lg font-semibold">{e.title}</h3>
-                        <p className="text-white/75 text-sm mt-2 leading-relaxed">{e.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Past Events / Archive */}
-        <section ref={pastSectionRef} className="md:py-12 py-8">
-          <div className="md:max-w-6xl mx-auto md:px-8 px-5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-              <div>
-                <span className="text-xs md:text-sm uppercase tracking-widest text-white/60">From the Community Archive</span>
-                <h2 className="text-[#0066B1] font-long uppercase md:text-4xl text-3xl mt-1">Past Events &amp; Sessions</h2>
-              </div>
-
-              {/* Category Filter Pills with sliding indicator */}
-              <div className="relative inline-flex items-center gap-1 rounded-full bg-white/5 border border-white/10 p-1 overflow-x-auto max-w-full">
-                <span
-                  aria-hidden
-                  className="absolute top-1 bottom-1 rounded-full bg-white transition-all duration-300 ease-out"
-                  style={{ left: indicator.left, width: indicator.width }}
+        ) : (
+          <ul key={category} className="anim-rise-fade mt-10 grid gap-5 lg:grid-cols-12 lg:gap-6">
+            {filtered.map((event, i) => (
+              <li key={event.slug} className={`flex ${spanFor(i)}`}>
+                <EventCard
+                  event={event}
+                  variant={i === 0 ? 'lead' : 'standard'}
+                  headingLevel="h3"
+                  className="w-full"
                 />
-                {eventCategories.map((cat) => (
-                  <button
-                    key={cat}
-                    ref={(el) => { pillRefs.current[cat] = el; }}
-                    onClick={() => handleCategoryChange(cat)}
-                    aria-pressed={activeCategory === cat}
-                    className={`relative z-10 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors duration-300 ${
-                      activeCategory === cat ? 'text-black' : 'text-white/70 hover:text-white'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-            </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Section>
 
-            {filteredPast.length === 0 ? (
-              <p className="text-center text-white/50 text-sm py-10">No sessions in this category yet.</p>
-            ) : (
-              <div>
-                {filteredPast.map((item, index) => (
-                  <PastEventFeature key={item.id ?? item.title} item={item} index={index} onView={setGalleryEvent} />
-                ))}
-              </div>
-            )}
-
-            <p className="text-center text-xs text-white/40 mt-6 italic">
-              * Note: More past event galleries, recordings, and speaker highlights will be updated shortly!
-            </p>
-          </div>
-        </section>
-
-        {/* Recruitment & Propose Session CTA Banner */}
-        <section className="py-12">
-          <div className="md:max-w-6xl mx-auto md:px-8 px-5">
-            <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-google-blue/20 via-google-green/20 to-google-yellow/20 p-6 md:p-12 text-center relative overflow-hidden shadow-2xl">
-              <div className="max-w-2xl mx-auto">
-                <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-white mb-3">
-                  {recruit.open ? '🚀 GDG ViMEET 2026-27 Recruitment' : 'GDG ViMEET 2026-27 · Applications closed'}
-                </span>
-                <h3 className="text-white md:text-3xl text-2xl font-bold">
-                  Want to organize, design, or speak at our next big event?
-                </h3>
-                <p className="text-white/80 mt-3 text-sm sm:text-base leading-relaxed">
-                  {recruit.open
-                    ? 'Join our Technical, Event Management, Graphics & Design, PR & Outreach, or Content & Social Media teams and take your campus leadership to the next level.'
-                    : recruit.message}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-3 justify-center">
-                  {recruit.open ? (
-                    <Link to={recruit.href} className="btn-primary">
-                      Apply for GDG Teams
-                    </Link>
-                  ) : (
-                    <a href={recruit.href} target="_blank" rel="noopener noreferrer" aria-label={recruit.ariaLabel} className="btn-primary">
-                      {recruit.label}
-                    </a>
-                  )}
-                  <a href="mailto:gdgvimeet@gmail.com" className="btn-secondary">
-                    Propose a Workshop / Talk
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <Footer />
-
-      {galleryEvent && (
-        <EventGallery
-          title={galleryEvent.title}
-          images={galleryEvent.photos}
-          onClose={() => setGalleryEvent(null)}
-        />
-      )}
+      <Container className="py-10 text-center text-sm text-ink-2">
+        More galleries and dates are added as events happen.
+      </Container>
     </main>
   );
 };

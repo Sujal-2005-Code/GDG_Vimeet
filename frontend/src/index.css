@@ -1,9 +1,8 @@
 @import "tailwindcss";
-@import "./styles/legacy.css";
 
 /* ===================================================================
    GDG On Campus Vishwaniketan — design system (v2)
-   Public site is LIGHT ONLY. Legacy dark styles live in styles/legacy.css.
+   The whole site (public pages and admin) is light.
    Components use semantic tokens (text-ink, bg-surface, border-line …),
    never raw hex.
    =================================================================== */
@@ -145,7 +144,7 @@
     overflow-x: clip;
   }
 
-  /* One visible focus style everywhere (also readable on legacy dark). */
+  /* One visible focus style everywhere (readable on every surface). */
   :focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;
@@ -198,6 +197,27 @@
 @utility anim-rise-fade {
   animation: rise-fade var(--dur-slow) var(--ease-emphasized) both;
   animation-delay: var(--delay, 0ms);
+}
+
+/* The four-colour stroke drawing itself in (form success). */
+@keyframes draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@utility anim-draw {
+  animation: draw 900ms var(--ease-emphasized) both;
+  animation-delay: var(--delay, 150ms);
+}
+
+/* While a modal (menu, lightbox, phone chat) is open, the floating chat
+   launcher steps aside so it never covers the modal's own controls. */
+html[data-modal] .chat-launcher {
+  visibility: hidden;
 }
 
 /* Reduced motion: every CSS animation/transition collapses; GSAP is handled

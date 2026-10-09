@@ -37,7 +37,6 @@ export const recruitmentTeams = [
     id: 'Technical',
     name: 'Technical Team',
     badge: 'Code & Workshops',
-    color: 'from-blue-500/20 to-cyan-500/20 border-blue-500/30',
     iconKey: 'technical',
     description: 'Build web applications, conduct AI/ML & Cloud workshops, organize competitive hackathons and coding labs.',
   },
@@ -45,7 +44,6 @@ export const recruitmentTeams = [
     id: 'Graphics & Design',
     name: 'Graphics & Design Team',
     badge: 'Design Task Req.',
-    color: 'from-purple-500/20 to-violet-500/20 border-purple-500/30',
     iconKey: 'graphics',
     description: 'Design official GDG branding, social media posts, UI mockups, event banners, and stickers.',
   },
@@ -53,7 +51,6 @@ export const recruitmentTeams = [
     id: 'Content & Social Media',
     name: 'Content & Social Media Team',
     badge: 'Media & Reels',
-    color: 'from-pink-500/20 to-rose-500/20 border-pink-500/30',
     iconKey: 'content',
     description: 'Create captivating reels, write social copy, photograph events, and lead community engagement.',
   },
@@ -61,7 +58,6 @@ export const recruitmentTeams = [
     id: 'PR & Outreach',
     name: 'PR & Outreach Team',
     badge: 'Outreach & Sponsors',
-    color: 'from-emerald-500/20 to-teal-500/20 border-emerald-500/30',
     iconKey: 'pr',
     description: 'Drive college sponsorships, connect with campus clubs, manage external outreach, and media relations.',
   },
@@ -69,9 +65,48 @@ export const recruitmentTeams = [
     id: 'Event Management',
     name: 'Event Management Team',
     badge: 'Operations',
-    color: 'from-amber-500/20 to-yellow-500/20 border-amber-500/30',
     iconKey: 'events',
     description: 'Coordinate hackathons, tech talks, logistics, host speaker sessions, and manage crowds.',
+  },
+];
+
+/**
+ * "Find your place" (home page): the 12 interest areas of the old "Go Beyond
+ * Code" grid, grouped into four clusters and linked to the teams above by
+ * `id`. Lead has no single team — it links to all of them.
+ */
+export const interestClusters = [
+  {
+    key: 'build',
+    name: 'Build',
+    icon: 'code',
+    tone: 'blue',
+    interests: ['Technology', 'AI', 'Web & App Dev', 'Cloud'],
+    teams: ['Technical'],
+  },
+  {
+    key: 'create',
+    name: 'Create',
+    icon: 'palette',
+    tone: 'red',
+    interests: ['Design', 'Graphics', 'Content & Social'],
+    teams: ['Graphics & Design', 'Content & Social Media'],
+  },
+  {
+    key: 'connect',
+    name: 'Connect',
+    icon: 'users',
+    tone: 'green',
+    interests: ['PR & Outreach', 'Events', 'Community'],
+    teams: ['PR & Outreach', 'Event Management'],
+  },
+  {
+    key: 'lead',
+    name: 'Lead',
+    icon: 'flag',
+    tone: 'yellow',
+    interests: ['Entrepreneurship', 'Innovation'],
+    teams: [],
   },
 ];
 
