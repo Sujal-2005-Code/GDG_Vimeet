@@ -44,10 +44,10 @@ export const site = {
   /**
    * Hero content + visual. `visual.kind` picks how the right-hand visual
    * is built; the Hero component and the story engine do not change:
-   *   'mark'  → the real GDG mark (the `gdg-mark` group of `brand.logo`),
-   *             turned by scroll with small accent dots orbiting it
-   *   'image' → any image (e.g. a real event photo) as a rounded plane with
-   *             the same orbit/dot accents around it (needs `src`)
+   *   'mark'  → the four-diamond mark (story/marks/DiamondMark.jsx): the
+   *             diamonds, rings and dots turn steadily with scroll
+   *   'image' → any image (e.g. a real event photo) as a rounded plane
+   *             (needs `src`; it does not turn)
    * Example: visual: { kind: 'image', src: '/events/cloud-campaign/1.webp',
    *                    alt: 'Students at the Google Cloud Study Jams' }
    */

@@ -25,7 +25,7 @@
  *
  * THE SCENE — the diamond mark is the one constant. It settles into its
  * frame while the hero scrolls out and then stays put, upright and still;
- * only the words change. The rings and dots turn steadily (DOT_SWEEP, RING_SWEEP below).
+ * only the words change. The diamonds, rings and dots turn steadily (see the sweeps below).
  *
  *   hero       the mark in the hero slot
  *   tier1      TIER 1 / 3 YEARS STRONG
@@ -66,13 +66,17 @@ export const storyChapters = chapters.filter((c) => c.pinned);
 export const LITE_TRACK_SCALE = 0.8;
 
 /**
- * The scroll-linked motion that runs for the whole journey: the rings and the
- * accent dots turn. Plain linear functions of scroll (same speed and direction
- * everywhere, no easing), so scrolling forward, backward or jumping always
- * lands on the same picture. The four diamonds never move.
+ * The scroll-linked life of the mark. The diamonds loosen outward once while
+ * the hero scrolls out, then everything turns at a constant rate — plain
+ * linear functions of scroll (one speed, one direction each, no easing), so
+ * scrolling forward, backward or jumping always lands on the same picture.
  *
- *   DOT_SWEEP   degrees the dots turn per 100svh scrolled
- *   RING_SWEEP  degrees each ring turns per 100svh scrolled (opposite ways)
+ *   DIAMOND_SPREAD   how far out the diamonds sit once loosened (1 = assembled)
+ *   DIAMOND_SWEEP    degrees the diamonds revolve around the lens per 100svh scrolled
+ *   DOT_SWEEP        degrees the dots sweep per 100svh scrolled (the opposite way)
+ *   RING_SWEEP       degrees each ring turns per 100svh scrolled (opposite ways)
  */
+export const DIAMOND_SPREAD = 1.3;
+export const DIAMOND_SWEEP = 40;
 export const DOT_SWEEP = 60;
 export const RING_SWEEP = 20;

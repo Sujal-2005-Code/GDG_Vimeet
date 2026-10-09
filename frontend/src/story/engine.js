@@ -5,8 +5,8 @@
  * mark) and the event photos. Scroll only does three things to it (see
  * poses.js): the mark settles from the hero slot into the story frame, then
  * stays put while the chapters' words change, then gives way to the photos.
- * One steady, linear scroll-linked motion runs throughout (the rings and dots
- * turn — see chapters.js). No tilt, depth, camera or pointer effects.
+ * One steady scroll-linked motion runs throughout (the diamonds, rings and
+ * dots turn — see rig.js and chapters.js). No tilt, depth, camera or pointer effects.
  *
  * Only transform + opacity are animated (compositor-only). No blur, no
  * animated filters, no animated shadows.
@@ -15,7 +15,7 @@
  */
 import { gsap } from '../animations/gsap';
 import { clamp } from '../animations/motion';
-import { DOT_SWEEP, RING_SWEEP, chapters } from './chapters';
+import { DIAMOND_SPREAD, DIAMOND_SWEEP, DOT_SWEEP, RING_SWEEP, chapters } from './chapters';
 import { EASES, STAGGER, TIMING, createPoses } from './poses';
 import { createRig } from './rig';
 
@@ -121,8 +121,7 @@ export const buildStory = ({ root, tier }) => {
 
   els.anchor?.style.setProperty('--s', `${S}px`);
 
-  const rig = createRig({ stage, dotsPerPx: DOT_SWEEP / view.H, ringPerPx: RING_SWEEP / view.H });
-  const cleanups = [rig.destroy];
+  const cleanups = [];
   storyState.tier = tier;
   storyState.chapter = null;
   storyState.progress = 0;
@@ -222,9 +221,22 @@ export const buildStory = ({ root, tier }) => {
         })
       );
 
+      // The mark's life: the diamonds loosen once while the hero scrolls out
+      // (the hero chapter's range), then everything turns steadily.
+      const heroSpan = geo.find((g) => g.ch.id === 'hero');
+      const rig = createRig({
+        stage,
+        span: [heroSpan?.a ?? 0, heroSpan?.b ?? journeyEnd],
+        spread: DIAMOND_SPREAD,
+        diamondPerPx: DIAMOND_SWEEP / view.H,
+        dotsPerPx: DOT_SWEEP / view.H,
+        ringPerPx: RING_SWEEP / view.H,
+      });
+      cleanups.push(rig.destroy);
+
       master = gsap.timeline({
         defaults: { ease: 'none' },
-        onUpdate: () => rig.apply(master.time()), // the rings/dots read the timeline's own time (scroll px)
+        onUpdate: () => rig.apply(master.time()), // the mark's turning reads the timeline's own time (scroll px)
         scrollTrigger: {
           start: 0,
           end: journeyEnd,

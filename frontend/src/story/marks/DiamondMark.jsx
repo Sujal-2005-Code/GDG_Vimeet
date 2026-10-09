@@ -4,10 +4,12 @@
  * dots (the supplied public/images/gdg-vishwaniketan-2-5d-mark.svg, 800×800
  * viewBox). Decorative and NOT an official GDG logo.
  *
- * ONE flat SVG, drawn once. The diamonds never move; the two rings and the
- * dots are wrapped in groups the rig turns with scroll (rig.js):
- *   [data-ring="a|b"]   an orbit ring
- *   [data-dots]         the four accent dots
+ * ONE flat SVG, drawn once. Every piece is wrapped in a group the rig moves
+ * with scroll (rig.js):
+ *   [data-diamond="blue|red|yellow|green"]  a diamond (carries its resting
+ *                                           offset from the centre in data-dx/dy)
+ *   [data-ring="a|b"]                       an orbit ring
+ *   [data-dots]                             the four accent dots
  *
  * Depth is painted, not computed: each diamond has a darker copy offset
  * behind it for thickness, and a static gradient stands in for the shadow.
@@ -18,6 +20,9 @@ const DIAMONDS = [
   { key: 'yellow', cx: 292.5, cy: 507.5, r0: 45, edge: '#E37400' },
   { key: 'green', cx: 507.5, cy: 507.5, r0: -45, edge: '#0D652D' },
 ];
+
+/** Offset of a diamond's centre from the mark's centre (400, 400) — its resting place. */
+const offset = (d) => ({ dx: d.cx - 400, dy: d.cy - 400 });
 
 const GRADIENTS = [
   ['blue', '#4285F4', '#1A73E8'],
@@ -82,7 +87,7 @@ const DiamondMark = () => (
     ))}
 
     {DIAMONDS.map((d) => (
-      <g key={d.key}>
+      <g key={d.key} data-diamond={d.key} data-dx={offset(d).dx} data-dy={offset(d).dy}>
         <Diamond cx={d.cx + 5} cy={d.cy + 8} r0={d.r0} fill={d.edge} />
         <Diamond cx={d.cx} cy={d.cy} r0={d.r0} fill={`url(#gdg-g-${d.key})`} />
       </g>
