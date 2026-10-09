@@ -3,6 +3,7 @@ import NavBar from './components/layout/NavBar';
 import Footer from './components/Footer';
 import StoryRoot from './story/StoryRoot';
 import Hero from './sections/Hero';
+import ScrollStory from './sections/ScrollStory';
 
 // Everything below the Hero loads AFTER the Hero has painted, so the first
 // screen (and LCP) never waits on JavaScript for content that is off-screen.
@@ -37,6 +38,7 @@ const App = () => {
       <StoryRoot>
         <main id="main">
           <Hero />
+          <ScrollStory />
 
           {/* Placeholder keeps the page scrollable (and the footer off-screen)
               until the lazy sections arrive. */}

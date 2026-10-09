@@ -19,4 +19,10 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 // diamonds) should not spam the console.
 gsap.config({ nullTargetWarn: false });
 
+// Development aid: with ?story=debug in the URL, `window.__ScrollTrigger` lets you
+// inspect every trigger (progress, start/end) from the console.
+if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('story') === 'debug') {
+  window.__ScrollTrigger = ScrollTrigger;
+}
+
 export { gsap, ScrollTrigger };

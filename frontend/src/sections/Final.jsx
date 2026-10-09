@@ -1,9 +1,22 @@
+import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../animations/gsap";
 import { prefersReducedMotion } from "../animations/motion";
 import Loader from "../components/Loader";
 
 const Final = () => {
+  // Lets the stylesheet run the closing scene's infinite animation only while
+  // it is actually visible (see .bmw-text in styles/legacy.css).
+  const sectionRef = useRef(null);
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      el.classList.toggle("is-in-view", entry.isIntersecting);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useGSAP(() => {
     // Reduced motion: no pin/scrub - the closing scene just stays visible.
@@ -34,7 +47,7 @@ const Final = () => {
   });
 
   return (
-    <section className="final">
+    <section ref={sectionRef} className="final">
       <div className="final-content size-full flex items-center justify-center">
         <Loader />
       </div>

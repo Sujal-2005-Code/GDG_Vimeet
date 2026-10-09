@@ -126,22 +126,17 @@ const NavBar = () => {
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-  // Solid background after the first few pixels of scroll (rAF-throttled).
+  // Solid background once the page has scrolled a few pixels. An
+  // IntersectionObserver watching a sentinel at the top of the page replaces a
+  // scroll listener: reading window.scrollY every frame forces a synchronous
+  // layout (costly while the story animates); the observer costs nothing per frame.
+  const sentinelRef = useRef(null);
   useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      setScrolled(window.scrollY > 8);
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (frame) cancelAnimationFrame(frame);
-    };
+    const el = sentinelRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return undefined;
+    const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   // Close the mobile menu on navigation.
@@ -167,6 +162,12 @@ const NavBar = () => {
 
   return (
     <>
+      {/* Top-of-page sentinel for the solid-on-scroll header (see above). */}
+      <div
+        ref={sentinelRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 h-2 w-px"
+      />
       <header
         className={`fixed inset-x-0 top-0 z-[1000] h-[var(--nav-h)] border-b transition-[background-color,box-shadow,border-color] duration-[var(--dur-base)] ease-standard ${
           solid ? 'border-line bg-surface shadow-rest' : 'border-transparent bg-transparent'

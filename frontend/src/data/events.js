@@ -1,4 +1,5 @@
 import { site } from './site';
+import { studyJams } from './story';
 
 /**
  * Events data. Keep placeholders clearly labeled ("Announcing Soon" / TBD)
@@ -44,12 +45,9 @@ const rawPastEvents = [
     category: 'Study Jams',
     highlight: true,
     desc: 'A full learning cycle, executed start to finish. Participants completed 20+ Google Cloud courses along with an Arcade Game to earn official goodies — with the GDG ViMEET core team guiding students throughout, helping with labs and courses, and resolving doubts to keep everyone on track.',
-    stats: [
-      { value: '245+', label: 'Participants' },
-      { value: '107', label: 'Completed & earned goodies' },
-      { value: '20+', label: 'Cloud courses each' },
-    ],
-    credits: 'Guided by Faculty Coordinator Prof. Charusheela Pandit and led by GDG Lead Pranav Salunkhe, with Cloud Campaign Mentor Nimish Patil and GDG Facilitator Harsh Dhanawade.',
+    // Single source with the home-page scroll story (data/story.js).
+    stats: studyJams.stats.map((s) => ({ value: `${s.value}${s.suffix}`, label: s.label })),
+    credits: studyJams.credits,
     link: { label: 'View on LinkedIn', href: site.social.linkedin },
     cover: `/events/cloud-campaign/1.webp`,
     gallery: galleryPaths('cloud-campaign', 12),

@@ -150,6 +150,15 @@ html[data-theme="legacy"] {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     animation: text-draw 3.5s ease-in-out infinite alternate;
+    /* Paused unless the closing scene is on screen (Final.jsx adds .is-in-view).
+       An infinite animation keeps the main thread busy every frame even while
+       it is far off-screen — it was the single biggest frame-time cost on the
+       home page under CPU slowdown. */
+    animation-play-state: paused;
+  }
+
+  .final.is-in-view .bmw-text {
+    animation-play-state: running;
   }
 
   .card {

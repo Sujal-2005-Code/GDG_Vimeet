@@ -4,7 +4,7 @@
  * How the depth illusion works (no WebGL):
  *   stage     CSS `perspective` — the browser's compositor projects children
  *     parallax  pointer tilt (full tier only), isolated so it never fights scroll
- *       world     the CAMERA: its z / x / y / rotation move when scroll moves
+ *       world     the CAMERA: its z / rotation move when scroll moves
  *         entity  each piece has its own x, y, **z**, rotation, scale, opacity;
  *                 pieces at different z move by different amounts under the
  *                 same camera move — that *is* parallax, for free.
@@ -17,7 +17,7 @@
 import { gsap } from '../animations/gsap';
 import { clamp } from '../animations/motion';
 import { chapters } from './chapters';
-import { CAMERA, EASES, STAGGER, createPoses } from './poses';
+import { CAMERA, EASES, STAGGER, TIMING, createPoses } from './poses';
 
 /** Read by the debug HUD (?story=debug). */
 export const storyState = { tier: 'static', chapter: null, progress: 0 };
@@ -26,40 +26,79 @@ export const storyState = { tier: 'static', chapter: null, progress: 0 };
 // resize-triggered rebuild or when returning to the home page.
 let introPlayed = false;
 
+// Counters that already ran (keyed per chapter + target) show their final
+// value immediately if the chapter is revisited or the page is rebuilt.
+const counted = new Set();
+
 const num = (v, fallback = 0) => (typeof v === 'number' ? v : fallback);
 
-/** A pose entry → GSAP vars. x/y/z are fractions of S unless `ax/ay` (px) given. */
-const toVars = (entry = {}, S, r0 = 0) => ({
-  x: entry.ax ?? num(entry.x) * S,
-  y: entry.ay ?? num(entry.y) * S,
-  z: num(entry.z) * S,
-  rotation: r0 + num(entry.dr),
-  rotationX: num(entry.rx),
-  rotationY: num(entry.ry),
-  scale: entry.scale ?? 1,
-  opacity: entry.opacity ?? 1,
-});
+/** True when two GSAP var sets describe the same state (a tween between them would do nothing). */
+const sameVars = (a, b) => Object.keys(b).every((k) => Math.abs((a[k] ?? 0) - (b[k] ?? 0)) < 1e-6);
 
 /**
- * Where the hero's visual should sit, measured from the Hero's own layout
- * (the `data-story-slot` element) so responsive behaviour is plain CSS and
- * swapping the visual never changes the engine.
+ * A pose entry → GSAP vars. x/y/z are fractions of S unless `ax/ay` (px) given.
+ *
+ * `kx/ky` are the element's built-in size factors (data-kx / data-ky): a piece
+ * that grows 1.9× for the cloud is BUILT 1.9× larger and the authored scale is
+ * divided by that, so poses keep their meaning ("scale 1" = the original
+ * diamond) while the browser only ever scales the pixels DOWN. Scaling a
+ * small raster UP is what made the cloud's edges stair-stepped.
+ */
+const toVars = (entry = {}, S, r0 = 0, kx = 1, ky = 1) => {
+  const scale = entry.scale ?? 1;
+  return {
+    x: entry.ax ?? num(entry.x) * S,
+    y: entry.ay ?? num(entry.y) * S,
+    z: num(entry.z) * S,
+    rotation: entry.ar ?? r0 + num(entry.dr),
+    rotationX: num(entry.rx),
+    rotationY: num(entry.ry),
+    scaleX: (scale * num(entry.sx, 1)) / kx,
+    scaleY: (scale * num(entry.sy, 1)) / ky,
+    opacity: entry.opacity ?? 1,
+  };
+};
+
+/**
+ * Where the visual sits, measured from the page's own layout so responsive
+ * behaviour is plain CSS and swapping the visual never changes the engine.
+ *
+ *   hero   the Hero's `data-story-slot="hero"`, in page space at scroll 0
+ *   story  the first story track's `data-story-slot="story"`, measured as
+ *          its VIEWPORT position while that track's layer is pinned (the
+ *          distance from the pinned layer's top), so it is correct no matter
+ *          where the page is scrolled when we measure.
  */
 const measure = (root) => {
   const W = window.innerWidth;
   const H = window.innerHeight;
-  const slot = root.querySelector('[data-story-slot="hero"]');
-  let cx = W * 0.5;
-  let cy = H * 0.5;
-  let S = Math.min(W, H) * 0.6;
-  if (slot) {
-    const r = slot.getBoundingClientRect();
-    cx = r.left + r.width / 2;
-    // Document-space y at scroll 0 (the hero sits at the top of the page).
-    cy = r.top + window.scrollY + r.height / 2;
-    S = Math.min(r.width, r.height);
+  let S = clamp(Math.min(W, H) * 0.6, 180, 760);
+  const hero = { cx: W * 0.5, cy: H * 0.5 };
+
+  const heroSlot = root.querySelector('[data-story-slot="hero"]');
+  if (heroSlot) {
+    const r = heroSlot.getBoundingClientRect();
+    hero.cx = r.left + r.width / 2;
+    hero.cy = r.top + window.scrollY + r.height / 2; // document y at scroll 0
+    S = clamp(Math.min(r.width, r.height), 180, 760);
   }
-  return { W, H, cx, cy, S: clamp(S, 180, 760) };
+
+  let story = { cx: hero.cx, cy: hero.cy, S };
+  const storySlot = root.querySelector('[data-story-slot="story"]');
+  const pin = storySlot?.closest('.story-pin');
+  if (storySlot && pin) {
+    const sr = storySlot.getBoundingClientRect();
+    const pr = pin.getBoundingClientRect();
+    story = {
+      cx: sr.left + sr.width / 2,
+      cy: sr.top - pr.top + sr.height / 2,
+      S: clamp(Math.min(sr.width, sr.height), 180, 760),
+    };
+  }
+  // The mark's box is built at the LARGEST size it ever needs (the hero or the
+  // story frame, which differ on phones) and only scaled DOWN from there, so
+  // the pixels stay sharp.
+  return { W, H, S, hero, story, box: Math.max(S, story.S) };
 };
 
 export const buildStory = ({ root, tier }) => {
@@ -67,158 +106,258 @@ export const buildStory = ({ root, tier }) => {
   if (!stage) return { destroy() {} };
 
   const view = measure(root);
-  const { S } = view;
-  const poses = createPoses({ view, tier });
+  const S = view.box; // size of the mark's box in px (see measure)
 
   const els = {};
   stage.querySelectorAll('[data-entity]').forEach((el) => {
     els[el.dataset.entity] = el;
   });
-  const r0Of = (el) => Number(el.dataset.r0 || 0);
+  const ids = Object.keys(els);
+  const poses = createPoses({ view, tier }, ids);
+  const r0Of = (id) => Number(els[id].dataset.r0 || 0);
+  const vars = (poseName, id) =>
+    toVars(poses[poseName][id], S, r0Of(id), Number(els[id].dataset.kx || 1), Number(els[id].dataset.ky || 1));
 
   stage.style.perspective = `${clamp(view.W * 0.95, 900, 1700)}px`;
-  stage.style.perspectiveOrigin = `${view.cx}px ${view.cy}px`;
-  els.mark?.style.setProperty('--s', `${S}px`);
+  stage.style.perspectiveOrigin = `${view.hero.cx}px ${view.hero.cy}px`;
+  els.anchor?.style.setProperty('--s', `${S}px`);
 
   const cleanups = [];
   storyState.tier = tier;
   storyState.chapter = null;
   storyState.progress = 0;
 
-  const ctx = gsap.context(() => {
+  let ctx;
+  ctx = gsap.context(() => {
     // 1. Base layout: every entity at its hero pose (the assembled composition).
-    Object.entries(els).forEach(([id, el]) => {
-      gsap.set(el, {
+    ids.forEach((id) => {
+      gsap.set(els[id], {
         xPercent: -50,
         yPercent: -50,
         transformOrigin: '50% 50%',
-        ...toVars(poses.hero[id], S, r0Of(el)),
+        ...vars('hero', id),
       });
     });
     stage.dataset.ready = 'true';
 
     // Static tier (prefers-reduced-motion): the composition, nothing moving.
+    // (The story sections render as plain content — see story.css.)
     if (tier === 'static') return;
 
     const world = stage.querySelector('[data-story-world]');
     const parallax = stage.querySelector('[data-story-parallax]');
-    Object.values(els).forEach((el) => {
-      el.style.willChange = 'transform';
-    });
+    // Only the anchor is promoted up-front. Pinning every piece with
+    // will-change locks its raster at the initial scale, so the pieces that
+    // grow 1.4–3.5x for the cloud would just be upscaled (blurry/jagged).
+    if (els.anchor) els.anchor.style.willChange = 'transform';
 
     // 2. Intro: pieces assemble into the hero composition, once per visit.
-    if (!introPlayed) {
-      const entries = Object.entries(els);
-      entries.forEach(([id, el], i) => {
-        gsap.fromTo(el, toVars(poses.intro[id], S, r0Of(el)), {
-          ...toVars(poses.hero[id], S, r0Of(el)),
-          duration: id === 'mark' ? 0.01 : 1.25,
-          delay: 0.05 + i * 0.03,
-          ease: 'expo.out',
-          immediateRender: true,
-          onComplete: i === entries.length - 1 ? () => { introPlayed = true; } : undefined,
-        });
+    //
+    // It writes the same properties the journey does, so it must never be
+    // running when the journey needs to own them: a visitor who is already
+    // scrolled (browser scroll restoration after a reload, an anchor link)
+    // skips it, and one who starts scrolling during it finishes it instantly
+    // (finishIntro) — otherwise it would complete AFTER the journey had set
+    // the right state and overwrite it.
+    let master;
+    const introTweens = [];
+    const finishIntro = () => {
+      if (!introTweens.length) return;
+      introTweens.splice(0).forEach((t) => t.progress(1));
+      introPlayed = true;
+      master?.render(master.time(), true, true); // re-apply the journey on top
+    };
+    if (!introPlayed && window.scrollY < 4) {
+      ids.forEach((id, i) => {
+        introTweens.push(
+          gsap.fromTo(els[id], vars('intro', id), {
+            ...vars('hero', id),
+            duration: id === 'anchor' || id === 'mark' || id === 'orb' ? 0.01 : 1.25,
+            delay: 0.05 + i * 0.03,
+            ease: 'expo.out',
+            immediateRender: true,
+            onComplete: i === ids.length - 1 ? () => { introPlayed = true; introTweens.length = 0; } : undefined,
+          })
+        );
       });
+    } else {
+      introPlayed = true;
     }
 
-    // 3. Chapters: each scroll range tweens every entity from pose A to pose B.
-    let progress = 0;
-    chapters
-      .filter((c) => c.enabled)
-      .forEach((ch) => {
-        const section = root.querySelector(ch.section);
-        if (!section) return;
-        const fromPose = poses[ch.from];
-        const toPose = poses[ch.to];
+    // 3. The journey: ONE master timeline, driven by ONE scrubbed trigger.
+    //
+    // Each chapter is a segment of it, placed by the scroll geometry of its
+    // section and tweening every entity from its `from` pose to its `to`
+    // pose. A single timeline renders in a deterministic order, so a jump
+    // (scrollbar drag, anchor link, End key), a reload mid-page and a
+    // reverse scroll all land on exactly the same state. (One timeline per
+    // chapter does not: when several animate at once, which one renders
+    // last — and so wins — is undefined, and a jump could settle in the
+    // PREVIOUS chapter's pose.)
+    const geo = chapters
+      .map((ch) => {
+        const section = root.querySelector(`[data-story-chapter="${ch.id}"]`);
+        if (!section) return null;
+        const top = section.getBoundingClientRect().top + window.scrollY;
+        // hero: scrolls out (its top → its bottom); story tracks: their
+        // pinned period = track height − the pinned layer's height. The layer's
+        // own height (CSS 100svh) is measured instead of using innerHeight,
+        // which changes on phones whenever the URL bar collapses.
+        const pin = section.querySelector('.story-pin');
+        const end = pin ? top + section.offsetHeight - pin.offsetHeight : top + section.offsetHeight;
+        return { ch, section, a: top, b: Math.max(end, top + 1) };
+      })
+      .filter(Boolean);
+    if (geo.length) {
+      const journeyEnd = Math.max(...geo.map((g) => g.b));
+
+      // Counters per chapter: show 0 until their moment, then count once.
+      const counters = geo.flatMap(({ ch, section, a, b }) =>
+        [...section.querySelectorAll('[data-count]')].map((el) => {
+          const target = Number(el.dataset.count);
+          const key = `${ch.id}:${target}`;
+          const done = counted.has(key);
+          el.textContent = done ? String(target) : '0';
+          return { el, target, key, a, b, at: Number(el.dataset.countAt ?? 0.15), started: done };
+        })
+      );
+
+      master = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          start: 0,
+          end: journeyEnd,
+          scrub: tier === 'full' ? 0.7 : 0.4,
+          onUpdate: (self) => {
+            const px = self.progress * journeyEnd;
+            if (px > 8) finishIntro();
+            const active = [...geo].reverse().find((g) => px >= g.a) ?? geo[0];
+            storyState.chapter = active.ch.id;
+            storyState.progress = clamp((px - active.a) / (active.b - active.a), 0, 1);
+            counters.forEach((c) => {
+              if (c.started || px < c.a + c.at * (c.b - c.a)) return;
+              c.started = true;
+              const o = { v: 0 };
+              ctx.add(() => {
+                gsap.to(o, {
+                  v: c.target,
+                  duration: 1.4,
+                  ease: 'power2.out',
+                  onUpdate: () => {
+                    c.el.textContent = String(Math.round(o.v));
+                  },
+                  onComplete: () => counted.add(c.key),
+                });
+              });
+            });
+          },
+        },
+      });
+
+      geo.forEach(({ ch, section, a, b }) => {
+        const len = b - a;
+        const at = (frac) => a + frac * len; // chapter fraction → master-timeline time
+        const d = (frac) => Math.max(frac * len, 0.001); // chapter fraction → duration
         const cam = { from: CAMERA[ch.from] ?? CAMERA.hero, to: CAMERA[ch.to] ?? CAMERA.hero };
 
-        const tl = gsap.timeline({
-          defaults: { ease: 'none' },
-          scrollTrigger: {
-            trigger: section,
-            start: ch.start,
-            end: ch.end,
-            scrub: tier === 'full' ? 0.7 : 0.4,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              progress = self.progress;
-              storyState.chapter = ch.id;
-              storyState.progress = self.progress;
-            },
-          },
-        });
-
-        // Pieces peel away one after another (STAGGER) over 75% of the range.
-        Object.entries(els).forEach(([id, el]) => {
-          tl.fromTo(
-            el,
-            toVars(fromPose[id], S, r0Of(el)),
+        // Pieces move one after another (STAGGER) unless the chapter needs them in sync (TIMING).
+        // An entity that does not change in this chapter gets no tween at all: its value simply
+        // carries over from the chapter that last moved it. (Fewer tweens = less work per frame
+        // and fewer first-use initialisations mid-scroll.)
+        ids.forEach((id) => {
+          const from = vars(ch.from, id);
+          const to = vars(ch.to, id);
+          if (sameVars(from, to)) return;
+          const t = TIMING[ch.to]?.[id];
+          master.fromTo(
+            els[id],
+            from,
             {
-              ...toVars(toPose[id], S, r0Of(el)),
-              ease: EASES[id] ?? 'power2.inOut',
-              duration: 0.75,
+              ...to,
+              ease: t?.[2] ?? EASES[id] ?? 'power2.inOut',
+              duration: d(t?.[1] ?? 0.8),
               immediateRender: false,
             },
-            STAGGER[id] ?? 0
+            at(t?.[0] ?? STAGGER[id] ?? 0)
           );
         });
 
-        // The section's own copy leaves before the pieces cross it.
-        const copyEl = ch.copy ? root.querySelector(ch.copy) : null;
-        if (copyEl) {
-          tl.fromTo(
-            copyEl,
-            { autoAlpha: 1, y: 0 },
-            { autoAlpha: 0, y: -56, ease: 'power1.in', duration: 0.45, immediateRender: false },
-            0
+        // Camera: dolly (world z) and a gentle sway — closer pieces sweep past faster.
+        master.fromTo(
+          world,
+          { z: cam.from.z * S, rotationY: cam.from.ry ?? 0 },
+          { z: cam.to.z * S, rotationY: cam.to.ry ?? 0, ease: 'power1.inOut', duration: d(1), immediateRender: false },
+          at(0)
+        );
+
+        // Hero: the vanishing point glides with the mark from the hero slot to the story frame.
+        if (ch.id === 'hero') {
+          const vp = { x: view.hero.cx, y: view.hero.cy };
+          master.to(
+            vp,
+            {
+              x: view.story.cx,
+              y: view.story.cy,
+              ease: 'power2.inOut',
+              duration: d(1),
+              onUpdate: () => {
+                stage.style.perspectiveOrigin = `${vp.x}px ${vp.y}px`;
+              },
+            },
+            at(0)
           );
         }
 
-        // Camera dolly (world z) — closer pieces sweep past faster.
-        tl.fromTo(
-          world,
-          { z: cam.from.z * S },
-          { z: cam.to.z * S, ease: 'power1.in', duration: 1, immediateRender: false },
-          0
-        );
-
-        // The vanishing point glides from the hero slot to screen centre so
-        // the mark doesn't skew as it travels.
-        const vp = { x: view.cx, y: view.cy };
-        tl.to(
-          vp,
-          {
-            x: view.W / 2,
-            y: view.H / 2,
-            ease: 'power2.inOut',
-            duration: 0.8,
-            onUpdate: () => {
-              stage.style.perspectiveOrigin = `${vp.x}px ${vp.y}px`;
-            },
-          },
-          0
-        );
+        // Copy. The hero's copy leaves before the pieces cross it; a story
+        // chapter's copy fades in at the start and out at the end, with
+        // [data-at] lines revealed at their own moment.
+        if (ch.exitCopy) {
+          const exit = root.querySelector(ch.exitCopy);
+          if (exit) {
+            master.fromTo(
+              exit,
+              { autoAlpha: 1, y: 0 },
+              { autoAlpha: 0, y: -56, ease: 'power1.in', duration: d(0.45), immediateRender: false },
+              at(0)
+            );
+          }
+        } else {
+          const copy = section.querySelector('[data-story-copy="track"]');
+          if (copy) {
+            master.fromTo(copy, { opacity: 0 }, { opacity: 1, ease: 'power1.out', duration: d(0.1), immediateRender: false }, at(0));
+            master.to(copy, { opacity: 0, y: -20, ease: 'power1.in', duration: d(0.1) }, at(0.9));
+          }
+          section.querySelectorAll('[data-at]').forEach((el) => {
+            master.fromTo(
+              el,
+              { opacity: 0, y: 22 },
+              { opacity: 1, y: 0, ease: 'power2.out', duration: d(0.12), immediateRender: false },
+              at(Number(el.dataset.at))
+            );
+          });
+        }
 
         // Hand over to the next block: fade (and un-render) the stage.
         if (ch.stageFadeAt != null) {
-          tl.fromTo(
+          master.fromTo(
             stage,
             { autoAlpha: 1 },
-            { autoAlpha: 0, ease: 'power1.in', duration: 1 - ch.stageFadeAt, immediateRender: false },
-            ch.stageFadeAt
+            { autoAlpha: 0, ease: 'power1.in', duration: d(1 - ch.stageFadeAt), immediateRender: false },
+            at(ch.stageFadeAt)
           );
         }
       });
+    }
 
     // 4. Pointer parallax (desktop-class devices only).
     if (tier === 'full' && parallax) {
-      gsap.set(parallax, { transformOrigin: `${view.cx}px ${view.cy}px` });
+      gsap.set(parallax, { transformOrigin: `${view.hero.cx}px ${view.hero.cy}px` });
       const qx = gsap.quickTo(parallax, 'x', { duration: 0.9, ease: 'power3' });
       const qy = gsap.quickTo(parallax, 'y', { duration: 0.9, ease: 'power3' });
       const qrx = gsap.quickTo(parallax, 'rotationX', { duration: 0.9, ease: 'power3' });
       const qry = gsap.quickTo(parallax, 'rotationY', { duration: 0.9, ease: 'power3' });
       const onMove = (e) => {
-        if (document.hidden || progress > 0.5) return;
+        if (document.hidden) return;
         const nx = e.clientX / view.W - 0.5;
         const ny = e.clientY / view.H - 0.5;
         qry(nx * 8);
@@ -235,9 +374,7 @@ export const buildStory = ({ root, tier }) => {
     destroy() {
       cleanups.forEach((fn) => fn());
       ctx.revert();
-      Object.values(els).forEach((el) => {
-        el.style.willChange = '';
-      });
+      if (els.anchor) els.anchor.style.willChange = '';
       stage.style.perspective = '';
       stage.style.perspectiveOrigin = '';
       delete stage.dataset.ready;

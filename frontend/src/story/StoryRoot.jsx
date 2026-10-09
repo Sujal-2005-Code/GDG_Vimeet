@@ -21,17 +21,21 @@ const StoryRoot = ({ children }) => {
     return () => story.destroy();
   }, [tier, epoch]);
 
-  // Rebuild on width change (not height — mobile toolbars change height
-  // constantly) and once webfonts settle, since text height moves the slot.
+  // Rebuild on width change, on a *large* height change (a desktop window
+  // being resized — the story's geometry is in viewport heights), and once
+  // webfonts settle, since text height moves the slot. Small height changes
+  // are phone URL bars sliding in and out; those must not rebuild.
   useEffect(() => {
     let width = window.innerWidth;
+    let height = window.innerHeight;
     let timer = 0;
     const rebuild = () => setEpoch((e) => e + 1);
     const onResize = () => {
       clearTimeout(timer);
       timer = window.setTimeout(() => {
-        if (window.innerWidth !== width) {
+        if (window.innerWidth !== width || Math.abs(window.innerHeight - height) > 150) {
           width = window.innerWidth;
+          height = window.innerHeight;
           rebuild();
         }
       }, 200);
