@@ -9,9 +9,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* `clip` (not `hidden`): hidden would flatten the 3D context of children. */
   overflow: clip;
-  perspective: 1200px; /* overwritten by the engine from the viewport width */
 }
 
 /* Reduced motion: no timelines, so the stage simply scrolls away with the page. */
@@ -26,16 +24,8 @@
   visibility: hidden;
 }
 
-.story-layer {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-}
-
 .story-entity {
   position: absolute;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
 }
 
 /* The composition's frame: a square of side --s (set by the engine) at the stage centre. */
@@ -46,7 +36,7 @@
   height: var(--s, 0px);
 }
 
-/* A group that fills its parent's box (mark, orbit). */
+/* A group that fills its parent's box. */
 .story-box {
   left: 50%;
   top: 50%;
@@ -65,7 +55,6 @@
 .story-flat {
   position: absolute;
   inset: 0;
-  transform-style: flat;
 }
 
 .story-svg {
@@ -95,30 +84,11 @@
   user-select: none;
 }
 
-/* Accent dots. Their positions (3D translate) and opacity are written each
-   frame by the rig; the centring translate lives in that same transform. */
-.story-dot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(var(--s, 0px) * var(--k, 0.04));
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--c);
-  transform: translate(-50%, -50%);
-  backface-visibility: hidden;
-}
-
-/* Reduced motion: no orbit. The logo simply sits there, upright. */
-.story-root[data-tier='static'] [data-entity='orbit'] {
-  display: none;
-}
-
 /* Event photography: 4:3 planes with a print-style border. */
 .story-photo {
   left: 50%;
   top: 50%;
-  width: 56%;
+  width: 46%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border: 6px solid var(--color-surface);

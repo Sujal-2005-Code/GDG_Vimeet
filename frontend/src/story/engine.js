@@ -1,42 +1,40 @@
 /**
- * Story engine — builds the 2.5D scroll journey on top of the stage DOM.
+ * Story engine — builds the scroll journey on top of the stage DOM.
  *
- * How the depth illusion works (no WebGL):
- *   stage     CSS `perspective` — the browser's compositor projects children
- *     parallax  pointer tilt (full tier only), isolated so it never fights scroll
- *       world     the CAMERA: its z / rotation move when scroll moves
- *         entity  each piece has its own x, y, **z**, rotation, scale, opacity;
- *                 pieces at different z move by different amounts under the
- *                 same camera move — that *is* parallax, for free.
+ * The stage is a fixed, flat layer holding one persistent visual (the logo
+ * mark) and the event photos. Scroll only does three things to it (see
+ * poses.js): the mark settles from the hero slot into the story frame, then
+ * stays put while the chapters' words change, then gives way to the photos.
+ * One steady, linear scroll-linked motion runs throughout (the rings and dots
+ * turn — see chapters.js). No tilt, depth, camera or pointer effects.
  *
  * Only transform + opacity are animated (compositor-only). No blur, no
- * animated filters, no animated shadows. (The logo's own SVG shadow is
- * rasterised once with its layer, never per frame.)
- *
- * Two kinds of motion, one timeline:
- *   poses  named states tweened between chapters (poses.js)
- *   rig    the logo's rotation + the orbiting dots, evaluated from the master
- *          timeline's time (rig.js)
+ * animated filters, no animated shadows.
  *
  * Tiers (animations/motion.js): `static` builds no timelines at all.
  */
 import { gsap } from '../animations/gsap';
 import { clamp } from '../animations/motion';
-import { ORBIT_SWEEP, SPIN, chapters } from './chapters';
-import { CAMERA, EASES, STAGGER, TIMING, createPoses } from './poses';
+import { DOT_SWEEP, RING_SWEEP, chapters } from './chapters';
+import { EASES, STAGGER, TIMING, createPoses } from './poses';
 import { createRig } from './rig';
 
-/** Read by the debug HUD (?story=debug). `spin` = the logo's rotation in degrees. */
-export const storyState = { tier: 'static', chapter: null, progress: 0, spin: 0 };
+/** Read by the debug HUD (?story=debug). */
+export const storyState = { tier: 'static', chapter: null, progress: 0 };
 
-// The intro (the mark and its orbit flying in from behind the camera) plays once
-// per page visit, not on every resize-triggered rebuild or when returning to the
-// home page.
+// The intro (the mark fading in) plays once per page visit, not on every
+// resize-triggered rebuild or when returning to the home page.
 let introPlayed = false;
 
 // Counters that already ran (keyed per chapter + target) show their final
 // value immediately if the chapter is revisited or the page is rebuilt.
 const counted = new Set();
+
+// Copy reveal: one pattern for every chapter — opacity, plus a short rise for
+// individual lines. Fractions of a chapter's length.
+const COPY_IN = 0.1;
+const COPY_OUT = 0.1;
+const LINE_RISE = 12; // px
 
 const num = (v, fallback = 0) => (typeof v === 'number' ? v : fallback);
 
@@ -44,7 +42,7 @@ const num = (v, fallback = 0) => (typeof v === 'number' ? v : fallback);
 const sameVars = (a, b) => Object.keys(b).every((k) => Math.abs((a[k] ?? 0) - (b[k] ?? 0)) < 1e-6);
 
 /**
- * A pose entry → GSAP vars. x/y/z are fractions of S unless `ax/ay` (px) given.
+ * A pose entry → GSAP vars. x/y are fractions of S unless `ax/ay` (px) given.
  *
  * `kx/ky` are the element's built-in size factors (data-kx / data-ky): the
  * logo is BUILT 1.3× larger than its design size and the authored scale is
@@ -57,12 +55,8 @@ const toVars = (entry = {}, S, kx = 1, ky = 1) => {
   return {
     x: entry.ax ?? num(entry.x) * S,
     y: entry.ay ?? num(entry.y) * S,
-    z: num(entry.z) * S,
-    rotation: entry.ar ?? num(entry.dr),
-    rotationX: num(entry.rx),
-    rotationY: num(entry.ry),
-    scaleX: (scale * num(entry.sx, 1)) / kx,
-    scaleY: (scale * num(entry.sy, 1)) / ky,
+    scaleX: scale / kx,
+    scaleY: scale / ky,
     opacity: entry.opacity ?? 1,
   };
 };
@@ -125,12 +119,10 @@ export const buildStory = ({ root, tier }) => {
   const vars = (poseName, id) =>
     toVars(poses[poseName][id], S, Number(els[id].dataset.kx || 1), Number(els[id].dataset.ky || 1));
 
-  // ~1200px on desktop: a gentle projection — depth you feel, not a fisheye.
-  stage.style.perspective = `${clamp(view.W * 0.85, 900, 1200)}px`;
-  stage.style.perspectiveOrigin = `${view.hero.cx}px ${view.hero.cy}px`;
   els.anchor?.style.setProperty('--s', `${S}px`);
 
-  const cleanups = [];
+  const rig = createRig({ stage, dotsPerPx: DOT_SWEEP / view.H, ringPerPx: RING_SWEEP / view.H });
+  const cleanups = [rig.destroy];
   storyState.tier = tier;
   storyState.chapter = null;
   storyState.progress = 0;
@@ -152,22 +144,14 @@ export const buildStory = ({ root, tier }) => {
     // (The story sections render as plain content — see story.css.)
     if (tier === 'static') return;
 
-    const world = stage.querySelector('[data-story-world]');
-    const parallax = stage.querySelector('[data-story-parallax]');
     // The anchor and the logo get their own compositor layers up-front, so the
-    // logo (and its SVG shadow) is rasterised ONCE and then only moved,
-    // rotated and scaled by the compositor. The logo is built at its largest
-    // size (data-kx) and only ever scaled down, so the locked raster stays sharp.
+    // logo (and its SVG shadow) is rasterised ONCE and then only moved and
+    // scaled by the compositor. The logo is built at its largest size
+    // (data-kx) and only ever scaled down, so the locked raster stays sharp.
     if (els.anchor) els.anchor.style.willChange = 'transform';
     if (els.core) els.core.style.willChange = 'transform';
-    // (the float and spin layers below move every frame, so each is promoted too —
-    // otherwise their motion would invalidate the logo's raster.)
-    const floatEl = stage.querySelector('[data-float]');
-    const spinEl = stage.querySelector('[data-spin]');
-    if (floatEl) floatEl.style.willChange = 'transform';
-    if (spinEl) spinEl.style.willChange = 'transform';
 
-    // 2. Intro: pieces assemble into the hero composition, once per visit.
+    // 2. Intro: the composition fades in, once per visit.
     //
     // It writes the same properties the journey does, so it must never be
     // running when the journey needs to own them: a visitor who is already
@@ -188,9 +172,9 @@ export const buildStory = ({ root, tier }) => {
         introTweens.push(
           gsap.fromTo(els[id], vars('intro', id), {
             ...vars('hero', id),
-            duration: id === 'anchor' || id === 'mark' ? 0.01 : 1.25,
-            delay: 0.05 + i * 0.03,
-            ease: 'expo.out',
+            duration: id === 'anchor' || id === 'mark' ? 0.01 : 0.9,
+            delay: 0.05,
+            ease: 'power2.out',
             immediateRender: true,
             onComplete: i === ids.length - 1 ? () => { introPlayed = true; introTweens.length = 0; } : undefined,
           })
@@ -238,28 +222,13 @@ export const buildStory = ({ root, tier }) => {
         })
       );
 
-      // The rig (logo rotation + orbiting dots) reads the master timeline's own
-      // time — scroll position in px, after scrub smoothing — so it is, like the
-      // poses, a pure function of where the page is scrolled.
-      const spanOf = (id, edge, fallback) => geo.find((g) => g.ch.id === id)?.[edge] ?? fallback;
-      const rig = createRig({
-        stage,
-        S,
-        radius: tier === 'full' ? 1 : 0.8, // phones keep the dots on screen
-        spins: stage.dataset.visualKind !== 'image', // a photo plane does not spin
-        span: [spanOf(SPIN.from, 'a', 0), spanOf(SPIN.to, 'b', journeyEnd)],
-        degPerPx: ORBIT_SWEEP / view.H,
-        state: storyState,
-      });
-      cleanups.push(rig.destroy);
-
       master = gsap.timeline({
         defaults: { ease: 'none' },
-        onUpdate: () => rig.apply(master.time()),
+        onUpdate: () => rig.apply(master.time()), // the rings/dots read the timeline's own time (scroll px)
         scrollTrigger: {
           start: 0,
           end: journeyEnd,
-          scrub: tier === 'full' ? 0.7 : 0.4,
+          scrub: tier === 'full' ? 0.5 : 0.3,
           onUpdate: (self) => {
             const px = self.progress * journeyEnd;
             if (px > 8) finishIntro();
@@ -273,7 +242,7 @@ export const buildStory = ({ root, tier }) => {
               ctx.add(() => {
                 gsap.to(o, {
                   v: c.target,
-                  duration: 1.4,
+                  duration: 1.2,
                   ease: 'power2.out',
                   onUpdate: () => {
                     c.el.textContent = String(Math.round(o.v));
@@ -290,9 +259,7 @@ export const buildStory = ({ root, tier }) => {
         const len = b - a;
         const at = (frac) => a + frac * len; // chapter fraction → master-timeline time
         const d = (frac) => Math.max(frac * len, 0.001); // chapter fraction → duration
-        const cam = { from: CAMERA[ch.from] ?? CAMERA.hero, to: CAMERA[ch.to] ?? CAMERA.hero };
 
-        // Pieces move one after another (STAGGER) unless the chapter needs them in sync (TIMING).
         // An entity that does not change in this chapter gets no tween at all: its value simply
         // carries over from the chapter that last moved it. (Fewer tweens = less work per frame
         // and fewer first-use initialisations mid-scroll.)
@@ -314,60 +281,23 @@ export const buildStory = ({ root, tier }) => {
           );
         });
 
-        // Camera: dolly (world z) and a gentle sway — closer pieces sweep past faster.
-        master.fromTo(
-          world,
-          { z: cam.from.z * S, rotationY: cam.from.ry ?? 0 },
-          { z: cam.to.z * S, rotationY: cam.to.ry ?? 0, ease: 'power1.inOut', duration: d(1), immediateRender: false },
-          at(0)
-        );
-
-        // Hero: the vanishing point glides with the mark from the hero slot to the story frame.
-        if (ch.id === 'hero') {
-          const vp = { x: view.hero.cx, y: view.hero.cy };
-          master.to(
-            vp,
-            {
-              x: view.story.cx,
-              y: view.story.cy,
-              ease: 'power2.inOut',
-              duration: d(1),
-              onUpdate: () => {
-                stage.style.perspectiveOrigin = `${vp.x}px ${vp.y}px`;
-              },
-            },
-            at(0)
+        // Copy. A story chapter's copy fades in at the start and out at the end,
+        // with [data-at] lines revealed at their own moment — the same
+        // restrained fade-and-short-rise everywhere. (The hero's copy needs
+        // nothing: it simply scrolls away, and the mark never crosses it.)
+        const copy = section.querySelector('[data-story-copy="track"]');
+        if (copy) {
+          master.fromTo(copy, { opacity: 0 }, { opacity: 1, ease: 'power1.out', duration: d(COPY_IN), immediateRender: false }, at(0));
+          master.to(copy, { opacity: 0, ease: 'power1.in', duration: d(COPY_OUT) }, at(1 - COPY_OUT));
+        }
+        section.querySelectorAll('[data-at]').forEach((el) => {
+          master.fromTo(
+            el,
+            { opacity: 0, y: LINE_RISE },
+            { opacity: 1, y: 0, ease: 'power2.out', duration: d(0.12), immediateRender: false },
+            at(Number(el.dataset.at))
           );
-        }
-
-        // Copy. The hero's copy leaves before the pieces cross it; a story
-        // chapter's copy fades in at the start and out at the end, with
-        // [data-at] lines revealed at their own moment.
-        if (ch.exitCopy) {
-          const exit = root.querySelector(ch.exitCopy);
-          if (exit) {
-            master.fromTo(
-              exit,
-              { autoAlpha: 1, y: 0 },
-              { autoAlpha: 0, y: -56, ease: 'power1.in', duration: d(0.45), immediateRender: false },
-              at(0)
-            );
-          }
-        } else {
-          const copy = section.querySelector('[data-story-copy="track"]');
-          if (copy) {
-            master.fromTo(copy, { opacity: 0 }, { opacity: 1, ease: 'power1.out', duration: d(0.1), immediateRender: false }, at(0));
-            master.to(copy, { opacity: 0, y: -20, ease: 'power1.in', duration: d(0.1) }, at(0.9));
-          }
-          section.querySelectorAll('[data-at]').forEach((el) => {
-            master.fromTo(
-              el,
-              { opacity: 0, y: 22 },
-              { opacity: 1, y: 0, ease: 'power2.out', duration: d(0.12), immediateRender: false },
-              at(Number(el.dataset.at))
-            );
-          });
-        }
+        });
 
         // Hand over to the next block: fade (and un-render) the stage.
         if (ch.stageFadeAt != null) {
@@ -383,40 +313,9 @@ export const buildStory = ({ root, tier }) => {
       // The scrub maps scroll progress onto the timeline's duration, and the
       // chapters are placed in scroll px — so make the duration exactly the
       // scroll range (time in px === scroll position in px, which is what the
-      // rig and the chapter placement both assume).
+      // chapter placement assumes).
       master.set({}, {}, journeyEnd);
       rig.apply(master.time());
-    }
-
-    // 4. Idle float: the logo breathes a few px on its own, in 3D, so it reads
-    // as an object floating on the page even when you stop scrolling.
-    // (Desktop only; a separate layer from the scroll-driven tilt and spin.)
-    if (tier === 'full' && floatEl) {
-      gsap.fromTo(
-        floatEl,
-        { y: -0.013 * S, rotationX: 2.2, rotationY: -3, transformPerspective: 900 },
-        { y: 0.013 * S, rotationX: -2.2, rotationY: 3, duration: 4.8, ease: 'sine.inOut', yoyo: true, repeat: -1 }
-      );
-    }
-
-    // 5. Pointer parallax (desktop-class devices only).
-    if (tier === 'full' && parallax) {
-      gsap.set(parallax, { transformOrigin: `${view.hero.cx}px ${view.hero.cy}px` });
-      const qx = gsap.quickTo(parallax, 'x', { duration: 0.9, ease: 'power3' });
-      const qy = gsap.quickTo(parallax, 'y', { duration: 0.9, ease: 'power3' });
-      const qrx = gsap.quickTo(parallax, 'rotationX', { duration: 0.9, ease: 'power3' });
-      const qry = gsap.quickTo(parallax, 'rotationY', { duration: 0.9, ease: 'power3' });
-      const onMove = (e) => {
-        if (document.hidden) return;
-        const nx = e.clientX / view.W - 0.5;
-        const ny = e.clientY / view.H - 0.5;
-        qry(nx * 8);
-        qrx(-ny * 6);
-        qx(-nx * 14);
-        qy(-ny * 10);
-      };
-      window.addEventListener('pointermove', onMove, { passive: true });
-      cleanups.push(() => window.removeEventListener('pointermove', onMove));
     }
   }, root);
 
@@ -424,11 +323,9 @@ export const buildStory = ({ root, tier }) => {
     destroy() {
       cleanups.forEach((fn) => fn());
       ctx.revert();
-      [els.anchor, els.core, ...stage.querySelectorAll('[data-float], [data-spin]')].forEach((el) => {
+      [els.anchor, els.core].forEach((el) => {
         if (el) el.style.willChange = '';
       });
-      stage.style.perspective = '';
-      stage.style.perspectiveOrigin = '';
       delete stage.dataset.ready;
     },
   };

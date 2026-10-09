@@ -1,5 +1,5 @@
 /**
- * THE JOURNEY — one continuous visual story, declared in scroll order.
+ * THE JOURNEY — one calm visual story, declared in scroll order.
  *
  * A chapter is a section of the page (marked `data-story-chapter="<id>"`)
  * whose scroll range drives the stage from pose `from` to pose `to`
@@ -23,39 +23,38 @@
  * `pinned` is the scroll distance (in viewport heights) the chapter lasts.
  * Phones get 80% of it (see ScrollStory).
  *
- * THE SCENE (the real GDG mark is the hero object throughout)
- *   hero       the mark, upright, accents orbiting
- *   tier1      TIER 1 / 3 YEARS STRONG — the mark turns and tilts; at the end
- *              it lifts away up and to the right
- *   cloud      GOOGLE CLOUD — camera dolly toward the mark, orbit widens
- *   jams       CLOUD STUDY JAMS — the camera eases back
- *   m1·m2·m3   245+ · 107 · 20+ — one number per beat, the mark small in the corner
- *   achieve    4TH COLLEGE TO COMPLETE THE JAMS — the mark settles, upright, centred
- *   community  real event photography; the mark recedes
+ * THE SCENE — the diamond mark is the one constant. It settles into its
+ * frame while the hero scrolls out and then stays put, upright and still;
+ * only the words change. The rings and dots turn steadily (DOT_SWEEP, RING_SWEEP below).
+ *
+ *   hero       the mark in the hero slot
+ *   tier1      TIER 1 / 3 YEARS STRONG
+ *   cloud      GOOGLE CLOUD
+ *   jams       CLOUD STUDY JAMS
+ *   m1·m2·m3   245+ · 107 · 20+ — one number per beat
+ *   achieve    4TH COLLEGE TO COMPLETE THE JAMS
+ *   community  the mark gives way to real event photography
  */
 export const chapters = [
   {
     id: 'hero',
     from: 'hero',
-    to: 'drift',
-    // The hero copy fades/lifts away over the first 45% so the mark and its
-    // orbit never cross readable text.
-    exitCopy: '[data-story-copy="hero"]',
+    to: 'story',
   },
-  { id: 'tier1', from: 'drift', to: 'tier1', pinned: 150 }, // TIER 1 / 3 YEARS STRONG
-  { id: 'cloud', from: 'tier1', to: 'cloud', pinned: 100 }, // Google Cloud
-  { id: 'jams', from: 'cloud', to: 'jams', pinned: 80 }, // Cloud Study Jams
-  { id: 'm1', from: 'jams', to: 'm1', pinned: 60 }, // 245+ Participants
-  { id: 'm2', from: 'm1', to: 'm2', pinned: 60 }, // 107 Completed Milestones
-  { id: 'm3', from: 'm2', to: 'm3', pinned: 60 }, // 20+ Cloud Labs & Courses
-  { id: 'achieve', from: 'm3', to: 'achieve', pinned: 100 }, // 4TH COLLEGE TO COMPLETE THE JAMS
+  { id: 'tier1', from: 'story', to: 'story', pinned: 70 }, // TIER 1 / 3 YEARS STRONG
+  { id: 'cloud', from: 'story', to: 'story', pinned: 50 }, // Google Cloud
+  { id: 'jams', from: 'story', to: 'story', pinned: 60 }, // Cloud Study Jams
+  { id: 'm1', from: 'story', to: 'story', pinned: 45 }, // 245+ Participants
+  { id: 'm2', from: 'story', to: 'story', pinned: 45 }, // 107 Completed Milestones
+  { id: 'm3', from: 'story', to: 'story', pinned: 45 }, // 20+ Cloud Labs & Courses
+  { id: 'achieve', from: 'story', to: 'story', pinned: 60 }, // 4TH COLLEGE TO COMPLETE THE JAMS
   {
     id: 'community',
-    from: 'achieve',
+    from: 'story',
     to: 'community',
-    pinned: 130, // real event photography
-    // Fade the whole stage out over the last stretch, before the next
-    // (still legacy, opaque) block covers it.
+    pinned: 100, // real event photography
+    // Fade the whole stage out over the last stretch, before the first solid
+    // section below covers it.
     stageFadeAt: 0.82,
   },
 ];
@@ -67,26 +66,13 @@ export const storyChapters = chapters.filter((c) => c.pinned);
 export const LITE_TRACK_SCALE = 0.8;
 
 /**
- * THE LOGO'S ROTATION, driven by scroll (not a free-running spin).
+ * The scroll-linked motion that runs for the whole journey: the rings and the
+ * accent dots turn. Plain linear functions of scroll (same speed and direction
+ * everywhere, no easing), so scrolling forward, backward or jumping always
+ * lands on the same picture. The four diamonds never move.
  *
- * `keys` are [progress, degrees] where progress runs 0 → 1 from the start of
- * chapter `from` to the end of chapter `to`. The rig draws a smooth curve
- * through them (rig.js), so the mark passes exactly through 25° at 20%, 90° at
- * 40% … and arrives upright (360°) when the metrics are done. Scrolling back
- * reverses it exactly.
+ *   DOT_SWEEP   degrees the dots turn per 100svh scrolled
+ *   RING_SWEEP  degrees each ring turns per 100svh scrolled (opposite ways)
  */
-export const SPIN = {
-  from: 'hero',
-  to: 'm3',
-  keys: [
-    [0, 0],
-    [0.2, 25],
-    [0.4, 90],
-    [0.6, 180],
-    [0.8, 270],
-    [1, 360],
-  ],
-};
-
-/** How far the accent dots travel round their orbits per 100svh scrolled (degrees). */
-export const ORBIT_SWEEP = 140;
+export const DOT_SWEEP = 60;
+export const RING_SWEEP = 20;

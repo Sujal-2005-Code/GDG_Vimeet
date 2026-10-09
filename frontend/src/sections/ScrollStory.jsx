@@ -23,6 +23,7 @@ import { LITE_TRACK_SCALE, storyChapters } from '../story/chapters';
  * Copy comes from data/story.js — never edit strings here.
  */
 const PINNED = Object.fromEntries(storyChapters.map((c) => [c.id, c.pinned]));
+const HERO_OVERLAP = 30; // svh
 
 const Track = ({ id, index, tier, slot = false, children }) => {
   const pinned = PINNED[id] * (tier === 'full' ? 1 : LITE_TRACK_SCALE);
@@ -32,8 +33,10 @@ const Track = ({ id, index, tier, slot = false, children }) => {
       aria-labelledby={`${id}-title`}
       className="story-track relative z-10"
       // Each track is its pinned length plus one viewport, and overlaps the
-      // previous track by one viewport so chapters are contiguous.
-      style={{ height: `${pinned + 100}svh`, marginTop: index === 0 ? 0 : '-100svh' }}
+      // previous track by one viewport so chapters are contiguous. The first
+      // track also tucks under the bottom of the hero, so there is no empty
+      // screen between the hero's copy leaving and the story's first words.
+      style={{ height: `${pinned + 100}svh`, marginTop: index === 0 ? `-${HERO_OVERLAP}svh` : '-100svh' }}
     >
       <div className="story-pin pt-[var(--nav-h)]">
         <Container className="flex min-h-0 flex-1 flex-col lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-10">
@@ -156,17 +159,13 @@ const ScrollStory = () => {
       </Track>
 
       <Track id="community" index={7} tier={tier}>
-        <h2
-          id="community-title"
-          data-at="0.05"
-          className="font-mono text-overline uppercase text-ink-2"
-        >
+        <h2 id="community-title" data-at="0.05" className="text-h2 text-balance text-ink">
           {story.community.overline}
         </h2>
-        <p data-at="0.25" className="mt-4 max-w-[28rem] text-sm leading-relaxed text-ink-2">
+        <p data-at="0.25" className="mt-4 max-w-[28rem] text-ink-2">
           {studyJams.credits}
         </p>
-        <div data-at="0.5" className="mt-6">
+        <div data-at="0.5" className="mt-8">
           <Button to={story.community.cta.to} icon="arrow-right">
             {story.community.cta.label}
           </Button>
