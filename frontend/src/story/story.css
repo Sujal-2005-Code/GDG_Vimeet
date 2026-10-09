@@ -9,9 +9,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* `clip` (not `hidden`): hidden would flatten the 3D context of children. */
   overflow: clip;
-  perspective: 1200px; /* overwritten by the engine from the viewport width */
 }
 
 /* Reduced motion: no timelines, so the stage simply scrolls away with the page. */
@@ -26,45 +24,52 @@
   visibility: hidden;
 }
 
-.story-layer {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-}
-
 .story-entity {
   position: absolute;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
 }
 
-/* The mark: a square of side --s (set by the engine) at the stage centre. */
-.gdg-mark {
+/* The composition's frame: a square of side --s (set by the engine) at the stage centre. */
+.story-anchor {
   left: 50%;
   top: 50%;
   width: var(--s, 0px);
   height: var(--s, 0px);
 }
 
-.story-slice,
-.story-fill {
+/* A group that fills its parent's box. */
+.story-box {
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+/* The object itself (the real GDG mark). Width and aspect ratio are inline
+   (Composition.jsx); the engine centres it and places it in 3D. */
+.story-core {
+  left: 50%;
+  top: 50%;
+}
+
+/* Layers inside the object are plain flat planes: only the logo is drawn. */
+.story-flat {
   position: absolute;
   inset: 0;
+}
+
+.story-svg {
   display: block;
   width: 100%;
   height: 100%;
+  /* The logo's soft shadow extends past the viewBox. */
   overflow: visible;
-  backface-visibility: hidden;
+  user-select: none;
 }
 
-/* Soft contact shadow: ONE static gradient layer whose opacity/scale animate,
-   instead of an animated SVG filter (filters re-rasterise every frame). */
-.story-shadow {
-  background: radial-gradient(closest-side, rgb(60 64 67 / 0.2), rgb(60 64 67 / 0));
-  border-radius: 50%;
-}
-
+/* Image mode: a rounded plane in place of the logo. */
 .story-plane {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   border-radius: 12%;
   background: var(--color-surface-2);
@@ -77,4 +82,93 @@
   height: 100%;
   object-fit: cover;
   user-select: none;
+}
+
+/* Event photography: 4:3 planes with a print-style border. */
+.story-photo {
+  left: 50%;
+  top: 50%;
+  width: 46%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 6px solid var(--color-surface);
+  border-radius: 10px;
+  background: var(--color-surface-2);
+  box-shadow: 0 18px 44px -14px rgb(60 64 67 / 0.5);
+}
+
+.story-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+/* ---- scroll tracks (home page, after the hero) ------------------------ */
+/* Each track is `pinned + 100svh` tall (inline style) with a CSS-sticky
+   layer, so the copy stays on screen for the chapter's whole scroll range
+   without GSAP pinning (no pin-spacers, nothing to fight React). */
+
+.story-pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  pointer-events: none; /* the stage and page behind stay clickable… */
+}
+
+/* …except real controls inside the copy. */
+.story-pin a,
+.story-pin button {
+  pointer-events: auto;
+}
+
+/* Hidden until the engine reveals it; opacity (not visibility) so screen
+   readers still read every beat in order. Only for the animated tiers. */
+.story-root[data-tier='full'] [data-story-copy='track'],
+.story-root[data-tier='lite'] [data-story-copy='track'],
+.story-root[data-tier='full'] [data-story-copy='track'] [data-at],
+.story-root[data-tier='lite'] [data-story-copy='track'] [data-at] {
+  opacity: 0;
+}
+
+/* Reduced motion: the story is just content. */
+.story-root[data-tier='static'] .story-track {
+  height: auto !important;
+  margin-top: 0 !important;
+}
+
+.story-root[data-tier='static'] .story-pin {
+  position: static;
+  height: auto;
+  padding-block: 3.5rem;
+}
+
+/* Static tier: nothing animates, so don't reserve the visual's column. */
+.story-root[data-tier='static'] .story-slot-space {
+  display: none;
+}
+
+.story-root[data-tier='static'] .story-pin {
+  padding-block: 2.5rem;
+}
+
+/* Reduced motion: nothing is scroll-driven. Each chapter's words simply fade
+   in and ease from 97% to 100% size once, as they come into view
+   (ScrollStory marks the sections; without the marker everything is visible). */
+.story-root[data-tier='static'] [data-reveal='ready'] [data-story-copy='track'] {
+  opacity: 0;
+  transform: scale(0.97);
+  transform-origin: left center;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.story-root[data-tier='static'] [data-reveal='ready'][data-in-view='true'] [data-story-copy='track'] {
+  opacity: 1;
+  transform: none;
 }

@@ -4,12 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Theme: set before first paint so there is no white/black flash.
-         Redesigned routes are "light", everything else is still "legacy" (dark).
-         Keep this list in step with LIGHT_ROUTES in src/components/RootLayout.jsx. -->
     <script>
       var isHome = location.pathname === '/';
-      document.documentElement.dataset.theme = isHome ? 'light' : 'legacy';
       // The hero lockup (site.brand.lockup) is the likely LCP on phones: start fetching it
       // now instead of after React mounts. Home only — other routes don't use it as an <img>.
       if (isHome) {

@@ -1,14 +1,13 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import NavBar from './components/layout/NavBar';
-import Footer from './components/Footer';
-import StoryRoot from './story/StoryRoot';
+import usePageMeta from './hooks/usePageMeta';
 import Hero from './sections/Hero';
+import ScrollStory from './sections/ScrollStory';
+import StoryRoot from './story/StoryRoot';
 
-// Everything below the Hero loads AFTER the Hero has painted, so the first
-// screen (and LCP) never waits on JavaScript for content that is off-screen.
-// This is the pattern the redesigned chapters will follow too. Right now the
-// lazy module is the pre-redesign dark sections (see sections/LegacyHome.jsx).
-const LegacyHome = lazy(() => import('./sections/LegacyHome'));
+// Everything below the scroll story loads AFTER the Hero has painted, so the
+// first screen (and LCP) never waits on JavaScript for content that is
+// off-screen.
+const HomeSections = lazy(() => import('./sections/HomeSections'));
 
 const whenIdle = (callback) =>
   typeof window.requestIdleCallback === 'function'
@@ -20,7 +19,10 @@ const cancelIdle = (id) =>
     ? window.cancelIdleCallback(id)
     : window.clearTimeout(id);
 
+/** The home page. NavBar, Footer and chat come from RootLayout. */
 const App = () => {
+  usePageMeta();
+
   // A deep link (e.g. /#about) needs the sections right away; otherwise wait
   // for the browser to be idle after first paint.
   const [belowFoldReady, setBelowFoldReady] = useState(() => Boolean(window.location.hash));
@@ -32,28 +34,22 @@ const App = () => {
   }, [belowFoldReady]);
 
   return (
-    <>
-      <NavBar />
-      <StoryRoot>
-        <main id="main">
-          <Hero />
+    <StoryRoot>
+      <main id="main">
+        <Hero />
+        <ScrollStory />
 
-          {/* Placeholder keeps the page scrollable (and the footer off-screen)
-              until the lazy sections arrive. */}
-          <div className="legacy-dark legacy-home min-h-[160svh]">
-            {belowFoldReady && (
-              <Suspense fallback={null}>
-                <LegacyHome />
-              </Suspense>
-            )}
-          </div>
-        </main>
-
-        <div className="relative z-20">
-          <Footer />
+        {/* Solid and above the fixed story stage. The minimum height keeps the
+            footer off-screen until the sections arrive. */}
+        <div className="relative z-10 min-h-[160svh] bg-surface">
+          {belowFoldReady && (
+            <Suspense fallback={null}>
+              <HomeSections />
+            </Suspense>
+          )}
         </div>
-      </StoryRoot>
-    </>
+      </main>
+    </StoryRoot>
   );
 };
 

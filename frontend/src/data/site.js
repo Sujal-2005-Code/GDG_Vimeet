@@ -44,10 +44,10 @@ export const site = {
   /**
    * Hero content + visual. `visual.kind` picks how the right-hand visual
    * is built; the Hero component and the story engine do not change:
-   *   'mark'  → the supplied 2.5D geometric mark, split into layers that
-   *             separate/rotate/orbit as you scroll
-   *   'image' → any image (e.g. a real event photo) as a rounded plane with
-   *             the same orbit/dot accents around it
+   *   'mark'  → the four-diamond mark (story/marks/DiamondMark.jsx): the
+   *             diamonds, rings and dots turn steadily with scroll
+   *   'image' → any image (e.g. a real event photo) as a rounded plane
+   *             (needs `src`; it does not turn)
    * Example: visual: { kind: 'image', src: '/events/cloud-campaign/1.webp',
    *                    alt: 'Students at the Google Cloud Study Jams' }
    */
@@ -56,9 +56,23 @@ export const site = {
     subhead: 'Where students build, learn and grow together.',
     visual: {
       kind: 'mark',
-      src: '/images/gdg-vishwaniketan-2-5d-mark.svg',
       alt: '',
     },
+  },
+
+  /**
+   * About — wording taken from the previous About section (no new claims).
+   * Pillars are Learn · Build · Grow, each one line.
+   */
+  about: {
+    overline: 'About us',
+    title: 'More than a coding community',
+    body: 'GDG ViMEET is a student-led developer community that empowers members to learn, create, and innovate. Through workshops, hackathons, study jams, and speaker sessions, we bring together technology, creativity, leadership, and collaboration in one place.',
+    pillars: [
+      { key: 'learn', title: 'Learn', icon: 'book', text: 'Workshops, study jams and speaker sessions in Web, Mobile, Cloud and AI/ML.' },
+      { key: 'build', title: 'Build', icon: 'hammer', text: 'Project-based workshops, team challenges, hackathons and innovation labs.' },
+      { key: 'grow', title: 'Grow', icon: 'sprout', text: 'Mentorship that helps members grow as developers, designers and leaders.' },
+    ],
   },
 
   institute: {

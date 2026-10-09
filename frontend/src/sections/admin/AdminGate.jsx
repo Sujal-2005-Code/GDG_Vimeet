@@ -12,9 +12,9 @@ const AdminGate = ({ children }) => {
 
   if (status === 'loading') {
     return (
-      <div className="min-h-dvh bg-[#0b0b0d] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3 text-white/60">
-          <span className="size-8 rounded-full border-2 border-white/15 border-t-white animate-spin" />
+      <div className="min-h-dvh bg-surface-2 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3 text-ink-2">
+          <span className="size-8 rounded-full border-2 border-line-strong border-t-primary animate-spin" />
           <p className="text-sm">Checking admin session…</p>
         </div>
       </div>

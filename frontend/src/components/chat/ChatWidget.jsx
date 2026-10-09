@@ -1,16 +1,31 @@
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { fetchChatSuggestions } from '../../services/chat';
 import { site } from '../../data/site';
+import useFocusTrap from '../../hooks/useFocusTrap';
+import useModalOpen from '../../hooks/useModalOpen';
+import Icon from '../ui/Icon';
 
 // Only the launcher ships eagerly; the panel and its deps load on first open.
 const ChatPanel = lazy(() => import('./ChatPanel'));
 const QueryFallback = lazy(() => import('./QueryFallback'));
 
+const PHONE = '(max-width: 639px)';
+
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [isUnavailable, setIsUnavailable] = useState(false);
+  const [isPhone, setIsPhone] = useState(() => window.matchMedia(PHONE).matches);
+  const launcherRef = useRef(null);
+  const panelRef = useRef(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia(PHONE);
+    const onChange = () => setIsPhone(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   // Asked once, on first open — not on page load, so a visitor who never
   // opens the chat costs the backend nothing.
@@ -27,56 +42,71 @@ const ChatWidget = () => {
     };
   }, [isOpen, suggestions.length, isUnavailable]);
 
-  // Escape closes; on phones the panel is full-screen, so lock the page
-  // behind it — on desktop it is a corner panel and locking would be wrong.
+  const close = useCallback(() => {
+    setIsOpen(false);
+    // Hand focus back to the launcher, where the visitor started.
+    requestAnimationFrame(() => launcherRef.current?.focus());
+  }, []);
+
+  // On phones the panel is full-screen: it is a modal (focus trapped, page
+  // locked, other floating UI hidden). On desktop it is a corner panel that
+  // the page stays usable around; Esc still closes it.
+  const modal = isOpen && isPhone;
+  useFocusTrap(panelRef, modal, close);
+  useModalOpen(modal);
+
   useEffect(() => {
-    if (!isOpen) return;
-    const onKey = (e) => e.key === 'Escape' && setIsOpen(false);
+    if (!isOpen || isPhone) return undefined;
+    const onKey = (e) => e.key === 'Escape' && close();
     window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, isPhone, close]);
 
-    const isMobile = window.matchMedia('(max-width: 639px)').matches;
-    if (isMobile) document.body.style.overflow = 'hidden';
-
+  useEffect(() => {
+    if (!modal) return undefined;
+    const prev = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
     return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = prev;
     };
-  }, [isOpen]);
+  }, [modal]);
 
   return (
     <>
       <button
+        ref={launcherRef}
         type="button"
-        onClick={() => setIsOpen((open) => !open)}
+        onClick={() => (isOpen ? close() : setIsOpen(true))}
         aria-label={isOpen ? 'Close chat' : `Ask ${site.chatbot.name} a question`}
         aria-expanded={isOpen}
-        className="fixed bottom-5 right-5 z-[1500] inline-flex items-center justify-center size-14 rounded-full bg-gradient-to-br from-google-blue to-google-green text-white shadow-[0_8px_30px_rgba(0,0,0,0.45)] hover:scale-105 active:scale-95 transition motion-reduce:transition-none motion-reduce:hover:scale-100"
+        aria-controls={isOpen ? 'chat-panel' : undefined}
+        className="chat-launcher fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-[1500] inline-flex size-12 items-center justify-center rounded-full bg-primary sm:size-14 text-white shadow-overlay transition-[transform,background-color] duration-[var(--dur-base)] ease-standard hover:-translate-y-0.5 hover:bg-primary-strong active:scale-95 sm:right-6 sm:bottom-6"
       >
-        {isOpen ? (
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 12h8m-8-4h5m-5 8h3m-6 5V6a2 2 0 012-2h14a2 2 0 012 2v9a2 2 0 01-2 2H8l-4 4z" />
-          </svg>
-        )}
+        <Icon name={isOpen ? 'close' : 'chat'} className="size-6" />
       </button>
 
       {isOpen &&
         createPortal(
-          <div className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-5 z-[1900] sm:w-[22rem] sm:h-[32rem] sm:max-h-[calc(100dvh-8rem)]">
+          <div
+            ref={panelRef}
+            id="chat-panel"
+            role="dialog"
+            aria-modal={modal ? 'true' : undefined}
+            aria-label={`${site.chatbot.name} — questions about GDG ViMEET`}
+            className="fixed inset-0 z-[1900] sm:inset-auto sm:bottom-24 sm:right-6 sm:h-[34rem] sm:max-h-[calc(100dvh-8rem)] sm:w-[23rem]"
+          >
             <Suspense
               fallback={
-                <div className="flex items-center justify-center h-full bg-neutral-950 border border-white/10 sm:rounded-2xl">
-                  <span className="size-6 rounded-full border-2 border-white/15 border-t-white animate-spin" />
+                <div className="flex h-full items-center justify-center border border-line bg-surface sm:rounded-media" role="status">
+                  <span className="size-6 animate-spin rounded-full border-2 border-line border-t-primary" />
+                  <span className="sr-only">Loading chat…</span>
                 </div>
               }
             >
               {isUnavailable ? (
-                <QueryFallback onClose={() => setIsOpen(false)} />
+                <QueryFallback onClose={close} />
               ) : (
-                <ChatPanel onClose={() => setIsOpen(false)} suggestions={suggestions} />
+                <ChatPanel onClose={close} suggestions={suggestions} />
               )}
             </Suspense>
           </div>,

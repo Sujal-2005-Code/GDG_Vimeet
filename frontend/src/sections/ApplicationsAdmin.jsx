@@ -147,14 +147,14 @@ const ApplicationsAdmin = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold text-ink">
             Recruitment Applications 2026-27
           </h1>
-          <p className="text-sm text-white/60 mt-1">
+          <p className="text-sm text-ink-2 mt-1">
             Review candidate details, filter team choices, evaluate Ganesh Chaturthi poster links, and export to Excel.
           </p>
           {lastUpdated && (
-            <p className="text-xs text-white/40 mt-1">
+            <p className="text-xs text-ink-2 mt-1">
               Last updated: {lastUpdated.toLocaleTimeString()}
             </p>
           )}
@@ -165,7 +165,7 @@ const ApplicationsAdmin = () => {
             onClick={() => fetchApps({ isManualRefresh: true })}
             disabled={isRefreshing}
             title="Reload the latest applications from the server"
-            className="inline-flex items-center gap-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 font-semibold px-3.5 py-2.5 text-sm transition disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl bg-surface hover:bg-surface-2 border border-line text-ink font-semibold px-3.5 py-2.5 text-sm transition disabled:opacity-50"
           >
             <svg className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -178,7 +178,7 @@ const ApplicationsAdmin = () => {
               onClick={() => handleExport('filtered')}
               disabled={exporting !== null || filteredApps.length === 0}
               title="Exports only the applications matching your current search/team/year filters"
-              className="inline-flex items-center gap-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white font-semibold px-4 py-2.5 text-sm transition disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-xl bg-surface-2 hover:bg-line border border-line-strong text-ink font-semibold px-4 py-2.5 text-sm transition disabled:opacity-50"
             >
               {exporting === 'filtered' ? 'Exporting…' : `Export Filtered (${filteredApps.length})`}
             </button>
@@ -187,7 +187,7 @@ const ApplicationsAdmin = () => {
             onClick={() => handleExport('all')}
             disabled={exporting !== null || applications.length === 0}
             title="Downloads an Excel file with every application, plus one sheet per team"
-            className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-4 py-2.5 text-sm transition shadow-lg disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl bg-success hover:opacity-90 text-white font-semibold px-4 py-2.5 text-sm transition shadow-rest disabled:opacity-50"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -199,7 +199,7 @@ const ApplicationsAdmin = () => {
             <button
               onClick={() => setIsClearAllOpen(true)}
               title="Permanently delete every application"
-              className="inline-flex items-center gap-2 rounded-xl bg-rose-950/40 hover:bg-rose-900/50 border border-rose-500/30 text-rose-300 font-semibold px-3.5 py-2.5 text-sm transition"
+              className="inline-flex items-center gap-2 rounded-xl bg-danger-tint hover:bg-danger-tint border border-danger/30 text-danger font-semibold px-3.5 py-2.5 text-sm transition"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -213,18 +213,18 @@ const ApplicationsAdmin = () => {
       {/* Action errors (export/delete/status) — shown as a banner so the
           applications below stay on screen. */}
       {error && applications.length > 0 && (
-        <div className="mb-6 flex items-start justify-between gap-4 p-4 rounded-xl border border-rose-500/30 bg-rose-500/[0.08]">
+        <div className="mb-6 flex items-start justify-between gap-4 p-4 rounded-xl border border-danger/30 bg-danger-tint">
           <div>
-            <p className="text-rose-200 text-sm">{error}</p>
+            <p className="text-danger text-sm">{error}</p>
             {error.includes('sign in') && (
-              <a href="/admin" className="text-sm text-google-blue hover:underline">Go to sign in</a>
+              <a href="/admin" className="text-sm text-primary hover:underline">Go to sign in</a>
             )}
           </div>
           <button
             type="button"
             onClick={() => setError(null)}
             aria-label="Dismiss error"
-            className="shrink-0 inline-flex items-center justify-center size-7 rounded-lg text-white/50 hover:text-white hover:bg-white/10 transition"
+            className="shrink-0 inline-flex items-center justify-center size-7 rounded-lg text-ink-2 hover:text-ink hover:bg-surface-2 transition"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -235,33 +235,33 @@ const ApplicationsAdmin = () => {
 
       {/* Quick Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-            <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10">
-              <p className="text-xs text-white/60">Total Applicants</p>
-              <p className="text-2xl font-bold text-white mt-1">{applications.length}</p>
+            <div className="p-4 rounded-xl bg-surface border border-line">
+              <p className="text-xs text-ink-2">Total Applicants</p>
+              <p className="text-2xl font-bold text-ink mt-1">{applications.length}</p>
             </div>
-            <div className="p-4 rounded-xl bg-white/[0.04] border border-purple-500/30">
-              <p className="text-xs text-purple-300">Graphics Poster Submissions</p>
-              <p className="text-2xl font-bold text-purple-400 mt-1">{graphicsAppsCount}</p>
+            <div className="p-4 rounded-xl bg-surface border border-danger/30">
+              <p className="text-xs text-danger">Graphics Poster Submissions</p>
+              <p className="text-2xl font-bold text-danger mt-1">{graphicsAppsCount}</p>
             </div>
-            <div className="p-4 rounded-xl bg-white/[0.04] border border-blue-500/30">
-              <p className="text-xs text-blue-300">Technical Team Applicants</p>
-              <p className="text-2xl font-bold text-blue-400 mt-1">
+            <div className="p-4 rounded-xl bg-surface border border-primary/30">
+              <p className="text-xs text-primary-strong">Technical Team Applicants</p>
+              <p className="text-2xl font-bold text-primary-strong mt-1">
                 {applications.filter((a) => a.teams?.includes(TECHNICAL_TEAM_ID)).length}
               </p>
             </div>
-            <div className="p-4 rounded-xl bg-white/[0.04] border border-amber-500/30">
-              <p className="text-xs text-amber-300">Event & Media Applicants</p>
-              <p className="text-2xl font-bold text-amber-400 mt-1">
+            <div className="p-4 rounded-xl bg-surface border border-line-strong">
+              <p className="text-xs text-ink">Event & Media Applicants</p>
+              <p className="text-2xl font-bold text-ink mt-1">
                 {applications.filter((a) => a.teams?.includes(EVENT_MANAGEMENT_TEAM_ID) || a.teams?.includes(CONTENT_TEAM_ID)).length}
               </p>
             </div>
           </div>
 
           {/* Filters Bar */}
-          <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
+          <div className="p-4 rounded-xl bg-surface border border-line mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
             {/* Search */}
             <div className="w-full sm:w-72 relative">
-              <span className="absolute left-3 top-2.5 text-white/40">
+              <span className="absolute left-3 top-2.5 text-ink-2">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -271,21 +271,21 @@ const ApplicationsAdmin = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search name, roll no, email..."
-                className="w-full pl-9 pr-3 py-2 rounded-lg bg-black/40 border border-white/10 text-xs text-white placeholder-white/40 focus:border-[#00AEEF] focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 rounded-lg bg-surface border border-line text-xs text-ink placeholder:text-ink-2/70 focus:border-primary focus:outline-none"
               />
             </div>
 
             {/* Team Filter */}
             <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-              <span className="text-xs text-white/60 whitespace-nowrap">Team:</span>
+              <span className="text-xs text-ink-2 whitespace-nowrap">Team:</span>
               {['All', ...recruitmentTeams.map((t) => t.id)].map((team) => (
                 <button
                   key={team}
                   onClick={() => setSelectedTeam(team)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition border ${
                     selectedTeam === team
-                      ? 'bg-white text-black border-white'
-                      : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10 hover:text-white'
+                      ? 'bg-primary text-white border-primary'
+                      : 'bg-surface text-ink-2 border-line hover:bg-surface-2 hover:text-ink'
                   }`}
                 >
                   {team === 'All' ? 'All Teams' : team}
@@ -295,15 +295,15 @@ const ApplicationsAdmin = () => {
 
             {/* Year Filter */}
             <div className="flex items-center gap-1.5">
-              <span className="text-xs text-white/60">Year:</span>
+              <span className="text-xs text-ink-2">Year:</span>
               {['All', 'FE', 'SE', 'TE', 'BE'].map((yr) => (
                 <button
                   key={yr}
                   onClick={() => setSelectedYear(yr)}
                   className={`px-2.5 py-1 rounded-md text-xs transition border ${
                     selectedYear === yr
-                      ? 'bg-[#00AEEF] text-black border-[#00AEEF] font-bold'
-                      : 'bg-white/5 text-white/60 border-white/10 hover:bg-white/10'
+                      ? 'bg-primary text-white border-primary font-bold'
+                      : 'bg-surface text-ink-2 border-line hover:bg-surface-2'
                   }`}
                 >
                   {yr}
@@ -314,31 +314,31 @@ const ApplicationsAdmin = () => {
 
           {/* Applications List / Table */}
           {isLoading ? (
-            <div className="text-center py-16 rounded-2xl border border-white/10 bg-white/[0.02]">
-              <p className="text-white/60 text-base">Loading applications from server...</p>
+            <div className="text-center py-16 rounded-2xl border border-line bg-surface">
+              <p className="text-ink-2 text-base">Loading applications from server...</p>
             </div>
           ) : error && applications.length === 0 ? (
-            <div className="text-center py-16 rounded-2xl border border-rose-500/20 bg-rose-500/[0.04]">
-              <p className="text-rose-300 text-sm mb-2">{error}</p>
-              <a href="/admin" className="text-sm text-google-blue hover:underline">
+            <div className="text-center py-16 rounded-2xl border border-danger/30 bg-danger-tint">
+              <p className="text-danger text-sm mb-2">{error}</p>
+              <a href="/admin" className="text-sm text-primary hover:underline">
                 Go to sign in
               </a>
             </div>
           ) : applications.length === 0 ? (
-            <div className="text-center py-16 rounded-2xl border border-dashed border-white/15 bg-white/[0.02]">
-              <p className="text-white text-lg font-semibold mb-1">No applications yet</p>
-              <p className="text-white/50 text-sm">Submissions from the recruitment form will show up here.</p>
+            <div className="text-center py-16 rounded-2xl border border-dashed border-line-strong bg-surface">
+              <p className="text-ink text-lg font-semibold mb-1">No applications yet</p>
+              <p className="text-ink-2 text-sm">Submissions from the recruitment form will show up here.</p>
             </div>
           ) : filteredApps.length === 0 ? (
-            <div className="text-center py-16 rounded-2xl border border-white/10 bg-white/[0.02]">
-              <p className="text-white/60 text-base">No applications match your current filters.</p>
+            <div className="text-center py-16 rounded-2xl border border-line bg-surface">
+              <p className="text-ink-2 text-base">No applications match your current filters.</p>
               <button
                 onClick={() => {
                   setSearchTerm('');
                   setSelectedTeam('All');
                   setSelectedYear('All');
                 }}
-                className="mt-3 text-sm text-[#00AEEF] hover:underline"
+                className="mt-3 text-sm text-primary hover:underline"
               >
                 Clear all filters
               </button>
@@ -350,42 +350,42 @@ const ApplicationsAdmin = () => {
                 return (
                   <div
                     key={app.id}
-                    className="p-5 sm:p-6 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-white/20 transition shadow-lg"
+                    className="p-5 sm:p-6 rounded-2xl border border-line bg-surface hover:border-line-strong transition shadow-rest"
                   >
-                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/10">
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-line">
                       <div>
                         <div className="flex items-center gap-3 flex-wrap">
-                          <h3 className="text-lg font-bold text-white">{app.fullName}</h3>
-                          <span className="px-2.5 py-0.5 rounded-md bg-white/10 text-white/90 text-xs font-mono font-medium">
+                          <h3 className="text-lg font-bold text-ink">{app.fullName}</h3>
+                          <span className="px-2.5 py-0.5 rounded-md bg-surface-2 text-ink text-xs font-mono font-medium">
                             {app.rollNo}
                           </span>
-                          <span className="px-2 py-0.5 rounded-md bg-[#0066B1]/30 text-[#00AEEF] text-xs font-semibold">
+                          <span className="px-2 py-0.5 rounded-md bg-primary-tint text-primary text-xs font-semibold">
                             {app.year} • {app.department}
                           </span>
                         </div>
-                        <p className="text-xs text-white/50 mt-1">
+                        <p className="text-xs text-ink-2 mt-1">
                           Applied: {new Date(app.submittedAt).toLocaleString()}
                         </p>
                       </div>
 
                       {/* Status Selector */}
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-white/50">Status:</span>
+                        <span className="text-xs text-ink-2">Status:</span>
                         <select
                           value={app.status || 'Pending Review'}
                           onChange={(e) => handleStatusChange(app.id, e.target.value)}
                           className={`text-xs font-semibold px-3 py-1.5 rounded-lg border focus:outline-none transition ${
                             app.status === 'Shortlisted'
-                              ? 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300'
+                              ? 'bg-success-tint border-success/40 text-success'
                               : app.status === 'Reviewed'
-                              ? 'bg-blue-950/60 border-blue-500/50 text-blue-300'
-                              : 'bg-black/60 border-white/20 text-white/80'
+                              ? 'bg-primary-tint border-primary/40 text-primary-strong'
+                              : 'bg-surface border-line-strong text-ink'
                           }`}
                         >
-                          <option value="Pending Review" className="bg-neutral-900 text-white">Pending Review</option>
-                          <option value="Reviewed" className="bg-neutral-900 text-white">Reviewed</option>
-                          <option value="Shortlisted" className="bg-neutral-900 text-white">Shortlisted</option>
-                          <option value="Rejected" className="bg-neutral-900 text-white">Rejected</option>
+                          <option value="Pending Review" className="bg-surface text-ink">Pending Review</option>
+                          <option value="Reviewed" className="bg-surface text-ink">Reviewed</option>
+                          <option value="Shortlisted" className="bg-surface text-ink">Shortlisted</option>
+                          <option value="Rejected" className="bg-surface text-ink">Rejected</option>
                         </select>
 
                         {confirmDeleteId === app.id ? (
@@ -393,14 +393,14 @@ const ApplicationsAdmin = () => {
                             <button
                               onClick={() => handleDelete(app.id)}
                               disabled={deletingId === app.id}
-                              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white transition disabled:opacity-50"
+                              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-danger hover:opacity-90 text-white transition disabled:opacity-50"
                             >
                               {deletingId === app.id ? 'Deleting…' : 'Confirm'}
                             </button>
                             <button
                               onClick={() => setConfirmDeleteId(null)}
                               disabled={deletingId === app.id}
-                              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 border border-white/10 transition"
+                              className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-2 text-ink-2 border border-line transition"
                             >
                               Cancel
                             </button>
@@ -409,7 +409,7 @@ const ApplicationsAdmin = () => {
                           <button
                             onClick={() => setConfirmDeleteId(app.id)}
                             title="Delete this application"
-                            className="inline-flex items-center justify-center size-8 rounded-lg text-white/40 hover:text-rose-300 hover:bg-rose-950/40 transition"
+                            className="inline-flex items-center justify-center size-8 rounded-lg text-ink-2 hover:text-danger hover:bg-danger-tint transition"
                           >
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -422,29 +422,29 @@ const ApplicationsAdmin = () => {
                     {/* Body Details */}
                     <div className="grid md:grid-cols-2 gap-4 mt-4 text-xs sm:text-sm">
                       <div>
-                        <span className="text-white/50 block text-xs mb-1">Contact Details:</span>
+                        <span className="text-ink-2 block text-xs mb-1">Contact Details:</span>
                         <div className="flex flex-wrap items-center gap-3">
                           <a
                             href={`https://wa.me/91${app.mobile}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-emerald-400 hover:underline"
+                            className="inline-flex items-center gap-1.5 text-success hover:underline"
                           >
                             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                               <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.92-9.91-9.92z"/>
                             </svg>
                             +91 {app.mobile} (WhatsApp)
                           </a>
-                          <span className="text-white/30">•</span>
-                          <a href={`mailto:${app.email}`} className="text-white/80 hover:text-white underline">
+                          <span className="text-ink-2">•</span>
+                          <a href={`mailto:${app.email}`} className="text-ink hover:text-ink underline">
                             {app.email}
                           </a>
                         </div>
 
                         {app.motivation && (
                           <div className="mt-3">
-                            <span className="text-white/50 block text-xs mb-0.5">Motivation & Experience:</span>
-                            <p className="text-white/80 bg-black/30 p-2.5 rounded-lg text-xs leading-relaxed">
+                            <span className="text-ink-2 block text-xs mb-0.5">Motivation & Experience:</span>
+                            <p className="text-ink bg-surface p-2.5 rounded-lg text-xs leading-relaxed">
                               {app.motivation}
                             </p>
                           </div>
@@ -452,17 +452,17 @@ const ApplicationsAdmin = () => {
                       </div>
 
                       <div>
-                        <span className="text-white/50 block text-xs mb-1">Applied Teams:</span>
+                        <span className="text-ink-2 block text-xs mb-1">Applied Teams:</span>
                         <div className="flex flex-wrap gap-1.5">
                           {(app.teams || []).map((t) => (
                             <span
                               key={t}
                               className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${
                                 t === GRAPHICS_TEAM_ID
-                                  ? 'bg-purple-950/40 text-purple-300 border-purple-500/40'
+                                  ? 'bg-danger-tint text-danger border-danger/30'
                                   : t === TECHNICAL_TEAM_ID
-                                  ? 'bg-blue-950/40 text-blue-300 border-blue-500/40'
-                                  : 'bg-white/5 text-white/80 border-white/10'
+                                  ? 'bg-primary-tint text-primary-strong border-primary/40'
+                                  : 'bg-surface text-ink border-line'
                               }`}
                             >
                               {t}
@@ -472,8 +472,8 @@ const ApplicationsAdmin = () => {
 
                         {/* Graphics Poster Drive Link */}
                         {isGraphics && (
-                          <div className="mt-3 p-3 rounded-xl border border-purple-500/30 bg-purple-950/20">
-                            <span className="text-purple-300 font-semibold text-xs flex items-center gap-1.5 mb-1">
+                          <div className="mt-3 p-3 rounded-xl border border-danger/30 bg-danger-tint">
+                            <span className="text-danger font-semibold text-xs flex items-center gap-1.5 mb-1">
                               <span>🎨</span> Ganesh Chaturthi Poster Drive Link:
                             </span>
                             {app.graphicsDriveLink ? (
@@ -481,7 +481,7 @@ const ApplicationsAdmin = () => {
                                 href={app.graphicsDriveLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-[#00AEEF] hover:underline text-xs break-all"
+                                className="inline-flex items-center gap-1 text-primary hover:underline text-xs break-all"
                               >
                                 {app.graphicsDriveLink}
                                 <svg className="w-3.5 h-3.5 ml-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -489,7 +489,7 @@ const ApplicationsAdmin = () => {
                                 </svg>
                               </a>
                             ) : (
-                              <span className="text-rose-400 text-xs italic">No link provided</span>
+                              <span className="text-danger text-xs italic">No link provided</span>
                             )}
                           </div>
                         )}
@@ -512,16 +512,16 @@ const ApplicationsAdmin = () => {
               setIsClearAllOpen(false);
               setClearAllInput('');
             }}
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/50"
           />
-          <div className="relative w-full max-w-md rounded-2xl border border-rose-500/30 bg-neutral-950 p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-white">Delete every application?</h2>
-            <p className="text-sm text-white/60 mt-2">
-              This permanently deletes all <strong className="text-white">{applications.length}</strong> application
+          <div className="relative w-full max-w-md rounded-2xl border border-danger/30 bg-surface p-6 shadow-overlay">
+            <h2 className="text-lg font-bold text-ink">Delete every application?</h2>
+            <p className="text-sm text-ink-2 mt-2">
+              This permanently deletes all <strong className="text-ink">{applications.length}</strong> application
               {applications.length === 1 ? '' : 's'} from the database. This cannot be undone.
             </p>
-            <p className="text-xs text-white/50 mt-4">
-              Type <span className="font-mono text-rose-300">{CLEAR_ALL_PHRASE}</span> to confirm.
+            <p className="text-xs text-ink-2 mt-4">
+              Type <span className="font-mono text-danger">{CLEAR_ALL_PHRASE}</span> to confirm.
             </p>
             <input
               type="text"
@@ -529,7 +529,7 @@ const ApplicationsAdmin = () => {
               onChange={(e) => setClearAllInput(e.target.value)}
               placeholder={CLEAR_ALL_PHRASE}
               autoFocus
-              className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 transition font-mono"
+              className="mt-2 w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-ink-2/70 focus:border-danger focus:outline-none focus:ring-1 focus:ring-danger transition font-mono"
             />
             <div className="flex items-center justify-end gap-3 mt-6">
               <button
@@ -538,14 +538,14 @@ const ApplicationsAdmin = () => {
                   setClearAllInput('');
                 }}
                 disabled={isClearingAll}
-                className="text-sm font-semibold px-4 py-2.5 rounded-xl text-white/70 hover:bg-white/10 transition"
+                className="text-sm font-semibold px-4 py-2.5 rounded-xl text-ink-2 hover:bg-surface-2 transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleClearAll}
                 disabled={clearAllInput !== CLEAR_ALL_PHRASE || isClearingAll}
-                className="text-sm font-semibold px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white transition disabled:opacity-40 disabled:cursor-not-allowed"
+                className="text-sm font-semibold px-4 py-2.5 rounded-xl bg-danger hover:opacity-90 text-white transition disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {isClearingAll ? 'Deleting…' : 'Delete Everything'}
               </button>

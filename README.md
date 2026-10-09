@@ -53,7 +53,7 @@ Claude and Gemini sit behind one interface (`backend/services/llm/`), selected b
 
 ## Tech stack
 
-**Frontend** — React 19, Vite 6, Tailwind CSS 4, React Router 6. GSAP drives scroll-linked cinematic sections; anime.js (dynamically imported, with a silent fallback) handles menu and micro-interactions — the two are kept to disjoint DOM properties so they never fight over the same element. Everything respects `prefers-reduced-motion`.
+**Frontend** — React 19, Vite 6, Tailwind CSS 4, React Router 6. **GSAP + ScrollTrigger is the single animation engine** (the home-page scroll story, section reveals, the pointer parallax); everything else is CSS transitions. Every route is its own lazy chunk. Everything respects `prefers-reduced-motion`.
 
 **Backend** — Express 5, Mongoose/MongoDB. `backend/utils/excel.js` builds a styled, multi-sheet workbook (one tab per team, frozen headers, autofilter, status colour-coding, IST-corrected timestamps) with ExcelJS. `backend/utils/email.js` sends over Brevo's HTTP API rather than SMTP, worked around a hosting provider that blocks outbound SMTP.
 
@@ -101,12 +101,19 @@ npm run check:faq --workspace=backend   # validates and syncs the FAQ dataset
 
 ```
 frontend/src/
-  sections/          route-level page components (Home, Team, Events, Contact, Recruitment)
+  sections/          route-level pages (Hero, ScrollStory, Events, EventDetail, Team, Contact, Recruitment, NotFound)
+  sections/home/     the home-page sections after the scroll story (events, moments, about, find-your-place, team, final CTA)
   sections/admin/    admin dashboard, login, route guard
+  story/             the scroll-story engine: poses, chapters, rig (rotation + orbit), the real logo mark
+  components/ui/     Button, Chip/StatusChip, SectionHeader, TextLink, Photo, Lightbox, Avatar, Icon, SocialIcon, ColorStroke
+  components/layout/ Container, Section, PageHeader, NavBar, SkipLink
+  components/events/ EventCard, UpcomingCard
   components/chat/   the FAQ assistant widget
-  data/              recruitment teams, events, team roster, site config
-  animations/        the anime.js wrapper (GSAP lives inline in the sections that use it)
+  data/              site config, events, team roster, recruitment teams, story copy — the source of truth for content
+  animations/        gsap setup, motion tiers, section reveals
+  hooks/ lib/        focus trap, modal flag, page meta · photo srcset, social glyphs, team icons
   services/          fetch wrappers — the only code that talks to the backend
+frontend/scripts/    make-image-variants.mjs, find-unused-assets.mjs
 
 backend/
   server.js          route definitions
@@ -116,3 +123,40 @@ backend/
   utils/             validation, Excel export, email, FAQ context builder
   content/faq.json   the FAQ dataset
 ```
+
+## Design system
+
+The site is light, built on a small set of tokens defined once in `frontend/src/index.css` (`@theme`) and used as Tailwind utilities — components never contain raw hex values.
+
+| Token | Use |
+|---|---|
+| `text-ink` / `text-ink-2` | headings and body / secondary text (16.1 : 1 and 6.05 : 1 on white) |
+| `bg-surface` / `bg-surface-2` | page / alternate section band |
+| `primary` `#1A73E8`, `primary-strong` | links, buttons, focus ring (AA on white; use `primary-strong` for small text on the grey band) |
+| `danger`, `success` + `*-tint` | errors, completed/open states and their chip backgrounds |
+| `google-blue/red/yellow/green` | **decoration only** — shapes, the four-colour stroke, orbit dots (they fail AA as text) |
+| `text-display` … `text-overline` | fluid type scale (Inter + JetBrains Mono, self-hosted) |
+| `rounded-field` / `-card` / `-media` | 8 / 16 / 28 px radii |
+| `shadow-rest` / `-raised` / `-overlay` | the three elevations |
+
+The signature motif is the **four-colour stroke** (`ColorStroke`): active nav item, under headings, form success, the footer's last line.
+
+### Where content lives (never hard-code it in JSX)
+
+| To change… | Edit |
+|---|---|
+| tagline, social links, address, About copy and pillars, logo | `data/site.js` |
+| events, dates, photo descriptions, the home "Moments" picks | `data/events.js` |
+| the scroll-story words and Study Jams figures (the Events page reads the same numbers) | `data/story.js` |
+| recruitment teams, interest clusters, whether applications are open | `data/recruitment.js`, `site.recruitmentOpen` (also flip `REGISTRATIONS_OPEN` in `backend/server.js`) |
+| team members | `data/team.js` |
+
+### How to add an event
+
+1. Put the photos in `frontend/public/events/<slug>/1.webp, 2.webp …` (about 1600 px wide) and run `node scripts/make-image-variants.mjs` from `frontend/` — it writes the 480/960 px copies the site serves through `srcset` and strips metadata.
+2. Add an entry to `rawPastEvents` (or `upcomingEvents`) in `data/events.js`: `slug`, `title`, `date` as `YYYY-MM-DD` (the Upcoming/Completed chip is derived from it — never set by hand), `category`, `desc`, `gallery: galleryPaths('<slug>', <count>)`, and one `photoAlts` line per photo describing the moment.
+3. Add `/events/<slug>` to `frontend/public/sitemap.xml`. The event page, its gallery and lightbox, the Events list and the home page pick it up automatically.
+
+### The scroll story
+
+The home page's visual is the real GDG mark from the logo SVG (`#gdg-mark`, referenced with `<use>`, never redrawn) — one object that turns with scroll, with four small accent dots orbiting it. See [`docs/redesign/stage-3-notes.md`](docs/redesign/stage-3-notes.md) for the choreography and how to edit it.

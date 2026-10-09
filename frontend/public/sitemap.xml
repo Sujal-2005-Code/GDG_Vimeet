@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://gdg-vimeet.vercel.app/</loc></url>
   <url><loc>https://gdg-vimeet.vercel.app/events</loc></url>
+  <url><loc>https://gdg-vimeet.vercel.app/events/git-github-workshop-2026</loc></url>
+  <url><loc>https://gdg-vimeet.vercel.app/events/cloud-study-jams</loc></url>
+  <url><loc>https://gdg-vimeet.vercel.app/events/git-github-workshop-2025</loc></url>
+  <url><loc>https://gdg-vimeet.vercel.app/events/nirmaan-webathon</loc></url>
+  <url><loc>https://gdg-vimeet.vercel.app/events/jamming-session</loc></url>
   <url><loc>https://gdg-vimeet.vercel.app/team</loc></url>
   <url><loc>https://gdg-vimeet.vercel.app/contact</loc></url>
   <url><loc>https://gdg-vimeet.vercel.app/join</loc></url>

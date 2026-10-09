@@ -8,7 +8,9 @@
   <desc id="desc">Google Developer Groups On Campus Vishwaniketan's iMEET wordmark based on the supplied reference image.</desc>
 
   <defs>
-    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+    <!-- Region in user space (not % of the path bbox, which ignores the 56-unit
+         round stroke caps and used to slice their tips flat at large sizes). -->
+    <filter id="softShadow" filterUnits="userSpaceOnUse" x="320" y="10" width="540" height="210">
       <feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.10"/>
     </filter>
   </defs>

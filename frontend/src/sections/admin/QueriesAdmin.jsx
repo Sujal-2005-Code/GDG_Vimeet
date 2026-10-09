@@ -4,10 +4,10 @@ import { getQueries, updateQueryStatus, deleteQuery } from '../../services/admin
 const STATUS_FLOW = { new: 'reviewing', reviewing: 'resolved', resolved: 'resolved' };
 
 const STATUS_STYLES = {
-  new: 'bg-blue-950/60 border-blue-500/50 text-blue-300',
-  reviewing: 'bg-amber-950/60 border-amber-500/50 text-amber-300',
-  resolved: 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300',
-  dismissed: 'bg-white/5 border-white/15 text-white/50',
+  new: 'bg-primary-tint border-primary/40 text-primary-strong',
+  reviewing: 'bg-warning-tint border-line-strong text-ink',
+  resolved: 'bg-success-tint border-success/40 text-success',
+  dismissed: 'bg-surface border-line-strong text-ink-2',
 };
 
 const SOURCE_LABELS = {
@@ -89,26 +89,26 @@ const QueriesAdmin = () => {
     <div>
       <div className="mb-8">
         <div className="flex items-center gap-3 flex-wrap">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">User Queries</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-ink">User Queries</h1>
           {newCount > 0 && (
-            <span className="px-2.5 py-1 rounded-full bg-blue-950/60 border border-blue-500/50 text-blue-300 text-xs font-semibold">
+            <span className="px-2.5 py-1 rounded-full bg-primary-tint border border-primary/40 text-primary-strong text-xs font-semibold">
               {newCount} New
             </span>
           )}
         </div>
-        <p className="text-sm text-white/60 mt-1">
+        <p className="text-sm text-ink-2 mt-1">
           Questions visitors submitted directly, or handed off by the chatbot when it couldn't help.
         </p>
       </div>
 
       {error && (
-        <div className="mb-6 flex items-start justify-between gap-4 p-4 rounded-xl border border-rose-500/30 bg-rose-500/[0.08]">
-          <p className="text-rose-200 text-sm">{error}</p>
+        <div className="mb-6 flex items-start justify-between gap-4 p-4 rounded-xl border border-danger/30 bg-danger-tint">
+          <p className="text-danger text-sm">{error}</p>
           <button
             type="button"
             onClick={() => setError(null)}
             aria-label="Dismiss error"
-            className="shrink-0 text-white/50 hover:text-white transition"
+            className="shrink-0 text-ink-2 hover:text-ink transition"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -118,29 +118,29 @@ const QueriesAdmin = () => {
       )}
 
       {isLoading ? (
-        <div className="text-center py-16 rounded-2xl border border-white/10 bg-white/[0.02]">
-          <span className="inline-block size-6 rounded-full border-2 border-white/15 border-t-white animate-spin mb-3" />
-          <p className="text-white/60 text-sm">Loading queries…</p>
+        <div className="text-center py-16 rounded-2xl border border-line bg-surface">
+          <span className="inline-block size-6 rounded-full border-2 border-line-strong border-t-primary animate-spin mb-3" />
+          <p className="text-ink-2 text-sm">Loading queries…</p>
         </div>
       ) : queries.length === 0 ? (
-        <div className="text-center py-16 rounded-2xl border border-dashed border-white/15 bg-white/[0.02]">
-          <p className="text-white text-lg font-semibold mb-1">No questions yet</p>
-          <p className="text-white/50 text-sm">
+        <div className="text-center py-16 rounded-2xl border border-dashed border-line-strong bg-surface">
+          <p className="text-ink text-lg font-semibold mb-1">No questions yet</p>
+          <p className="text-ink-2 text-sm">
             Questions from the chatbot fallback or the contact box will show up here.
           </p>
         </div>
       ) : (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] divide-y divide-white/5 overflow-hidden">
+        <div className="rounded-2xl border border-line bg-surface divide-y divide-line overflow-hidden">
           {queries.map((query) => (
             <div key={query._id} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div className="min-w-0 flex-1">
-                <p className="text-sm text-white leading-relaxed break-words">{query.question}</p>
+                <p className="text-sm text-ink leading-relaxed break-words">{query.question}</p>
                 <div className="flex items-center gap-2 flex-wrap mt-2">
-                  <span className="text-xs text-white/40">
+                  <span className="text-xs text-ink-2">
                     {new Date(query.createdAt).toLocaleString()}
                   </span>
-                  <span className="text-white/20">•</span>
-                  <span className="text-xs text-white/40">{SOURCE_LABELS[query.source] ?? query.source}</span>
+                  <span className="text-ink-2">•</span>
+                  <span className="text-xs text-ink-2">{SOURCE_LABELS[query.source] ?? query.source}</span>
                 </div>
               </div>
 
@@ -156,7 +156,7 @@ const QueriesAdmin = () => {
                     onClick={() => handleAdvance(query)}
                     disabled={busyId === query._id}
                     title={`Mark as ${STATUS_FLOW[query.status] ?? 'reviewing'}`}
-                    className="text-xs font-medium px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 transition disabled:opacity-50"
+                    className="text-xs font-medium px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-2 border border-line text-ink transition disabled:opacity-50"
                   >
                     Mark {STATUS_FLOW[query.status] ?? 'reviewing'}
                   </button>
@@ -167,7 +167,7 @@ const QueriesAdmin = () => {
                     onClick={() => handleDismiss(query)}
                     disabled={busyId === query._id}
                     title="Dismiss without resolving"
-                    className="text-xs font-medium px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/50 transition disabled:opacity-50"
+                    className="text-xs font-medium px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-2 border border-line text-ink-2 transition disabled:opacity-50"
                   >
                     Dismiss
                   </button>
@@ -178,14 +178,14 @@ const QueriesAdmin = () => {
                     <button
                       onClick={() => handleDelete(query._id)}
                       disabled={busyId === query._id}
-                      className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white transition disabled:opacity-50"
+                      className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-danger hover:opacity-90 text-white transition disabled:opacity-50"
                     >
                       {busyId === query._id ? 'Deleting…' : 'Confirm'}
                     </button>
                     <button
                       onClick={() => setConfirmDeleteId(null)}
                       disabled={busyId === query._id}
-                      className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 border border-white/10 transition"
+                      className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-2 text-ink-2 border border-line transition"
                     >
                       Cancel
                     </button>
@@ -194,7 +194,7 @@ const QueriesAdmin = () => {
                   <button
                     onClick={() => setConfirmDeleteId(query._id)}
                     title="Delete this query"
-                    className="inline-flex items-center justify-center size-8 rounded-lg text-white/40 hover:text-rose-300 hover:bg-rose-950/40 transition"
+                    className="inline-flex items-center justify-center size-8 rounded-lg text-ink-2 hover:text-danger hover:bg-danger-tint transition"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

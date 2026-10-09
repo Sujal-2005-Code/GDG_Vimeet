@@ -2,15 +2,16 @@
  * Motion policy — no GSAP import, safe to use anywhere (including hooks that
  * must not pull animation code into a chunk).
  *
- * Three tiers decide how much motion a visitor gets. The same story/choreography
- * runs in every tier; only fidelity changes:
+ * Three tiers decide how much motion a visitor gets. The same story runs in
+ * every tier; only fidelity changes:
  *
  *   full   desktop-class: ≥1024px wide, mouse-like pointer, motion allowed
- *          → depth slices, pointer parallax, pinned/scrubbed chapters
+ *          → scroll-scrubbed journey, smoother scrub
  *   lite   phones/tablets/touch, motion allowed
- *          → single layer, no pointer parallax, shorter scrub smoothing
+ *          → the same journey, smaller mark, shorter chapters
  *   static prefers-reduced-motion
- *          → no timelines at all; the final composition, scrolls with the page
+ *          → no timelines; the upright mark and plain content with a
+ *            one-time opacity/scale fade as each chapter appears
  */
 
 export const MQ = {

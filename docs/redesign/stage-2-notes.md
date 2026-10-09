@@ -2,6 +2,8 @@
 
 Branch `redesign/ui-v2`. Screenshots and the raw verification report are in [`stage-2/`](stage-2/).
 
+> **Superseded visual:** the four-diamond hero mark described below was replaced in the revised Stage 3 by the real GDG mark from the logo SVG (rotating, with orbiting accent dots). The engine structure described here still applies — see [stage-3-notes.md](stage-3-notes.md).
+
 ## What shipped
 
 | Area | Files |
@@ -36,7 +38,7 @@ Inner pages (`/events`, `/team`, `/contact`, `/join`) and `/admin/*` are **uncha
 
 ## Choreography is data
 
-`poses.js` names where every entity is at each moment; `chapters.js` lists the journey; a chapter tweens `from → to`. Chapter N's `to` is chapter N+1's `from`, so there is no "reset" between sections and anchor jumps / reverse scrolling stay correct. Stage 2 enables only `hero → drift`; the rest of the agreed journey is listed in `chapters.js` (`enabled: false`).
+`poses.js` names where every entity is at each moment; `chapters.js` lists the journey; a chapter tweens `from → to`. Chapter N's `to` is chapter N+1's `from`, so there is no "reset" between sections and anchor jumps / reverse scrolling stay correct. Stage 2 shipped only `hero → drift`; Stage 3 built the rest of the journey up to the event photography (see [stage-3-notes.md](stage-3-notes.md)) — and replaced the per-chapter timelines described here with one master timeline.
 
 ## Motion tiers
 
