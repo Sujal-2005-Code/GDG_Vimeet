@@ -30,7 +30,7 @@ const FindYourPlace = () => (
               <Icon name={cluster.icon} className="size-6" />
             </span>
             <h3 className="mt-5 text-h3 text-ink">{cluster.name}</h3>
-            <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${cluster.name} interests`}>
+            <ul className="mt-4 mb-5 flex flex-wrap gap-2" aria-label={`${cluster.name} interests`}>
               {cluster.interests.map((interest) => (
                 <li key={interest}>
                   <Chip>{interest}</Chip>

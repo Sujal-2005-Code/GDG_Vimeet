@@ -26,8 +26,8 @@ const Hero = () => {
       aria-labelledby="hero-title"
       className="relative z-10 flex min-h-[100svh] flex-col pt-[var(--nav-h)]"
     >
-      <Container className="grid flex-1 items-center gap-6 pb-10 max-lg:grid-rows-[auto_minmax(15rem,1fr)] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-10 lg:pb-16">
-        <div data-story-copy="hero" className="max-w-[40rem] py-4 lg:py-0">
+      <Container className="grid flex-1 items-center gap-6 pb-10 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] md:gap-10 md:pb-16">
+        <div data-story-copy="hero" className="max-w-[40rem] py-4 md:py-0">
           {lockup && (
             <img
               src={lockup.src}
@@ -40,7 +40,7 @@ const Hero = () => {
               // transform only (an opacity fade would delay LCP).
               fetchPriority="high"
               decoding="async"
-              className="anim-rise mb-6 h-auto w-[min(100%,17rem)] object-contain object-left"
+              className="anim-rise mb-6 mx-auto md:mx-0 h-auto w-[min(100%,17rem)] object-contain"
             />
           )}
 
@@ -88,7 +88,7 @@ const Hero = () => {
         <div
           data-story-slot="hero"
           aria-hidden="true"
-          className="relative min-h-[15rem] w-full lg:h-[min(72svh,36rem)]"
+          className="relative hidden md:block w-full md:h-[min(72svh,36rem)]"
         />
       </Container>
 

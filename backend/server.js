@@ -15,6 +15,10 @@ const adminRoutes = require('./routes/admin');
 const chatRoutes = require('./routes/chat');
 const queriesRoutes = require('./routes/queries');
 const adminQueriesRoutes = require('./routes/adminQueries');
+const teamsRoutes = require('./routes/teams');
+const adminTeamsRoutes = require('./routes/adminTeams');
+const facultyRoutes = require('./routes/faculty');
+const adminFacultyRoutes = require('./routes/adminFaculty');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -107,6 +111,10 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/queries', queriesRoutes);
 app.use('/api/admin/queries', adminQueriesRoutes);
+app.use('/api/teams', teamsRoutes);
+app.use('/api/admin/teams', adminTeamsRoutes);
+app.use('/api/faculty', facultyRoutes);
+app.use('/api/admin/faculty', adminFacultyRoutes);
 
 // POST (not GET) so a filtered export can send any number of application IDs.
 app.post('/api/applications/export', requireAdmin, async (req, res) => {

@@ -39,10 +39,10 @@ const Track = ({ id, index, tier, slot = false, children }) => {
       style={{ height: `${pinned + 100}svh`, marginTop: index === 0 ? `-${HERO_OVERLAP}svh` : '-100svh' }}
     >
       <div className="story-pin pt-[var(--nav-h)]">
-        <Container className="flex min-h-0 flex-1 flex-col lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center lg:gap-10">
+        <Container className="flex min-h-0 flex-1 flex-col md:grid md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] md:items-center md:gap-10">
           <div
             data-story-copy="track"
-            className="flex min-h-0 flex-1 flex-col justify-center py-4 lg:max-w-[34rem] lg:flex-none lg:py-0"
+            className="flex min-h-0 flex-1 flex-col justify-center py-4 md:max-w-[34rem] md:flex-none md:py-0"
           >
             {children}
           </div>
@@ -50,7 +50,7 @@ const Track = ({ id, index, tier, slot = false, children }) => {
           <div
             {...(slot ? { 'data-story-slot': 'story' } : {})}
             aria-hidden="true"
-            className="story-slot-space h-[44svh] w-full shrink-0 lg:h-[min(72svh,36rem)]"
+            className="story-slot-space hidden md:block w-full shrink-0 md:h-[min(72svh,36rem)]"
           />
         </Container>
       </div>

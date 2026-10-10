@@ -33,12 +33,7 @@ export const site = {
       markViewBox: '352 28 488 168',
     },
     // Full lockup, shown in the Hero. Set to null to hide it.
-    lockup: {
-      src: '/images/gdg-vishwaniketan-logo-1192x394.svg',
-      alt: "Google Developer Groups On Campus, Vishwaniketan's iMEET",
-      width: 1192,
-      height: 394,
-    },
+    lockup: null,
   },
 
   /**

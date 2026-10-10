@@ -7,6 +7,7 @@ export const socialKind = (labelOrHref = '') => {
   if (s.includes('linkedin')) return 'linkedin';
   if (s.includes('github')) return 'github';
   if (s.includes('mail')) return 'email';
+  if (s.includes('portfolio') || s.includes('website')) return 'portfolio';
   return null;
 };
 

@@ -69,6 +69,10 @@ const Footer = () => {
         <Container className="py-6 pr-24 text-sm text-ink-2">
           <p>
             © {site.chapterYear} GDG On Campus Vishwaniketan ({site.institute.shortName}) · A student community of Google Developer Groups on Campus
+            {' · '}
+            <Link to="/admin" className="opacity-30 hover:opacity-100 hover:text-ink transition-all">
+              Admin
+            </Link>
           </p>
         </Container>
       </div>

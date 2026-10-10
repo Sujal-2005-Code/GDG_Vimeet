@@ -19,7 +19,7 @@ const Wordmark = ({ className = '', onClick }) => {
         <img
           src={logo.src}
           alt=""
-          className="h-8 w-auto shrink-0 object-contain"
+          className="h-[60px] w-auto shrink-0 object-contain"
         />
       )}
       <span className="flex flex-col">

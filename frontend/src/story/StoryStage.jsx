@@ -43,7 +43,7 @@ const StoryStage = ({ tier }) => {
   const asImage = kind === 'image';
 
   return (
-    <div data-story-stage data-visual-kind={asImage ? 'image' : 'mark'} className="story-stage" aria-hidden="true">
+    <div data-story-stage data-visual-kind={asImage ? 'image' : 'mark'} className="story-stage hidden md:block" aria-hidden="true">
       <Composition
         width={asImage ? 0.66 : 0.92}
         photos={photos}

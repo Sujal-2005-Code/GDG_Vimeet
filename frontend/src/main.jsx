@@ -24,6 +24,8 @@ const AdminLogin = lazy(() => import('./sections/admin/AdminLogin.jsx'))
 const AdminGate = lazy(() => import('./sections/admin/AdminGate.jsx'))
 const AdminDashboard = lazy(() => import('./sections/admin/AdminDashboard.jsx'))
 const QueriesAdmin = lazy(() => import('./sections/admin/QueriesAdmin.jsx'))
+const TeamAdmin = lazy(() => import('./sections/admin/TeamAdmin.jsx'))
+const FacultyAdmin = lazy(() => import('./sections/admin/FacultyAdmin.jsx'))
 
 // Reduced motion is handled per animation, not globally: see
 // animations/motion.js (tiers) and the story engine. The old global
@@ -83,6 +85,26 @@ const router = createBrowserRouter([
           <Suspense fallback={<AdminFallback />}>
             <AdminGate>
               <QueriesAdmin />
+            </AdminGate>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/admin/team',
+        element: (
+          <Suspense fallback={<AdminFallback />}>
+            <AdminGate>
+              <TeamAdmin />
+            </AdminGate>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/admin/faculty',
+        element: (
+          <Suspense fallback={<AdminFallback />}>
+            <AdminGate>
+              <FacultyAdmin />
             </AdminGate>
           </Suspense>
         ),

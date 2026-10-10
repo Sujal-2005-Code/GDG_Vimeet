@@ -9,6 +9,8 @@ const NAV_ITEMS = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: 'grid' },
   { label: 'Applications', path: '/admin/applications', icon: 'users' },
   { label: 'User Queries', path: '/admin/queries', icon: 'chat' },
+  { label: 'Core Team', path: '/admin/team', icon: 'user' },
+  { label: 'Faculty', path: '/admin/faculty', icon: 'book' },
 ];
 
 const navLinkClass = ({ isActive }) =>
@@ -99,7 +101,7 @@ const AdminLayout = ({ username, children }) => {
             role="dialog"
             aria-modal="true"
             aria-label="Admin menu"
-            className="absolute left-0 top-0 flex h-full w-[78%] max-w-xs flex-col border-r border-line bg-surface p-5 shadow-overlay"
+            className="absolute right-0 top-0 flex h-full w-[78%] max-w-xs flex-col border-l border-line bg-surface p-5 shadow-overlay"
           >
             <div className="mb-2 flex items-center justify-end">
               <button

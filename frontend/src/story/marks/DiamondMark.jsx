@@ -54,7 +54,7 @@ const Diamond = ({ cx, cy, r0, fill }) => (
 );
 
 const DiamondMark = () => (
-  <svg className="story-svg" viewBox="0 0 800 800" aria-hidden="true" focusable="false">
+  <svg className="story-svg hidden md:block" viewBox="0 0 800 800" aria-hidden="true" focusable="false">
     <defs>
       {GRADIENTS.map(([key, from, to]) => (
         <linearGradient key={key} id={`gdg-g-${key}`} x1="0" y1="0" x2="1" y2="1">
