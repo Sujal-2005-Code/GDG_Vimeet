@@ -29,6 +29,7 @@ const TeamAdmin = () => {
       const data = await getAdminTeams();
       setMembers(data);
     } catch (err) {
+      console.error(err);
       setError('Could not load team members.');
     } finally {
       setIsLoading(false);

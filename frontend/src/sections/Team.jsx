@@ -10,7 +10,6 @@ import SectionHeader from '../components/ui/SectionHeader';
 import SocialIcon from '../components/ui/SocialIcon';
 import { getRecruitmentCta, recruitmentTeams } from '../data/recruitment';
 import { site } from '../data/site';
-import { guidance } from '../data/team';
 import { getPublicTeams } from '../services/adminTeams';
 import usePageMeta from '../hooks/usePageMeta';
 import { socialKind } from '../lib/social';

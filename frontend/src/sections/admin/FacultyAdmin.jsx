@@ -22,6 +22,7 @@ const FacultyAdmin = () => {
       const data = await getAdminFaculty();
       setMembers(data);
     } catch (err) {
+      console.error(err);
       setError('Could not load faculty members.');
     } finally {
       setIsLoading(false);
