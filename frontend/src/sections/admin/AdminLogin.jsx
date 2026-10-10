@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import Icon from '../../components/ui/Icon';
 import { adminLogin } from '../../services/adminAuth';
 import { useAdminSession } from '../../hooks/useAdminSession';
 import { site } from '../../data/site';
@@ -124,6 +125,12 @@ const AdminLogin = () => {
         <p className="text-center text-xs text-ink-2 mt-6">
           GDG ViMEET Core Team access only.
         </p>
+        <div className="mt-4 text-center">
+          <Link to="/" className="text-sm font-medium text-primary hover:text-primary-strong hover:underline inline-flex items-center gap-1">
+            <Icon name="arrow-left" className="size-4" />
+            Go back to Home page
+          </Link>
+        </div>
       </div>
     </main>
   );
